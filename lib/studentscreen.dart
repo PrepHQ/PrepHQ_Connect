@@ -1,41 +1,89 @@
 import 'package:flutter/material.dart';
 
 class StudentScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
+    tmpFunction(){
+        print('Function on Click Event Called.');
+        // Put your code here, which you want to execute on onPress event.
+    }
 
-      appBar: AppBar(
-        title: Text("Student"),
+    @override
+    Widget build(BuildContext context) {
+    return Scaffold(
+    backgroundColor: Colors.white,
+
+    appBar: AppBar(
+        title: Text("Student Screen"),
         backgroundColor: Color.fromRGBO(75,209,160, 1),
-      ),
-      body: Center
-      (
-        
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          
-          children:[
-            Text(
-              "Student Name Here",
-              textScaleFactor: 2,
-              textAlign: TextAlign.justify,
-            ),
-            Text(
-              "Other Stuff",
-              textScaleFactor: 2,
-              textAlign: TextAlign.justify,
-            ),
-            RaisedButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: Text('Log Out'),
-            ),
-          ]
         ),
-      )
-    );
-  }
+        body: Center
+             (
+             child: Column(
+             crossAxisAlignment: CrossAxisAlignment.center,
+             children:[
+                Text("Welcome back, *Student*",
+                textScaleFactor: 2,
+                textAlign: TextAlign.justify,
+                ),
+                Text("This is your roadmap to success!",
+                    textScaleFactor: 1,
+                    textAlign: TextAlign.justify,
+                    ),
+
+                RaisedButton(
+                    child: Text(" Live Chat with Mentor "),
+                    onPressed: tmpFunction,
+                    color: Color(0xff33D2B0),
+                    textColor: Colors.white,
+                    splashColor: Colors.grey,
+                    padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                    ),
+
+                RaisedButton(
+                    child: Text(" Schedule "),
+                    onPressed: tmpFunction,
+                    color: Color(0xff22CDF7),
+                    textColor: Colors.white,
+                    splashColor: Colors.grey,
+                    padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                ),
+
+                RaisedButton(
+                    child: Text(" Resources "),
+                    onPressed: tmpFunction,
+                    color: Color(0xff096BD8),
+                    textColor: Colors.white,
+                    splashColor: Colors.grey,
+                    padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+
+                ),
+
+                new ButtonTheme.bar(
+                    child: new ButtonBar(
+                    alignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                       new RaisedButton(
+                            onPressed: tmpFunction, //Should direct to My Account Screen
+                            color: Color(0xff808786),
+                            textColor: Colors.white,
+                            splashColor: Colors.grey,
+                            child: Text(" My Account "),
+                       ),
+
+                        new RaisedButton(
+                            onPressed: () {
+                               Navigator.pop(context);
+                            },
+                            color: Color(0xff808786),
+                            textColor: Colors.white,
+                            splashColor: Colors.grey,
+                            child: Text('Log Out'),
+                        ),
+                        ],
+                        ),
+                        ),
+                  ],
+                ),
+             )
+        );
+    }
 }
