@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mongo_dart/mongo_dart.dart' as md;
-import 'studentscreen.dart';
-import 'mentorscreen.dart';
+import 'student/studentscreen.dart';
+import 'mentor/mentorscreen.dart';
 
 void main() => runApp(MyApp());
 
