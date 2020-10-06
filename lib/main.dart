@@ -144,6 +144,34 @@ class _MyHomePageState extends State<MyHomePage> {
                     loginButton,
                     SizedBox(height: 65.0,),
                     registerButton,
+                   
+                   /*For demo purposes, these bypass the loginButton*/
+                  SizedBox(height: 30,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      RaisedButton(
+                        padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                        child: Text('demo: S'),
+                        onPressed: (){
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => StudentScreen()),
+                          );
+                        },
+                      ),
+                      RaisedButton(
+                        padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                        child: Text('demo: M'),
+                        onPressed: (){
+                          Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => MentorScreen()),
+                          );
+                        },
+                      ),
+                   ],
+                  ),
                   ],
                 ),
               ),
