@@ -12,7 +12,7 @@ class MentorScreen extends StatelessWidget {
     backgroundColor: Colors.white,
 
     appBar: AppBar(
-        title: Text("Student Screen"),
+        title: Text("Mentor Screen"),
         backgroundColor: Color.fromRGBO(75,209,160, 1),
         ),
         body: Center
