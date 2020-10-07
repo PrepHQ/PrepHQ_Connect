@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mongo_dart/mongo_dart.dart' as md;
 import 'studentscreen.dart';
 import 'mentorscreen.dart';
+import 'registrationscreen.dart';
 
 void main() => runApp(MyApp());
 
@@ -105,6 +106,17 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
 
+    final registerButton = RaisedButton(
+      child: Text('Register'),
+      onPressed: (){
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => RegistrationForm()),
+        );
+      },
+      splashColor: Colors.grey,
+    );
+
     return Scaffold(
         backgroundColor: Colors.white,
         body: Center(
@@ -128,13 +140,38 @@ class _MyHomePageState extends State<MyHomePage> {
                     emailField,
                     SizedBox(height: 25.0),
                     passwordField,
-                    SizedBox(
-                      height: 35.0,
-                    ),
+                    SizedBox(height: 25.0,),
                     loginButton,
-                    SizedBox(
-                      height: 15.0,
-                    ),
+                    SizedBox(height: 65.0,),
+                    registerButton,
+                   
+                   /*For demo purposes, these bypass the loginButton*/
+                  SizedBox(height: 30,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      RaisedButton(
+                        padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                        child: Text('demo: S'),
+                        onPressed: (){
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => StudentScreen()),
+                          );
+                        },
+                      ),
+                      RaisedButton(
+                        padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                        child: Text('demo: M'),
+                        onPressed: (){
+                          Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => MentorScreen()),
+                          );
+                        },
+                      ),
+                   ],
+                  ),
                   ],
                 ),
               ),
