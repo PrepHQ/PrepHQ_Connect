@@ -20,9 +20,28 @@ class MyApp extends StatelessWidget {
   }
 }
 
+class DemoButton extends RaisedButton{
+  final theText;
+  final nextScreen;
+  const DemoButton(this.theText, this.nextScreen);
+
+  @override
+  Widget build(BuildContext context) {
+    return RaisedButton(
+      padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+      child: Text(theText),
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => nextScreen),
+        );
+      },
+    );
+  }
+}
+
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
-
   final String title;
 
   @override
@@ -31,9 +50,11 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
-
+  final _loginFormKey = GlobalKey<FormState>();
   final _emailTextController = TextEditingController();
   final _passwordTextController = TextEditingController();
+  var _emailNoExist = false;
+  var _wrongPassword = false;
 
   @override
   void dispose(){
@@ -44,27 +65,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-
-    final emailField = TextField(
-      style: style,
-      decoration: InputDecoration(
-          contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-          hintText: "Email",
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
-      controller: _emailTextController,
-    );
-
-    final passwordField = TextField(
-      obscureText: true,
-      style: style,
-      decoration: InputDecoration(
-          contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-          hintText: "Password",
-          border:
-          OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
-      controller: _passwordTextController,
-    );
-
     final loginButton = Material(
       elevation: 5.0,
       borderRadius: BorderRadius.circular(30.0),
@@ -73,30 +73,41 @@ class _MyHomePageState extends State<MyHomePage> {
         minWidth: MediaQuery.of(context).size.width,
         padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
         onPressed: () async {
-          var db = await md.Db.create("mongodb+srv://user_1:prephqcs495@prephq.kltwv.mongodb.net/prephq_connect?retryWrites=true&w=majority");
-          await db.open();
-          var coll = db.collection('users');
-          var _userInfoDoc = await coll.findOne(md.where.eq('email', _emailTextController.text));
-          await db.close();
+          if(_loginFormKey.currentState.validate()) {
+            var db = await md.Db.create(
+                "mongodb+srv://user_1:prephqcs495@prephq.kltwv.mongodb.net/prephq_connect?retryWrites=true&w=majority");
+            await db.open();
+            var coll = db.collection('users');
+            var _userInfoDoc = await coll.findOne(
+                md.where.eq('email', _emailTextController.text));
+            await db.close();
 
-          // TODO if _userInfoDoc is null (email not in database), prompt for registration
-
-          if (_userInfoDoc['password'] == _passwordTextController.text){
-            if(_userInfoDoc['user_type'] == 'student'){
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => StudentScreen()),
-              );
+            if (_userInfoDoc != null) { // User with this email exists in database
+              if (_userInfoDoc['password'] == _passwordTextController.text) { // password is correct
+                _passwordTextController.clear();
+                if (_userInfoDoc['user_type'] == 'student') {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => StudentScreen()),
+                  );
+                }
+                else if (_userInfoDoc['user_type'] == 'mentor') {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => MentorScreen()),
+                  );
+                }
+              }
+              else { // password is wrong
+                _wrongPassword = true;
+                _loginFormKey.currentState.validate();
+                _passwordTextController.clear();
+              }
+            } else { // User with this email does not exist in database
+              _emailNoExist = true;
+              _loginFormKey.currentState.validate();
+              _passwordTextController.clear();
             }
-            else if(_userInfoDoc['user_type'] == 'mentor'){
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => MentorScreen()),
-              );
-             }
-          }
-          else{ // password is wrong
-            // TODO prompt for re-entry of password
           }
         },
         child: Text("Login",
@@ -106,78 +117,96 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
 
-    final registerButton = RaisedButton(
-      child: Text('Register'),
-      onPressed: (){
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => RegistrationForm()),
-        );
-      },
-      splashColor: Colors.grey,
-    );
-
     return Scaffold(
-        backgroundColor: Colors.white,
-        body: Center(
-          child: SingleChildScrollView(
-            child: Container(
-              color: Colors.white,
-              child: Padding(
-                padding: const EdgeInsets.all(36.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    SizedBox(
-                      height: 155.0,
-                      child: Image.asset(
-                        "images/prephq.png",
-                        fit: BoxFit.contain,
-                      ),
-                    ),
-                    SizedBox(height: 45.0),
-                    emailField,
-                    SizedBox(height: 25.0),
-                    passwordField,
-                    SizedBox(height: 25.0,),
-                    loginButton,
-                    SizedBox(height: 65.0,),
-                    registerButton,
-                   
-                   /*For demo purposes, these bypass the loginButton*/
-                  SizedBox(height: 30,),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
+      backgroundColor: Colors.white,
+      body: Center(
+        child: Builder(
+          builder: (context) => Form(
+            key: _loginFormKey,
+            child: SingleChildScrollView(
+              child: Container(
+                color: Colors.white,
+                child: Padding(
+                  padding: const EdgeInsets.all(36.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
+                      SizedBox(
+                        height: 155.0,
+                        child: Image.asset(
+                          "images/prephq.png",
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                      SizedBox(height: 45.0),
+                      TextFormField(
+                        controller: _emailTextController,
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                          hintText: "Email",
+                          border: OutlineInputBorder(borderRadius: BorderRadius.circular(30.0))),
+                        validator: (email){
+                          if(email.isEmpty){
+                            return 'Please enter your email address.';
+                          } else if (_emailNoExist){
+                            _emailNoExist = false;
+                            return 'Incorrect email. Try again or register a new account.';
+                          } else return null;
+                        },
+                      ),
+                      SizedBox(height: 25.0),
+                      TextFormField(
+                        controller: _passwordTextController,
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                          hintText: "Password",
+                          border: OutlineInputBorder(borderRadius: BorderRadius.circular(30.0))),
+                        obscureText: true,
+                        validator: (password){
+                          if(password.isEmpty){
+                            return 'Please enter your password.';
+                          } else if (_wrongPassword){
+                            _wrongPassword = false;
+                            return 'Incorrect password. Please try again.';
+                          } else return null;
+                        },
+                      ),
+                      SizedBox(height: 25.0,),
+                      loginButton,
+                      SizedBox(height: 25.0,),
                       RaisedButton(
-                        padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                        child: Text('demo: S'),
+                        child: Text('Register'),
                         onPressed: (){
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => StudentScreen()),
+                            MaterialPageRoute(builder: (context) => RegistrationForm()),
                           );
                         },
+                        splashColor: Colors.grey,
                       ),
-                      RaisedButton(
-                        padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                        child: Text('demo: M'),
-                        onPressed: (){
-                          Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => MentorScreen()),
-                          );
-                        },
+
+
+
+                     /*For demo purposes, these bypass the loginButton*/
+                      SizedBox(height: 50,),
+                      const Divider(color: Colors.black12, thickness: 1,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          DemoButton('demo: S', StudentScreen()),
+                          DemoButton('demo: M', MentorScreen()),
+                       ],
                       ),
-                   ],
+
+                    ],
                   ),
-                  ],
                 ),
               ),
             ),
           ),
-        )
+        ),
+      ),
     );
   }
 }
