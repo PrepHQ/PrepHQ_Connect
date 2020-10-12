@@ -23,7 +23,8 @@ class MyApp extends StatelessWidget {
 class DemoButton extends RaisedButton{
   final theText;
   final nextScreen;
-  const DemoButton(this.theText, this.nextScreen);
+  final Function clearScreen;
+  const DemoButton(this.theText, this.nextScreen, this.clearScreen);
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +32,7 @@ class DemoButton extends RaisedButton{
       padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
       child: Text(theText),
       onPressed: () {
+        clearScreen();
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => nextScreen),
@@ -56,6 +58,12 @@ class _MyHomePageState extends State<MyHomePage> {
   var _emailNoExist = false;
   var _wrongPassword = false;
 
+  void resetTextBoxes(){
+    _loginFormKey.currentState.reset();
+    _emailTextController.clear();
+    _passwordTextController.clear();
+  }
+
   @override
   void dispose(){
     _emailTextController.dispose();
@@ -74,8 +82,9 @@ class _MyHomePageState extends State<MyHomePage> {
         padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
         onPressed: () async {
           if(_loginFormKey.currentState.validate()) {
-            var db = await md.Db.create(
-                "mongodb+srv://user_1:prephqcs495@prephq.kltwv.mongodb.net/prephq_connect?retryWrites=true&w=majority");
+            // 10.0.2.2 is alias for 127.0.0.1 on machine that is hosting the emulator
+            var db = md.Db('mongodb://10.0.2.2:27017/prephq_connect'); // localhost
+            //var db = await md.Db.create("mongodb+srv://user_1:prephqcs495@prephq.kltwv.mongodb.net/prephq_connect?retryWrites=true&w=majority");
             await db.open();
             var coll = db.collection('users');
             var _userInfoDoc = await coll.findOne(
@@ -84,7 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
             if (_userInfoDoc != null) { // User with this email exists in database
               if (_userInfoDoc['password'] == _passwordTextController.text) { // password is correct
-                _passwordTextController.clear();
+                resetTextBoxes();
                 if (_userInfoDoc['user_type'] == 'student') {
                   Navigator.push(
                     context,
@@ -178,6 +187,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       RaisedButton(
                         child: Text('Register'),
                         onPressed: (){
+                          resetTextBoxes();
                           Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) => RegistrationForm()),
@@ -194,11 +204,10 @@ class _MyHomePageState extends State<MyHomePage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          DemoButton('demo: S', StudentScreen()),
-                          DemoButton('demo: M', MentorScreen()),
+                          DemoButton('demo: S', StudentScreen(), resetTextBoxes),
+                          DemoButton('demo: M', MentorScreen(), resetTextBoxes),
                        ],
                       ),
-
                     ],
                   ),
                 ),
