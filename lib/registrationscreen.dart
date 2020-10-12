@@ -128,7 +128,7 @@ class RegistrationFormState extends State<RegistrationForm> {
                                   'last_name': _lNameRegTextController.text
                                 });
                                 await db.close();
-                              };
+                              }
                             },
                             child: Text('Register'),
                           ),
