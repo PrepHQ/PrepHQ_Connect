@@ -7,7 +7,7 @@ void main() {
     await tester.pumpWidget(MyApp());
 
     // Verify that one of our input box hints is email
-    expect(find.text('Should_Fail_Now'), findsOneWidget);
+    expect(find.text('Email'), findsOneWidget);
     expect(find.text('Not_There'), findsNothing);
   });
 }
