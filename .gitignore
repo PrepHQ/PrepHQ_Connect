@@ -3,3 +3,4 @@
 .idea/
 .packages
 /build/
+.DS_Store
