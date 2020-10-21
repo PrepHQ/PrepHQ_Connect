@@ -6,14 +6,19 @@ import 'package:prephq_connect/widgets/article_card.dart';
 import 'package:prephq_connect/widgets/roadmap_cards.dart';
 
 class StudentHome extends StatefulWidget {
-  
+
   @override
   _StudentHomeState createState() => _StudentHomeState();
 }
 
 class _StudentHomeState extends State<StudentHome> {
   List<RoadMap> roadmaps = [
-
+    RoadMap(title: "Create a profile", isCompleted: false, icon: Icons.person),
+    RoadMap(title: 'Add 5 colleges to “my college”', isCompleted: false, icon: Icons.school),
+    RoadMap(title: "Take SAT / ACT Exams", isCompleted: false, icon: Icons.description),
+    RoadMap(title: "Visit campus", isCompleted: false, icon: Icons.account_balance),
+    RoadMap(title: "Revise essay questions", isCompleted: false, icon: Icons.assignment),
+    RoadMap(title: "Submit applications", isCompleted: false,icon:  Icons.flag)
   ];
 
   var completedCount = 0;
@@ -69,7 +74,7 @@ class _StudentHomeState extends State<StudentHome> {
                                 style: TextStyle(
                                     fontSize: 18.0, fontWeight: FontWeight.bold)),
                             SizedBox(width: 20.0),
-                            Text('# of 6 completed',
+                            Text('$completedCount of 6 completed',
                                 style: TextStyle(
                                     fontSize: 14.0,
                                     fontWeight: FontWeight.bold,
@@ -98,6 +103,10 @@ class _StudentHomeState extends State<StudentHome> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
+                            Flexible(
+                              child: Text((completedCount == roadmaps.length)  ? "Congratulation. You have completed all steps" : roadmaps[completedCount].title,
+                                  style: TextStyle(fontWeight: FontWeight.normal)),
+                            ),
                             IconButton(
                                 iconSize: 15.0,
                                 splashRadius: 20.0,
