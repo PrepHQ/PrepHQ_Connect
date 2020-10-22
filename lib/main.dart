@@ -15,7 +15,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'PrepHQ Login'),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => LoginScreen(),
+        '/student': (context) => StudentScreen(),
+        '/mentor': (context) => MentorScreen(),
+        '/register': (context) => RegistrationForm(),
+      },
     );
   }
 }
@@ -33,24 +39,19 @@ class DemoButton extends RaisedButton{
       child: Text(theText),
       onPressed: () {
         clearScreen();
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => nextScreen),
-        );
+        Navigator.pushReplacementNamed(context, this.nextScreen);
       },
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-  final String title;
+class LoginScreen extends StatefulWidget {
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _LoginScreenState createState() => _LoginScreenState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _LoginScreenState extends State<LoginScreen> {
   TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
   final _loginFormKey = GlobalKey<FormState>();
   final _emailTextController = TextEditingController();
@@ -95,16 +96,10 @@ class _MyHomePageState extends State<MyHomePage> {
               if (_userInfoDoc['password'] == _passwordTextController.text) { // password is correct
                 resetTextBoxes();
                 if (_userInfoDoc['user_type'] == 'student') {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => StudentScreen()),
-                  );
+                  Navigator.pushReplacementNamed(context, '/student');
                 }
                 else if (_userInfoDoc['user_type'] == 'mentor') {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => MentorScreen()),
-                  );
+                  Navigator.pushReplacementNamed(context, '/mentor');
                 }
               }
               else { // password is wrong
@@ -188,10 +183,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         child: Text('Register'),
                         onPressed: (){
                           resetTextBoxes();
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => RegistrationForm()),
-                          );
+                          Navigator.pushNamed(context, '/register');
                         },
                         splashColor: Colors.grey,
                       ),
@@ -204,8 +196,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          DemoButton('demo: S', StudentScreen(), resetTextBoxes),
-                          DemoButton('demo: M', MentorScreen(), resetTextBoxes),
+                          DemoButton('demo: S', '/student', resetTextBoxes),
+                          DemoButton('demo: M', '/mentor', resetTextBoxes),
                        ],
                       ),
                     ],
