@@ -29,10 +29,6 @@ class _StudentScreenState extends State<StudentScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text("Student Screen"),
-      //   backgroundColor: Color.fromRGBO(75, 209, 160, 1),
-      // ),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
