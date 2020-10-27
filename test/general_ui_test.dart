@@ -23,7 +23,7 @@ void main() {
     await tester.pumpWidget(MaterialApp(home: RegistrationForm()));
 
     // Verify our hint text is populated
-    expect(find.text('Firsame'), findsOneWidget);
+    expect(find.text('First Name'), findsOneWidget);
     expect(find.text('Last Name'), findsOneWidget);
     expect(find.text('Email Address'), findsOneWidget);
     expect(find.text('Password'), findsOneWidget);
