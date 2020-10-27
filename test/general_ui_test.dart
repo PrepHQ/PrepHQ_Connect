@@ -32,7 +32,7 @@ void main() {
     expect(find.text('Not_There'), findsNothing);
   });
 
-  testWidgets('Validate navigation to mentor page from login screen works',
+  testWidgets('Validate navigation to registration page from login screen works',
       (WidgetTester tester) async {
     final mockObserver = MockNavigatorObserver();
     await tester.pumpWidget(
@@ -42,8 +42,8 @@ void main() {
       ),
     );
 
-    //Tap the button with they key 'mentor_button'
-    await tester.tap(find.byKey(Key('mentor_button')));
+    //Tap the button with they key 'registration_button'
+    await tester.tap(find.byKey(Key('register_button')));
 
     // Wait until no more frames are scheduled
     await tester.pumpAndSettle();
@@ -52,6 +52,6 @@ void main() {
     verify(mockObserver.didPush(any, any));
 
     // Expect that the page is now present
-    expect(find.byType(MentorScreen), findsOneWidget);
+    expect(find.byType(RegistrationForm), findsOneWidget);
   });
 }
