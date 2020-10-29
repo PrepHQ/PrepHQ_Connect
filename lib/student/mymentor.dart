@@ -6,36 +6,35 @@ class MyMentorScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            // TODO: write function to generate these rows/cards
-            children: [
-              Row(
-                children: [
-                  MentorProfileCard(),
-                  MentorProfileCard(),
-                ],
-              ),
-              Row(
-                children: [
-                  MentorProfileCard(),
-                  MentorProfileCard(),
-                ],
-              ),
-              Row(
-                children: [
-                  MentorProfileCard(),
-                  MentorProfileCard(),
-                ],
-              ),
-              Row(
-                children: [
-                  MentorProfileCard(),
-                  MentorProfileCard(),
-                ],
-              ),
-            ],
-          ),
+        child: ListView(
+          // TODO: Write function to generate these rows/cards
+          // TODO: May need to refactor to use ListView.builder
+          children: [
+            Row(
+              children: [
+                MentorProfileCard(),
+                MentorProfileCard(),
+              ],
+            ),
+            Row(
+              children: [
+                MentorProfileCard(),
+                MentorProfileCard(),
+              ],
+            ),
+            Row(
+              children: [
+                MentorProfileCard(),
+                MentorProfileCard(),
+              ],
+            ),
+            Row(
+              children: [
+                MentorProfileCard(),
+                MentorProfileCard(),
+              ],
+            ),
+          ],
         ),
       ),
     );
