@@ -117,8 +117,6 @@ class RegistrationFormState extends State<RegistrationForm> {
                           RaisedButton(
                             onPressed: () async {
                               if(_registrationFormKey.currentState.validate()){
-                                // 10.0.2.2 is alias for 127.0.0.1 on machine that is hosting the emulator
-                                //var db = md.Db('mongodb://10.0.2.2:27017/prephq_connect'); // localhost
                                 var db = await md.Db.create("mongodb+srv://user_1:prephqcs495@prephq.kltwv.mongodb.net/prephq_connect?retryWrites=true&w=majority");
                                 await db.open();
                                 var coll = db.collection('users');
@@ -130,8 +128,7 @@ class RegistrationFormState extends State<RegistrationForm> {
                                   'last_name': _lNameRegTextController.text
                                 });
                                 await db.close();
-                                Navigator.pop(context,);
-                              }
+                              };
                             },
                             child: Text('Register'),
                           ),

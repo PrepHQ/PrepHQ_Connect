@@ -1,21 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'home.dart';
+import 'mymentor.dart';
+import 'resources.dart';
 
 /// This is the stateful widget that the main application instantiates.
-class MentorScreen extends StatefulWidget {
-  MentorScreen({Key key}) : super(key: key);
+class StudentScreen extends StatefulWidget {
+  StudentScreen({Key key}) : super(key: key);
 
   @override
-  _MentorScreenState createState() => _MentorScreenState();
+  _StudentScreenState createState() => _StudentScreenState();
 }
 
-/// This is the private State class that goes with MentorScreen.
-class _MentorScreenState extends State<MentorScreen> {
+/// This is the private State class that goes with StudentScreen.
+class _StudentScreenState extends State<StudentScreen> {
   int _selectedIndex = 0;
   List<Widget> _widgetOptions = <Widget>[
-    MentorHome(),
-    Text("Second Screen for Mentor",textScaleFactor: 2),
-    Text("Third Screen for Mentor",textScaleFactor: 2),
+    StudentHome(),
+    MyMentorScreen(),
+    StudResourcesScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -27,13 +30,15 @@ class _MentorScreenState extends State<MentorScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Mentor Screen"),
-        backgroundColor: Color.fromRGBO(75, 209, 160, 1),
+      body: IndexedStack(
+        children: [
+          StudentHome(),
+          MyMentorScreen(),
+          StudResourcesScreen(),
+        ],
+        index: _selectedIndex,
       ),
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
-      ),
+
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(

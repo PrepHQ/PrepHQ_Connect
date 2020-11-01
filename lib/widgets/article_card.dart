@@ -61,7 +61,7 @@ class ArticleCard extends StatelessWidget {
             ],
           ),
         ),
-        Divider(height: 30,)
+        Divider(height: 30, color: AppColors.mainTextColor.withOpacity(0.03),)
       ],
     );
   }
