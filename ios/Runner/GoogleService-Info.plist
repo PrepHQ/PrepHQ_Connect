@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>670461751234-hg3slbrmhu7mg6fn0msq7098so3ti52q.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.670461751234-hg3slbrmhu7mg6fn0msq7098so3ti52q</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCZ88tVj-0jirrjNK2UPvkwqlx9YQo0Hd0</string>
+	<key>GCM_SENDER_ID</key>
+	<string>670461751234</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.prephqConnect</string>
+	<key>PROJECT_ID</key>
+	<string>prephq-connect</string>
+	<key>STORAGE_BUCKET</key>
+	<string>prephq-connect.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:670461751234:ios:fd4aa02ff3461afce4b05b</string>
+	<key>DATABASE_URL</key>
+	<string>https://prephq-connect.firebaseio.com</string>
+</dict>
+</plist>

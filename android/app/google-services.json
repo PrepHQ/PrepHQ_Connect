@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "670461751234",
+    "firebase_url": "https://prephq-connect.firebaseio.com",
+    "project_id": "prephq-connect",
+    "storage_bucket": "prephq-connect.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:670461751234:android:56685f5c9ce9059be4b05b",
+        "android_client_info": {
+          "package_name": "com.prephq_connect"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "670461751234-jtv4ojm67qs3rdjm5idunkkslunf0qvs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCiGn19Rw1-Pn1NPFYss_LIGsw_AIMr8aw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "670461751234-jtv4ojm67qs3rdjm5idunkkslunf0qvs.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "670461751234-hg3slbrmhu7mg6fn0msq7098so3ti52q.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.prephqConnect"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

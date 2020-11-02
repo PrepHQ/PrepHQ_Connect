@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mongo_dart/mongo_dart.dart' as md;
+import 'common/databasecalls.dart';
 
 class RegistrationForm extends StatefulWidget {
   @override
@@ -117,19 +117,11 @@ class RegistrationFormState extends State<RegistrationForm> {
                           RaisedButton(
                             onPressed: () async {
                               if(_registrationFormKey.currentState.validate()){
-                                // 10.0.2.2 is alias for 127.0.0.1 on machine that is hosting the emulator
-                                //var db = md.Db('mongodb://10.0.2.2:27017/prephq_connect'); // localhost
-                                var db = await md.Db.create("mongodb+srv://user_1:prephqcs495@prephq.kltwv.mongodb.net/prephq_connect?retryWrites=true&w=majority");
-                                await db.open();
-                                var coll = db.collection('users');
-                                await coll.insert({
-                                  'email': _emailRegTextController.text,
-                                  'password': _passwordRegTextController.text,
-                                  'user_type': 'student',
-                                  'first_name': _fNameRegTextController.text,
-                                  'last_name': _lNameRegTextController.text
-                                });
-                                await db.close();
+                                await registerNewUserStudent(
+                                  _emailRegTextController.text,
+                                  _passwordRegTextController.text,
+                                  _fNameRegTextController.text,
+                                  _lNameRegTextController.text);
                                 Navigator.pop(context,);
                               }
                             },

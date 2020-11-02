@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:mongo_dart/mongo_dart.dart' as md;
+import 'package:firebase_core/firebase_core.dart';
+import 'common/databasecalls.dart';
 import 'student/studentscreen.dart';
 import 'mentor/mentorscreen.dart';
 import 'registrationscreen.dart';
 
-void main() => runApp(MyApp());
+void main () async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
@@ -82,15 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
         padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
         onPressed: () async {
           if (_loginFormKey.currentState.validate()) {
-            // 10.0.2.2 is alias for 127.0.0.1 on machine that is hosting the emulator
-            //var db = md.Db('mongodb://10.0.2.2:27017/prephq_connect'); // localhost
-            var db = await md.Db.create(
-                "mongodb+srv://user_1:prephqcs495@prephq.kltwv.mongodb.net/prephq_connect?retryWrites=true&w=majority");
-            await db.open();
-            var coll = db.collection('users');
-            var _userInfoDoc = await coll
-                .findOne(md.where.eq('email', _emailTextController.text));
-            await db.close();
+            var _userInfoDoc = await getUser(_emailTextController.text);
 
             if (_userInfoDoc != null) {
               // User with this email exists in database
