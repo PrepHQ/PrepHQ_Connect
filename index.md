@@ -1,37 +1,22 @@
-## Welcome to GitHub Pages
+# PrepHQ Connect
 
-You can use the [editor on GitHub](https://github.com/PrepHQ/PrepHQ_Connect/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+## About PrepHQ
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+[PrepHQ's](https://www.theprephq.com/) mission is to provide high-quality and affordable test prep to students all over the country. We offer 20-hour weekend camps that go over everything a student needs to know to get into college, starting from acing the ACT or SAT, and then ending with how to craft the perfect application to get into the school of their dreams.
 
-### Markdown
+## About The App
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+PrepHQ Connect is a digital platform that connects college students to high schoolers in a near-peer mentorship relationship to provide the inspiration students need to make the most of their education. This platform will democratize the knowledge, preparation, and motivation normally reserved for students from high income families who can afford to pay for expensive services. But we believe test prep and college counseling are things that all students deserve to have access to. With that being said, this platform will help students plan out their educational goals in high school and beyond, and help them to make their dreams a reality.
 
-```markdown
-Syntax highlighted code block
+### A few details on our planned tech stack
 
-# Header 1
-## Header 2
-### Header 3
+- **App development framework**: Flutter
+- **Chat API**: Twilio
+- **Database**: MongoDB
 
-- Bulleted
-- List
+## The UA Senior Design Team
 
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/PrepHQ/PrepHQ_Connect/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+- Caleb Werth | cwerth@crimson.ua.edu
+- Steven Alexander | stvnengineer@gmail.com
+- Sarah Oswald | soswald@crimson.ua.edu
+- Garrett Peppers | ggpeppers@gcrimson.ua.edu
