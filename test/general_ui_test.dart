@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:mockito/mockito.dart';
 import 'package:prephq_connect/mentor/mentorscreen.dart';
 import 'package:prephq_connect/registrationscreen.dart';
+import 'package:stream_chat_flutter/stream_chat_flutter.dart';
 
 class MockNavigatorObserver extends Mock implements NavigatorObserver {}
 
@@ -34,10 +35,18 @@ void main() {
 
   testWidgets('Validate navigation to registration page from login screen works',
       (WidgetTester tester) async {
+    final client = Client('aab3hqy7m4yx');
+  await client.setUser(
+    User(
+      id: 'cool-limit-8',
+    ),
+    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiY29vbC1saW1pdC04In0.nZeeMIyurtr90QDF-zyj3JOm3qAgnxETLagh8IUfrM4',
+  );
+  final channel = client.channel('messaging', id: 'godevs');
     final mockObserver = MockNavigatorObserver();
     await tester.pumpWidget(
       MaterialApp(
-        home: MyApp(),
+        home: MyApp(client, channel),
         navigatorObservers: [mockObserver],
       ),
     );

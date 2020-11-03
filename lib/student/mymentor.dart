@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:prephq_connect/common/chat.dart';
+import 'package:stream_chat_flutter/stream_chat_flutter.dart';
 
 class MyMentorScreen extends StatelessWidget {
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,19 +69,30 @@ class MentorProfileCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       //TODO: Make this not hardcoded.
-                      Text('Caleb Werth', style: TextStyle(
-                          fontFamily: 'Montserrat', fontWeight: FontWeight.bold, fontSize: 17.0
-                      ),),
-                      Text('The University of Alabama', style: TextStyle(
-                          fontFamily: 'Montserrat', fontStyle: FontStyle.italic, fontSize: 14.0
-                      ),),
-                      Text('Senior - Computer Science', style: TextStyle(
-                        fontFamily: 'Montserrat', fontSize: 13.0,
-                      ),),
+                      Text(
+                        'Caleb Werth',
+                        style: TextStyle(
+                            fontFamily: 'Montserrat',
+                            fontWeight: FontWeight.bold,
+                            fontSize: 17.0),
+                      ),
+                      Text(
+                        'The University of Alabama',
+                        style: TextStyle(
+                            fontFamily: 'Montserrat',
+                            fontStyle: FontStyle.italic,
+                            fontSize: 14.0),
+                      ),
+                      Text(
+                        'Senior - Computer Science',
+                        style: TextStyle(
+                          fontFamily: 'Montserrat',
+                          fontSize: 13.0,
+                        ),
+                      ),
                     ],
                   ),
                 ),
-
               ],
             ),
           ),

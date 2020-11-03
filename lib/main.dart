@@ -1,17 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:prephq_connect/common/chat.dart';
 import 'common/databasecalls.dart';
 import 'student/studentscreen.dart';
 import 'mentor/mentorscreen.dart';
 import 'registrationscreen.dart';
+import 'package:stream_chat_flutter/stream_chat_flutter.dart';
 
-void main () async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(MyApp());
+  final client = Client(clientVar, logLevel: Level.INFO);
+  await client.setUser(
+    User(
+      id: 'fragrant-smoke-0',
+    ),
+    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiZnJhZ3JhbnQtc21va2UtMCJ9.G3wtzJMXKxU2rXtWaYaToooV_j3euVsxmPDQHnGzKLk',
+  );
+  final channel = client.channel('messaging', id: 'godevs');
+
+  channel.watch();
+  runApp(MyApp(client, channel));
 }
 
 class MyApp extends StatelessWidget {
+  final Client client;
+  final Channel channel;
+
+  MyApp(this.client, this.channel);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -23,7 +39,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => LoginScreen(),
-        '/student': (context) => StudentScreen(),
+        '/student': (context) => StudentScreen(client, channel),
         '/mentor': (context) => MentorScreen(),
         '/register': (context) => RegistrationForm(),
       },

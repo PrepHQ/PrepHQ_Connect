@@ -5,6 +5,10 @@ class MentorHome extends StatelessWidget {
         print('Function on Click Event Called.');
         // Put your code here, which you want to execute on onPress event.
     }
+    tmpFunction2(){
+        print('Function on Click Event Called.');
+        // Put your code here, which you want to execute on onPress event.
+    }
 
     @override
     Widget build(BuildContext context) {
@@ -54,7 +58,7 @@ class MentorHome extends StatelessWidget {
 
                       RaisedButton(
                         child: Text(" Live Chat with Mentee "),
-                        onPressed: tmpFunction,
+                        onPressed: tmpFunction2(),
                         color: Color(0xff33D2B0),
                         textColor: Colors.white,
                         splashColor: Colors.grey,
