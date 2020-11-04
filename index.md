@@ -1,4 +1,4 @@
-# PrepHQ Connect Overview
+# Overview
 
 ## About PrepHQ
 
