@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart' hide Router;
+import 'package:flutter/material.dart';
 import 'package:prephq_connect/common/colors.dart';
 import 'package:prephq_connect/notifiers/mentor_notifier.dart';
 import 'package:prephq_connect/notifiers/student_notifier.dart';
@@ -6,7 +6,6 @@ import 'package:provider/provider.dart';
 import 'notifiers/student_home_notifier.dart';
 import 'utils/router.dart';
 import 'views/auth/login.dart';
-import 'views/student/studentscreen.dart';
 
 void main() => runApp(MyApp());
 
