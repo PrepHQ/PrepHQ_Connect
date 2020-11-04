@@ -8,26 +8,24 @@ import 'package:stream_chat_flutter/stream_chat_flutter.dart';
 /// This is the stateful widget that the main application instantiates.
 class StudentScreen extends StatefulWidget {
   final Client client;
-  final Channel channel;
 
-  StudentScreen(this.client, this.channel);
+  StudentScreen(this.client);
 
   @override
-  _StudentScreenState createState() => _StudentScreenState(client, channel);
+  _StudentScreenState createState() => _StudentScreenState(client);
 }
 
 /// This is the private State class that goes with StudentScreen.
 class _StudentScreenState extends State<StudentScreen> {
   final Client client;
-  final Channel channel;
   int _selectedIndex = 0;
   List<Widget> _widgetOptions;
   
-  _StudentScreenState(this.client, this.channel)
+  _StudentScreenState(this.client)
       : _widgetOptions = <Widget>[
     StudentHome(),
     MyMentorScreen(),
-    ChatView(client, channel)
+    ChatView(client)
   ];
 
   void _onItemTapped(int index) {
@@ -39,6 +37,7 @@ class _StudentScreenState extends State<StudentScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),

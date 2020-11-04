@@ -13,7 +13,7 @@ void main() async {
   final client = Client(clientVar, logLevel: Level.INFO);
   await client.setUser(
     User(
-      id: 'fragrant-smoke-0',
+      id: 'ggpepp',
     ),
     'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiZnJhZ3JhbnQtc21va2UtMCJ9.G3wtzJMXKxU2rXtWaYaToooV_j3euVsxmPDQHnGzKLk',
   );
@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => LoginScreen(),
-        '/student': (context) => StudentScreen(client, channel),
+        '/student': (context) => StudentScreen(client),
         '/mentor': (context) => MentorScreen(),
         '/register': (context) => RegistrationForm(),
       },
