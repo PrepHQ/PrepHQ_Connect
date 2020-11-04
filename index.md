@@ -1,4 +1,4 @@
-# PrepHQ Connect
+# PrepHQ Connect Overview
 
 ## About PrepHQ
 
@@ -7,12 +7,6 @@
 ## About The App
 
 PrepHQ Connect is a digital platform that connects college students to high schoolers in a near-peer mentorship relationship to provide the inspiration students need to make the most of their education. This platform will democratize the knowledge, preparation, and motivation normally reserved for students from high income families who can afford to pay for expensive services. But we believe test prep and college counseling are things that all students deserve to have access to. With that being said, this platform will help students plan out their educational goals in high school and beyond, and help them to make their dreams a reality.
-
-### A few details on our planned tech stack
-
-- **App development framework**: Flutter
-- **Chat API**: Twilio
-- **Database**: MongoDB
 
 ## The UA Senior Design Team
 
