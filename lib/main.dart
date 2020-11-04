@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Router;
 import 'package:prephq_connect/common/colors.dart';
 import 'package:prephq_connect/notifiers/mentor_notifier.dart';
 import 'package:prephq_connect/notifiers/student_notifier.dart';
