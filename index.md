@@ -14,3 +14,7 @@ PrepHQ Connect is a digital platform that connects college students to high scho
 - Steven Alexander | stvnengineer@gmail.com
 - Sarah Oswald | soswald@crimson.ua.edu
 - Garrett Peppers | ggpeppers@gcrimson.ua.edu
+
+## Site Links
+
+- [App Technical Details](https://prephq.github.io/PrepHQ_Connect/tech)
