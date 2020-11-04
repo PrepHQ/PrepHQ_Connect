@@ -93,6 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
 
     final registerButton = RaisedButton(
+      key: Key('register_button'),
       child: Text('Register'),
       onPressed: (){
         Navigator.push(
