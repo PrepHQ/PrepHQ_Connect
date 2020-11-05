@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stream_chat_flutter/stream_chat_flutter.dart';
 
-var clientVar = 'aab3hqy7m4yx';
+var clientVar = '6k9d3ndm8wq2';
 
 class ChatView extends StatelessWidget {
   final Client client;

@@ -11,13 +11,19 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   final client = Client(clientVar, logLevel: Level.INFO);
-  await client.setUser(
+  client.updateUser(
     User(
-      id: 'ggpepp',
-    ),
-    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiZnJhZ3JhbnQtc21va2UtMCJ9.G3wtzJMXKxU2rXtWaYaToooV_j3euVsxmPDQHnGzKLk',
+    id: 'ggpepp',
+    role: 'admin'
+    )
   );
-  final channel = client.channel('messaging', id: 'godevs');
+  await client.setUser(
+      User(
+        id: 'ggpepp',
+      ),
+      'asdbfhawd');
+  final channel = client.channel('messaging', id: 'gome' extraData: );
+  channel.create();
 
   channel.watch();
   runApp(MyApp(client, channel));
