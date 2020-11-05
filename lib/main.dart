@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'common/databasecalls.dart';
 import 'student/studentscreen.dart';
 import 'mentor/mentorscreen.dart';
@@ -62,6 +63,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final _passwordTextController = TextEditingController();
   var _emailNoExist = false;
   var _wrongPassword = false;
+  UserCredential userCred;
 
   void resetTextBoxes() {
     _loginFormKey.currentState.reset();
@@ -87,29 +89,31 @@ class _LoginScreenState extends State<LoginScreen> {
         padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
         onPressed: () async {
           if (_loginFormKey.currentState.validate()) {
-            var _userInfoDoc = await getUser(_emailTextController.text);
-
-            if (_userInfoDoc != null) {
-              // User with this email exists in database
-              if (_userInfoDoc['password'] == _passwordTextController.text) {
-                // password is correct
-                resetTextBoxes();
-                if (_userInfoDoc['user_type'] == 'student') {
-                  Navigator.pushReplacementNamed(context, '/student');
-                } else if (_userInfoDoc['user_type'] == 'mentor') {
-                  Navigator.pushReplacementNamed(context, '/mentor');
-                }
-              } else {
-                // password is wrong
+            try {
+              userCred = await FirebaseAuth.instance.signInWithEmailAndPassword(
+                  email: _emailTextController.text,
+                  password: _passwordTextController.text);
+            } on FirebaseAuthException catch (e) {
+              if (e.code == 'user-not-found') {
+                // User with this email does not exist in database
+                _emailNoExist = true;
+              } else if (e.code == 'wrong-password') {
+                // User exists, but password is wrong
                 _wrongPassword = true;
-                _loginFormKey.currentState.validate();
-                _passwordTextController.clear();
               }
-            } else {
-              // User with this email does not exist in database
-              _emailNoExist = true;
               _loginFormKey.currentState.validate();
               _passwordTextController.clear();
+              userCred = null;
+            }
+            // Password is correct
+            if (userCred != null) {
+              String userType = await getUserType(userCred.user.uid);
+              resetTextBoxes();
+              if (userType == 'student') {
+                Navigator.pushReplacementNamed(context, '/student');
+              } else if (userType == 'mentor') {
+                Navigator.pushReplacementNamed(context, '/mentor');
+              }
             }
           }
         },
