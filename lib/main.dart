@@ -32,25 +32,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class DemoButton extends RaisedButton {
-  final theText;
-  final nextScreen;
-  final Function clearScreen;
-  const DemoButton(this.theText, this.nextScreen, this.clearScreen);
-
-  @override
-  Widget build(BuildContext context) {
-    return RaisedButton(
-      padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-      child: Text(theText),
-      onPressed: () {
-        clearScreen();
-        Navigator.pushReplacementNamed(context, this.nextScreen);
-      },
-    );
-  }
-}
-
 class LoginScreen extends StatefulWidget {
   @override
   _LoginScreenState createState() => _LoginScreenState();
@@ -213,8 +194,20 @@ class _LoginScreenState extends State<LoginScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          DemoButton('demo: S', '/student', resetTextBoxes),
-                          DemoButton('demo: M', '/mentor', resetTextBoxes),
+                          RaisedButton(
+                            child: Text('Student1'),
+                            onPressed: (){
+                              _emailTextController.text = 'student1@prephqconnect.com';
+                              _passwordTextController.text = 'p1p1p1';
+                            }
+                          ),
+                          RaisedButton(
+                              child: Text('Mentor4'),
+                              onPressed: (){
+                                _emailTextController.text = 'mentor4@prephqconnect.com';
+                                _passwordTextController.text = 'p4p4p4';
+                              }
+                          )
                         ],
                       ),
                     ],
