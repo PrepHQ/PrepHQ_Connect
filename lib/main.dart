@@ -183,7 +183,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         splashColor: Colors.grey,
                       ),
 
-                      /*For demo purposes, these bypass the loginButton*/
+                      /*For demo purposes, these pre-populate the login fields*/
                       SizedBox(
                         height: 50,
                       ),
