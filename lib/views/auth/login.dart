@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:prephq_connect/views/mentor/mentorscreen.dart';
 import 'package:prephq_connect/views/student/studentscreen.dart';
-import 'package:mongo_dart/mongo_dart.dart' as md;
 
-
+import '../../common/databasecalls.dart';
 import '../../registrationscreen.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -59,11 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
         minWidth: MediaQuery.of(context).size.width,
         padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
         onPressed: () async {
-          var db = await md.Db.create("mongodb+srv://user_1:prephqcs495@prephq.kltwv.mongodb.net/prephq_connect?retryWrites=true&w=majority");
-          await db.open();
-          var coll = db.collection('users');
-          var _userInfoDoc = await coll.findOne(md.where.eq('email', _emailTextController.text));
-          await db.close();
+          var _userInfoDoc = await getUser(_emailTextController.text);
 
           // TODO if _userInfoDoc is null (email not in database), prompt for registration
 
