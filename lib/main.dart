@@ -6,8 +6,13 @@ import 'package:provider/provider.dart';
 import 'notifiers/student_home_notifier.dart';
 import 'utils/router.dart';
 import 'views/auth/login.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() => runApp(MyApp());
+void main () async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
