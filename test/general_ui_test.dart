@@ -10,7 +10,7 @@ class MockNavigatorObserver extends Mock implements NavigatorObserver {}
 void main() {
   testWidgets('Validate login screen widgets initialize correctly', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(MaterialApp(home: MyHomePage()));
+    await tester.pumpWidget(MaterialApp(home: LoginPage()));
 
     // Verify our hint text
     expect(find.text('Email'), findsOneWidget);

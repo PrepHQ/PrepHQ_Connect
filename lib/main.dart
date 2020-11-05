@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
                       bodyText2: TextStyle(color: Colors.black)),
                   centerTitle: true,
                   color: Colors.transparent)),
-          home: MyHomePage(),
+          home: LoginPage(),
           routes: Router.getRoutes(context),
         ));
   }

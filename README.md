@@ -1,3 +1,3 @@
 # PrepHQ Connect
 
-The PrepHQ Connect app
+![](images/PrepHQ%20Final%20Logo.png)
