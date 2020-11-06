@@ -2,18 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:prephq_connect/common/colors.dart';
 import 'package:prephq_connect/common/shadows.dart';
 import 'package:prephq_connect/models/roadmap.dart';
+import 'package:prephq_connect/notifiers/student_home_notifier.dart';
+import 'package:prephq_connect/utils/logger.dart';
+import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
 class CompletedCard extends StatefulWidget {
 
   final RoadMap roadMap;
-  final Function didCompleted;
+  final int index ;
 
    CompletedCard({
     @required 
     final this.roadMap,
     @required 
-    final this.didCompleted,
+    final this.index,
     Key key,
   }) : super(key: key);
 
@@ -24,7 +27,7 @@ class CompletedCard extends StatefulWidget {
 class _CompletedCardState extends State<CompletedCard> {
   @override
   Widget build(BuildContext context) {
-    return Container(
+     return Container(
       margin: EdgeInsets.all(10.0),
       decoration: BoxDecoration(boxShadow: [CustomShadows.cardShadow]),
       child: ClipRRect(
@@ -69,8 +72,7 @@ class _CompletedCardState extends State<CompletedCard> {
                 child: InkWell(
                   onTap: () {
                     setState(() {
-                      widget.roadMap.complete();
-                      widget.didCompleted();
+                      Provider.of<StudentHomeNotifier>(context, listen: false).didComplete(widget.index);
                     });
                   },
                   child: new Container(   //not used outlined border cause unnecessary paddings

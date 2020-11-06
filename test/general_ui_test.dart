@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:prephq_connect/main.dart';
 import 'package:flutter/material.dart';
 import 'package:mockito/mockito.dart';
-import 'package:prephq_connect/mentor/mentorscreen.dart';
+import 'package:prephq_connect/views/auth/login.dart';
 import 'package:prephq_connect/registrationscreen.dart';
 
 class MockNavigatorObserver extends Mock implements NavigatorObserver {}
@@ -10,7 +10,7 @@ class MockNavigatorObserver extends Mock implements NavigatorObserver {}
 void main() {
   testWidgets('Validate login screen widgets initialize correctly', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(MaterialApp(home: LoginScreen()));
+    await tester.pumpWidget(MaterialApp(home: LoginPage()));
 
     // Verify our hint text
     expect(find.text('Email'), findsOneWidget);
