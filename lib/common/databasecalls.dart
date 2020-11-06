@@ -15,11 +15,11 @@ Future<String> getUserType(String userID) async {
 }
 
 /// Registers a new user on the Firestore database.
-Future<void> registerNewUserStudent(String _email, String _password, String _fName, String _lName) async {
-    FirebaseFirestore.instance.collection('testUsers').add({
-      'email': _email,
-      'password': _password,
-      'user_type': 'student',
-      'first_name': _fName,
-      'last_name': _lName});
+Future<void> registerNewUserStudent(String _id, String _fName, String _lName) async {
+    FirebaseFirestore.instance.collection('users')
+        .doc(_id)
+        .set({
+          'user_type': 'student',
+          'first_name': _fName,
+          'last_name': _lName});
 }
