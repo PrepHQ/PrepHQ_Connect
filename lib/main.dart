@@ -178,7 +178,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: Text('Register'),
                         onPressed: () {
                           resetTextBoxes();
-                          Navigator.pushNamed(context, '/register');
+                          Navigator.pushReplacementNamed(context, '/register');
                         },
                         splashColor: Colors.grey,
                       ),
