@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'common/databasecalls.dart';
 
@@ -14,6 +15,9 @@ class RegistrationFormState extends State<RegistrationForm> {
   final _emailRegTextController = TextEditingController();
   final _passwordRegTextController = TextEditingController();
   final _password2RegTextController = TextEditingController();
+  var _emailTaken = false;
+  var _weakPassword = false;
+  UserCredential userCred;
 
   @override
   void dispose(){
@@ -80,6 +84,9 @@ class RegistrationFormState extends State<RegistrationForm> {
                             validator: (email){
                               if(email.isEmpty){
                                 return 'Please enter your email address.';
+                              } else if (_emailTaken) {
+                                _emailTaken = false;
+                                return 'Email is already registered. Please try a different email.';
                               } else return null;
                             },
                           ),
@@ -94,6 +101,9 @@ class RegistrationFormState extends State<RegistrationForm> {
                             validator: (password1){
                               if(password1.isEmpty){
                                 return 'Please create a password.';
+                              } else if (_weakPassword){
+                                _weakPassword = false;
+                                return 'Password is weak. It must be at least 6 characters.';
                               } else return null;
                             },
                           ),
@@ -117,12 +127,32 @@ class RegistrationFormState extends State<RegistrationForm> {
                           RaisedButton(
                             onPressed: () async {
                               if(_registrationFormKey.currentState.validate()){
-                                await registerNewUserStudent(
-                                  _emailRegTextController.text,
-                                  _passwordRegTextController.text,
-                                  _fNameRegTextController.text,
-                                  _lNameRegTextController.text);
-                                Navigator.pop(context,);
+                                try {
+                                  userCred = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+                                      email: _emailRegTextController.text,
+                                      password: _passwordRegTextController.text);
+                                } on FirebaseAuthException catch (e) {
+                                  if (e.code == 'email-already-in-use') {
+                                    // User with this email already exists in database
+                                    _emailTaken = true;
+                                    _emailRegTextController.clear();
+                                  } else if (e.code == 'weak-password') {
+                                    // Password is not strong enough
+                                    _weakPassword = true;
+                                    _passwordRegTextController.clear();
+                                    _password2RegTextController.clear();
+                                  }
+                                  _registrationFormKey.currentState.validate();
+                                  userCred = null;
+                                }
+                                if (userCred != null) {
+                                  await registerNewUserStudent(
+                                      userCred.user.uid,
+                                      _fNameRegTextController.text,
+                                      _lNameRegTextController.text);
+                                  await FirebaseAuth.instance.signOut();
+                                  Navigator.pop(context,);
+                                }
                               }
                             },
                             child: Text('Register'),
