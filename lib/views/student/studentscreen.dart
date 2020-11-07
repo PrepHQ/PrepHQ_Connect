@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:prephq_connect/common/databasecalls.dart';
 import 'home.dart';
 import 'mymentor.dart';
 import 'resources.dart';
@@ -14,11 +16,11 @@ class StudentScreen extends StatefulWidget {
 /// This is the private State class that goes with StudentScreen.
 class _StudentScreenState extends State<StudentScreen> {
   int _selectedIndex = 0;
-  List<Widget> _widgetOptions = <Widget>[
-    StudentHome(),
-    MyMentorScreen(),
-    StudResourcesScreen(),
-  ];
+  List<QueryDocumentSnapshot> mentorList;
+
+  Future<void> buildMentorList () async {
+    mentorList = await getAllMentors();
+  }
 
   void _onItemTapped(int index) {
     setState(() {
@@ -27,12 +29,18 @@ class _StudentScreenState extends State<StudentScreen> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    buildMentorList();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: IndexedStack(
         children: [
           StudentHome(),
-          MyMentorScreen(),
+          MyMentorScreen(mentorList),
           StudResourcesScreen(),
         ],
         index: _selectedIndex,
