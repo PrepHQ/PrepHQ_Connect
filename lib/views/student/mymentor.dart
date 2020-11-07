@@ -37,14 +37,16 @@ class MentorProfileCard extends StatelessWidget {
           padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
           child: Column(
             children: [
-              CircleAvatar(
-                radius: 60,
-                  backgroundColor: Colors.white,
-                  backgroundImage: docMap.containsKey('profile_image_url') ?
-                  // If user has uploaded profile image, use it
-                  NetworkImage(docMap['profile_image_url']) :
-                  // If user has not uploaded profile image, use default
-                  NetworkImage('https://firebasestorage.googleapis.com/v0/b/prephq-connect.appspot.com/o/profilePictures%2FnoPic.png?alt=media&token=42d93144-20e9-4206-a3a4-4d7447a533bf')
+              CircleAvatar(radius: 60, backgroundColor: Colors.grey,
+                child: CircleAvatar(
+                  radius: 58,
+                    backgroundColor: Colors.white,
+                    backgroundImage: docMap.containsKey('profile_image_url') ?
+                    // If user has uploaded profile image, use it
+                    NetworkImage(docMap['profile_image_url']) :
+                    // If user has not uploaded profile image, use default
+                    NetworkImage('https://firebasestorage.googleapis.com/v0/b/prephq-connect.appspot.com/o/profilePictures%2FnoPic.png?alt=media&token=0b5e58c4-9999-4245-b9b7-6438e23f3020')
+                ),
               ),
               Expanded(
                 child: Column(
