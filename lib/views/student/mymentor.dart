@@ -34,27 +34,31 @@ class MentorProfileCard extends StatelessWidget {
         },
         child: Container(
           height: 250,
+          padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
           child: Column(
             children: [
-              SizedBox(height: 10),
               CircleAvatar(
                 radius: 60,
                   backgroundColor: Colors.white,
-                  backgroundImage: NetworkImage(docMap['profile_image_url']),
+                  backgroundImage: docMap.containsKey('profile_image_url') ?
+                  // If user has uploaded profile image, use it
+                  NetworkImage(docMap['profile_image_url']) :
+                  // If user has not uploaded profile image, use default
+                  NetworkImage('https://firebasestorage.googleapis.com/v0/b/prephq-connect.appspot.com/o/profilePictures%2FnoPic.png?alt=media&token=42d93144-20e9-4206-a3a4-4d7447a533bf')
               ),
               Expanded(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Text(docMap['first_name'] + ' ' + docMap['last_name'], style: TextStyle(
-                        fontFamily: 'Montserrat', fontWeight: FontWeight.bold, fontSize: 17.0
-                    ),),
-                    Text(docMap['institution'], style: TextStyle(
-                        fontFamily: 'Montserrat', fontStyle: FontStyle.italic, fontSize: 14.0
-                    ),),
-                    Text(docMap['class'] + ' - ' + docMap['major'], style: TextStyle(
-                      fontFamily: 'Montserrat', fontSize: 13.0,
-                    ),),
+                    Text(docMap['first_name'] + ' ' + docMap['last_name'],
+                      style: TextStyle(fontFamily: 'Montserrat', fontWeight: FontWeight.bold, fontSize: 17.0),
+                      softWrap: false, overflow: TextOverflow.fade,),
+                    Text(docMap['institution'],
+                      style: TextStyle(fontFamily: 'Montserrat', fontStyle: FontStyle.italic, fontSize: 14.0),
+                      softWrap: false, overflow: TextOverflow.fade,),
+                    Text(docMap['class'] + ' - ' + docMap['major'],
+                      style: TextStyle(fontFamily: 'Montserrat', fontSize: 13.0,),
+                      softWrap: false, overflow: TextOverflow.fade,),
                   ],
                 ),
               ),
