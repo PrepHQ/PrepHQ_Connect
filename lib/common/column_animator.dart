@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
-class ColumAnimator extends StatelessWidget {
+class ColumnAnimator extends StatelessWidget {
   List<Widget> children;
   MainAxisAlignment mainAxisAlignment;
   CrossAxisAlignment crossAxisAlignment;
-  ColumAnimator(
+  ColumnAnimator(
       {Key key,
       this.children,
       this.mainAxisAlignment = MainAxisAlignment.start,

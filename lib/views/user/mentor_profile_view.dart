@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prephq_connect/common/colors.dart';
-import 'package:prephq_connect/common/coloum_animator.dart';
+import 'package:prephq_connect/common/column_animator.dart';
 import 'package:prephq_connect/common/text_styles.dart';
 import 'package:prephq_connect/notifiers/mentor_notifier.dart';
 import 'package:prephq_connect/widgets/appbar_action_btn.dart';
