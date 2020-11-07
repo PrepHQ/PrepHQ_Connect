@@ -16,6 +16,7 @@ class RegistrationFormState extends State<RegistrationForm> {
   final _passwordRegTextController = TextEditingController();
   final _password2RegTextController = TextEditingController();
   var _emailTaken = false;
+  var _emailBad = false;
   var _weakPassword = false;
   UserCredential userCred;
 
@@ -87,6 +88,8 @@ class RegistrationFormState extends State<RegistrationForm> {
                               } else if (_emailTaken) {
                                 _emailTaken = false;
                                 return 'Email is already registered. Please try a different email.';
+                              } else if (_emailBad) {
+                                return 'Invalid email. Please try again.';
                               } else return null;
                             },
                           ),
@@ -135,6 +138,9 @@ class RegistrationFormState extends State<RegistrationForm> {
                                   if (e.code == 'email-already-in-use') {
                                     // User with this email already exists in database
                                     _emailTaken = true;
+                                    _emailRegTextController.clear();
+                                  } else if (e.code == 'invalid-email') {
+                                    _emailBad = true;
                                     _emailRegTextController.clear();
                                   } else if (e.code == 'weak-password') {
                                     // Password is not strong enough

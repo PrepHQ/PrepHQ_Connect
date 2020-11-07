@@ -16,7 +16,7 @@ Future<String> getUserType(String userID) async {
 
 /// Registers a new user on the Firestore database.
 Future<void> registerNewUserStudent(String _id, String _fName, String _lName) async {
-  FirebaseFirestore.instance.collection('users')
+  await FirebaseFirestore.instance.collection('users')
       .doc(_id)
       .set({
     'user_type': 'student',
