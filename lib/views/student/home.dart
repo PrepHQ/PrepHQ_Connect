@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:prephq_connect/common/coloum_animator.dart';
+import 'package:prephq_connect/common/column_animator.dart';
 import 'package:prephq_connect/common/text_styles.dart';
 import 'package:prephq_connect/notifiers/student_home_notifier.dart';
 import 'package:prephq_connect/views/user/mentor_profile_view.dart';

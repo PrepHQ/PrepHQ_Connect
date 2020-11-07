@@ -35,7 +35,7 @@ class Mentor extends User {
 
   @override
   setName(String name) {
-    
+    this.name = name;
   }
 }
 

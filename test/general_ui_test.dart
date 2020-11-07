@@ -54,4 +54,5 @@ void main() {
     // Expect that the page is now present
     expect(find.byType(RegistrationForm), findsOneWidget);
   });
+
 }
