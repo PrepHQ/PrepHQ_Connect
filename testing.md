@@ -28,3 +28,5 @@ Here are some brief descriptions of all of our current test cases!
 
 #### Validate AppBarActionBtn constructs as expected
 #### Test that article card constructs as expected
+
+[Back to Main Site](https://prephq.github.io/PrepHQ_Connect/)
