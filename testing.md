@@ -10,24 +10,21 @@
 
 Here are some brief descriptions of all of our current test cases!
 
-### General UI Tests
+### [General UI Tests](https://github.com/PrepHQ/PrepHQ_Connect/blob/master/test/general_ui_test.dart)
 
 #### Validate login screen widgets initialize correctly
-
-
-
 #### Validate registration screen widgets initialize correctly
 #### Validate navigation to registration page from login screen works
 #### Validate that Mentor Home widgets are initialized
 #### Validate that Mentor Screen bottom app bar navigates to MentorHome by default as expected
 
-### Unit Tests
+### [Unit Tests](https://github.com/PrepHQ/PrepHQ_Connect/blob/master/test/unit_test.dart)
 
 #### isCompleted should be marked true when complete is called
 #### Setting name of student works
 #### Setting name of mentor works
 
-### Widget Tests
+### [Widget Tests](https://github.com/PrepHQ/PrepHQ_Connect/blob/master/test/widget_test.dart)
 
 #### Validate AppBarActionBtn constructs as expected
 #### Test that article card constructs as expected
