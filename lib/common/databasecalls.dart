@@ -23,3 +23,12 @@ Future<void> registerNewUserStudent(String _id, String _fName, String _lName) as
     'first_name': _fName,
     'last_name': _lName});
 }
+
+/// Gets all mentors from the database.
+Future<List<QueryDocumentSnapshot>> getAllMentors() async {
+  QuerySnapshot mentors = await FirebaseFirestore.instance
+      .collection('users')
+      .where('user_type', isEqualTo: 'mentor')
+      .get();
+  return mentors.docs;
+}
