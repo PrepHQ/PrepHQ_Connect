@@ -19,10 +19,10 @@ void main() async {
   );
   await client.setUser(
       User(
-        id: 'ggpepp',
+        id: 'prephq-connect',
       ),
-      'asdbfhawd');
-  final channel = client.channel('messaging', id: 'gome' extraData: );
+      'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiY3VybHktc2FsYWQtMSJ9.DyuFWaDROhh_ow5tA4INPyvmjv9TBfBkHctro26R6KE');
+  final channel = client.channel('messaging', id: 'godevs');
   channel.create();
 
   channel.watch();

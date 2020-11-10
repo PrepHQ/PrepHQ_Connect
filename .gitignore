@@ -1164,3 +1164,5 @@ node_modules/ws/lib/receiver.js
 node_modules/ws/lib/sender.js
 
 node_modules/ws/lib/stream.js
+
+firebaseFunctions
