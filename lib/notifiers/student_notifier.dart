@@ -43,7 +43,7 @@ class StudentNotifier extends UserNotifier{
   
 
   void setScores(int index, String scores) {
-    updatedTests[index].score = double.parse(scores) ;
+    updatedTests[index].score = int.parse(scores) ;
   }
 
   doneUpdating(){

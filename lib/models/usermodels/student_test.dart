@@ -4,7 +4,7 @@ enum StudentTestsType { Main, Sub }
 
 class StudentTests {
   final String title;
-  double score;
+  int score;
   StudentTestsType type;
 
   StudentTests(
