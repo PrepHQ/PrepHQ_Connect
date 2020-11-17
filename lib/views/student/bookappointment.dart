@@ -31,7 +31,7 @@ Iterable<TimeOfDay> getTimes(
       (hour == endTime.hour && minute <= endTime.minute));
 }
 
-ListView getAppointmentListView(BuildContext context) {
+ListView getDailyAppointmentListView(BuildContext context) {
   //Hardcoded example start/end/duration values
   final startTime = TimeOfDay(hour: 9, minute: 0);
   final endTime = TimeOfDay(hour: 19, minute: 0);
@@ -48,7 +48,7 @@ ListView getAppointmentListView(BuildContext context) {
       return Card(
         child: InkWell(
           splashColor: Color.fromRGBO(75, 209, 160, 1).withAlpha(30),
-          onTap: () => print('You clikced ${times[index]}'),
+          onTap: () => print('You clicked ${times[index]}'),
           child: ListTile(
             leading: CircleAvatar(
               backgroundColor:
@@ -56,14 +56,13 @@ ListView getAppointmentListView(BuildContext context) {
               maxRadius: 20,
             ),
             title: Text(
-              'Zoom Meeting',
+              'November 17th, 2020',
               style: TextStyle(
                 fontFamily: 'Montserrat',
                 fontWeight: FontWeight.bold,
                 fontSize: 17.0,
               ),
             ),
-            subtitle: Text('Link will be emailed to you'),
             trailing: Text(
               '${times[index]}',
               style: TextStyle(
@@ -89,7 +88,7 @@ class _AppointmentListPageState extends State<AppointmentListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: SafeArea(child: getAppointmentListView(context)),
+      body: SafeArea(child: getDailyAppointmentListView(context)),
     );
   }
 }
