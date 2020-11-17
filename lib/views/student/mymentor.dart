@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'bookappointment.dart';
 
 class MyMentorScreen extends StatelessWidget {
   final List<QueryDocumentSnapshot> mentorList;
@@ -30,7 +31,10 @@ class MentorProfileCard extends StatelessWidget {
       child: InkWell(
         splashColor: Color.fromRGBO(75, 209, 160, 1).withAlpha(30),
         onTap: () {
-          print('Card tapped.');
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => AppointmentListPage()),
+          );
         },
         child: Container(
           height: 250,
