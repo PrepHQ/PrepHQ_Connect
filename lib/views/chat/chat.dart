@@ -4,7 +4,12 @@ import 'package:stream_chat_flutter/stream_chat_flutter.dart';
 var client = Client('6k9d3ndm8wq2');
 
 Client setupUser() {
-  client.setUser(User(id: 'ggpepp'), client.devToken('ggpepp'));
+  var user = User(id: 'ggpepp');
+  client.updateUser(user);
+  client.setUser(user, client.devToken('ggpepp'));
+  var channel = client.channel("messaging", id:"test");
+  channel.create();
+  channel.watch();
   return client;
 }
 

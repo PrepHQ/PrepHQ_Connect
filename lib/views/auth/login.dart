@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:prephq_connect/views/mentor/mentorscreen.dart';
+import 'package:prephq_connect/views/student/home.dart';
 import 'package:prephq_connect/views/student/studentscreen.dart';
 
 import '../../common/databasecalls.dart';
@@ -135,7 +136,7 @@ class _LoginPageState extends State<LoginPage> {
         resetTextBoxes();
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => RegistrationForm()),
+          MaterialPageRoute(builder: (context) => StudentScreen()),
         );
       },
       splashColor: Colors.grey,
