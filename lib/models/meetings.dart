@@ -10,12 +10,12 @@ class MentorMeeting {
 
   MentorMeeting(
       {this.title = "",
-      String timeStart = "2020-02-27 13:27:00",
-      String timeEnd = "2020-02-28 13:27:00",
-      String date = "2020-02-27",
+      String timeStart = "11-27-2020 13:27:00",
+      String timeEnd = "11-27-2020 13:27:00",
+      String date = "11-27-2020",
       this.description = "",
       this.subDescription = ""}) {
-    DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:mm:ss");
+    DateFormat dateFormat = DateFormat("MM-dd-yyyy HH:mm:ss");
     this.date = dateFormat.parse(date);
     this.timeEnd = dateFormat.parse(timeEnd);
     this.timeStart = dateFormat.parse(timeStart);
@@ -24,45 +24,37 @@ class MentorMeeting {
   
   static List<MentorMeeting> meetings = [
   MentorMeeting(
-      title: 'Meeting with Sarah ',
-      timeStart: '2021-02-27 13:27:00',
-      date: '2020-11-18 13:27:00',
-      timeEnd: '2020-02-28 13:27:00',
-      description: 'Meeting with Sarah on November 30th at 1:00PM',
-      subDescription:
-          "Our team members names are Sarah, Caleb, Steven and Garrett"),
-  MentorMeeting(
       title: 'Meeting with Caleb ',
-      timeStart: '2021-02-27 13:27:00',
-      date: '2021-02-27 13:27:00',
-      timeEnd: '2021-02-28 13:27:00',
-      description: 'Meeting with Sarah on November 30th at 1:00PM',
+      timeStart: '11-28-2020 14:00:00',
+      date: '11-28-2020 14:00:00',
+      timeEnd: '11-28-2020 14:30:00',
+      description: 'Meeting with Caleb on November 28th at 2:00PM',
       subDescription:
-          "Our team members names are Sarah, Caleb, Steven and Garrett"),
+          "Meeting to discuss College Roadmap"),
   MentorMeeting(
       title: 'Meeting with Steven ',
-      timeStart: '2021-02-27 13:27:00',
-      date: '2021-02-27 13:27:00',
-      timeEnd: '2020-02-28 13:27:00',
-      description: 'Meeting with Sarah on November 30th at 1:00PM',
+      timeStart: '11-29-2020 13:30:00',
+      date: '11-29-2020 13:30:00',
+      timeEnd: '11-29-2020 14:00:00',
+      description: 'Meeting with Steven on November 29th at 1:30PM',
       subDescription:
-          "Our team members names are Sarah, Caleb, Steven and Garrett"),
+          "Meeting to discuss College Roadmap"),
   MentorMeeting(
       title: 'Meeting with Sarah ',
-      timeStart: '2021-02-27 13:27:00',
-      date: '2021-02-27 13:27:00',
-      timeEnd: '2020-02-28 13:27:00',
-      description: 'Meeting with Sarah on November 30th at 1:00PM',
+      timeStart: '12-01-2020 12:30:00',
+      date: '12-01-2020 12:30:00',
+      timeEnd: '12-01-2020 13:00:00',
+      description: 'Meeting with Sarah on December 1st at 12:00PM',
       subDescription:
-          "Our team members names are Sarah, Caleb, Steven and Garrett"),
+          "Meeting to discuss College Roadmap"),
   MentorMeeting(
       title: 'Meeting with Garrett ',
-      timeStart: '2021-02-27 13:27:00',
-      date: '2021-02-27 13:27:00',
-      timeEnd: '2020-02-28 13:27:00',
-      description: 'Meeting with Sarah on November 30th at 1:00PM',
+      timeStart: '11-30-2020 13:30:00',
+      date: '11-30-2020 13:30:00',
+      timeEnd: '11-30-2020 14:30:00',
+      description: 'Meeting with Garrett on November 30th at 1:00PM',
       subDescription:
-          "Our team members names are Sarah, Caleb, Steven and Garrett")
+          "Meeting to discuss College Roadmap")
 ];
 
   
