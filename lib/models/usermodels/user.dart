@@ -1,4 +1,5 @@
-
+String id = "";
+String email = "";
 
 enum UserTypes { Student, Mentor }
 
