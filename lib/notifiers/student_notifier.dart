@@ -34,7 +34,7 @@ class StudentNotifier extends UserNotifier{
     user = await Student().getUser();
     userName = user.name;
     updatedUserName = user.name;
-    profileImageUrl = theUser.imageURL;
+    profileImageUrl = user.imageUrl;
     tests = (user as Student).tests;
     updatedTests = tests.map((test) =>  StudentTests(title: test.title, score: test.score, type: test.type )).toList();
     isLoading = false;

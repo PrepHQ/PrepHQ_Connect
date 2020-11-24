@@ -9,15 +9,11 @@ class Student extends User {
 
   @override
   Future<User> getUser() async {
-    Map<String, dynamic> studentInfo = await getStudentInfo(theUser.id);
+    Map<String, dynamic> studentInfo = await getUserInfo(theUser.id);
 
     name = studentInfo['first_name'] + ' ' + studentInfo['last_name'];
     userName = theUser.email;
-    imageUrl = studentInfo.containsKey('profile_image_url') ?
-      // If user has uploaded profile image, use it
-      studentInfo['profile_image_url'] :
-      // If user has not uploaded profile image, use default
-      'https://firebasestorage.googleapis.com/v0/b/prephq-connect.appspot.com/o/profilePictures%2FnoPic.png?alt=media&token=0b5e58c4-9999-4245-b9b7-6438e23f3020';
+    imageUrl = theUser.imageURL;
     if(studentInfo.containsKey('act_overall')) {
       tests.addAll([
           StudentTests(title: 'ACT Scores', score: studentInfo['act_overall'], type: StudentTestsType.Main),

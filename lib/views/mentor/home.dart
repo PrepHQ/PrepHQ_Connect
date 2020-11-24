@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prephq_connect/views/user/mentor_profile_view.dart';
+import 'package:prephq_connect/models/usermodels/user.dart' as theUser;
 
 class MentorHome extends StatelessWidget {
   tmpFunction() {
@@ -28,8 +29,8 @@ class MentorHome extends StatelessWidget {
                       child: CircleAvatar(
                           radius: 30.0,
                           backgroundColor: Colors.blueGrey,
-                          backgroundImage: NetworkImage(
-                              'https://www.cornwallbusinessawards.co.uk/wp-content/uploads/2017/11/dummy450x450-300x300.jpg')),
+                          backgroundImage: NetworkImage(theUser.imageURL)
+                      ),
                     ),
                   ),
                 ),
