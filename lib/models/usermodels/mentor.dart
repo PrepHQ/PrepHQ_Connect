@@ -1,16 +1,17 @@
 import 'timeslots.dart';
 import 'user.dart';
 
+
 class Mentor extends User {
   List<TimeSlots> dates;
 
   @override
   getUser() {
     name = "Jeff Gray";
-    userName = "gray@cs.ua.edu";
-    imageUrl =
-        "https://upload.wikimedia.org/wikipedia/commons/e/ec/PrepGray.jpg";
+    userName = email;
+    imageUrl = imageURL;
     dates = [
+      // TODO: populate these from database
       TimeSlots("Monday" , "10.00", "1.00"),
       TimeSlots("Tuesday" , "10.00", "4.00"),
       TimeSlots("Wednesday" , "10.00", "4.00"),

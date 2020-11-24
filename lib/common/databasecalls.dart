@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:prephq_connect/models/usermodels/student_test.dart';
+import 'package:prephq_connect/models/usermodels/timeslots.dart';
 import 'package:prephq_connect/models/usermodels/user.dart' as theUser;
 
 /// Returns the type of user, which is found in the [user_type] field on the database.
@@ -36,7 +37,7 @@ Future<List<QueryDocumentSnapshot>> getAllMentors() async {
 }
 
 /// Gets all profile information for a student.
-Future<Map<String, dynamic>> getStudentInfo(String userID) async {
+Future<Map<String, dynamic>> getUserInfo(String userID) async {
   var answer;
   await FirebaseFirestore.instance
       .collection('users')
@@ -65,6 +66,10 @@ Future<void> updateStudentTests(String userID, List<StudentTests> theTests) asyn
         'sat_science': theTests[8].score,
         'sat_writing': theTests[9].score
   });
+}
+
+Future<void> updateMentorHours(String userID, List<TimeSlots> theTimes) async {
+  // TODO: add database call to update mentor availability
 }
 
 /// Gets user's profile image from the database.

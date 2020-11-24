@@ -1,11 +1,12 @@
 import 'package:prephq_connect/models/usermodels/mentor.dart';
 import 'package:intl/intl.dart';
 import 'package:prephq_connect/models/usermodels/timeslots.dart';
-import 'package:prephq_connect/models/usermodels/user.dart';
+import 'package:prephq_connect/models/usermodels/user.dart' as theUser;
 import 'package:prephq_connect/notifiers/user_notifier.dart';
+import 'package:prephq_connect/common/databasecalls.dart';
 
 class MentorNotifier extends UserNotifier {
-  User user;
+  theUser.User user;
   bool isEditMode = false;
   bool isLoading = true;
   String userName;
@@ -35,7 +36,7 @@ class MentorNotifier extends UserNotifier {
     userName = user.name;
     updatedUserName = user.name;
     dates = (user as Mentor).dates;
-    profileImageUrl = "https://upload.wikimedia.org/wikipedia/commons/e/ec/PrepGray.jpg";
+    profileImageUrl = user.imageUrl;
     updatedDates = dates.map((dtime) => TimeSlots(dtime.date, dtime.from, dtime.to)).toList();
     isLoading = false;
     notifyListeners();
@@ -53,10 +54,11 @@ class MentorNotifier extends UserNotifier {
   }
 
   @override
-  doneUpdating() {
+  doneUpdating() async {
     this.userName = updatedUserName;
     this.dates = updatedDates;
     user.doneUpdating();
+    await updateMentorHours(theUser.id, dates);
     notifyListeners();
   }
 
