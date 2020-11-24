@@ -102,7 +102,7 @@ class _UserProfileState extends State<MentorProfileView> {
                   ListView.builder(
                     shrinkWrap: true,
                     primary: false,
-                    itemCount: usertNotifier.dates.length,
+                    itemCount: usertNotifier.days.length,
                     padding: EdgeInsets.all(20.0),
                     itemBuilder: (context, index) {
                       return Container(
@@ -118,7 +118,7 @@ class _UserProfileState extends State<MentorProfileView> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  usertNotifier.dates[index].date,
+                                  usertNotifier.days[index].day,
                                   style: CustomTextStyles.subTitleTS,
                                 ),
                                 Row(
@@ -131,7 +131,7 @@ class _UserProfileState extends State<MentorProfileView> {
                                         width: 50,
                                         child: TimeSelectingTf(
                                           isFromTimeSlot: true,
-                                          text:'${usertNotifier.dates[index].from}',
+                                          text:'${usertNotifier.days[index].from}',
                                           index: index,
                                           isEditMode: usertNotifier.isEditMode,
                                         )),
@@ -139,7 +139,7 @@ class _UserProfileState extends State<MentorProfileView> {
                                     SizedBox(
                                         width: 50,
                                         child: TimeSelectingTf(
-                                          text:'${usertNotifier.dates[index].to}',
+                                          text:'${usertNotifier.days[index].to}',
                                           index: index,
                                           isEditMode: usertNotifier.isEditMode,
                                         )),

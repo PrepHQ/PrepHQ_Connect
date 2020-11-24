@@ -3,14 +3,14 @@ import 'user.dart';
 
 
 class Mentor extends User {
-  List<TimeSlots> dates;
+  List<TimeSlots> days;
 
   @override
   getUser() {
     name = "Jeff Gray";
     userName = email;
     imageUrl = imageURL;
-    dates = [
+    days = [
       // TODO: populate these from database
       TimeSlots("Monday" , "10.00", "1.00"),
       TimeSlots("Tuesday" , "10.00", "4.00"),

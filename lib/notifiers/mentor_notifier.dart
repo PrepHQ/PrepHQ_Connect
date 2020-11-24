@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:prephq_connect/models/usermodels/mentor.dart';
 import 'package:intl/intl.dart';
 import 'package:prephq_connect/models/usermodels/timeslots.dart';
@@ -11,8 +12,8 @@ class MentorNotifier extends UserNotifier {
   bool isLoading = true;
   String userName;
   String updatedUserName;
-  List<TimeSlots> dates;
-  List<TimeSlots> updatedDates;
+  List<TimeSlots> days;
+  List<TimeSlots> updatedDays;
   String profileImageUrl = "";
   intUser(user) {
     this.user = user;
@@ -35,30 +36,30 @@ class MentorNotifier extends UserNotifier {
     user = Mentor().getUser();
     userName = user.name;
     updatedUserName = user.name;
-    dates = (user as Mentor).dates;
+    days = (user as Mentor).days;
     profileImageUrl = user.imageUrl;
-    updatedDates = dates.map((dtime) => TimeSlots(dtime.date, dtime.from, dtime.to)).toList();
+    updatedDays = days.map((dtime) => TimeSlots(dtime.day, dtime.from, dtime.to)).toList();
     isLoading = false;
     notifyListeners();
   }
 
   void setTime(int index, {DateTime to , DateTime from}) {
     if(to != null){
-      String formattedTime = DateFormat.Hm().format(to);
-      updatedDates[index].to = formattedTime;
+      TimeOfDay formattedTime = TimeOfDay.fromDateTime(to);
+      updatedDays[index].to = formattedTime;
     }
     if(from != null){
-      String formattedTime = DateFormat.Hm().format(from);
-      updatedDates[index].from = formattedTime;
+      TimeOfDay formattedTime = TimeOfDay.fromDateTime(from);
+      updatedDays[index].from = formattedTime;
     }
   }
 
   @override
   doneUpdating() async {
     this.userName = updatedUserName;
-    this.dates = updatedDates;
+    this.days = updatedDays;
     user.doneUpdating();
-    await updateMentorHours(theUser.id, dates);
+    await updateMentorHours(theUser.id, days);
     notifyListeners();
   }
 
