@@ -7,6 +7,8 @@ import 'package:prephq_connect/registrationscreen.dart';
 import 'package:prephq_connect/views/mentor/home.dart';
 import 'package:prephq_connect/views/mentor/mentorscreen.dart';
 import 'package:network_image_mock/network_image_mock.dart';
+import 'package:provider/provider.dart';
+import 'package:prephq_connect/notifiers/mentor_meetings_notifier.dart';
 
 class MockNavigatorObserver extends Mock implements NavigatorObserver {}
 
@@ -67,22 +69,48 @@ void main() {
   testWidgets(
     'Validate that Mentor Home widgets are initialized',
     (WidgetTester tester) async {
+      // Needed to mock network images
       mockNetworkImagesFor(() async {
-        await tester.pumpWidget(MaterialApp(home: MentorHome()));
+        await tester.pumpWidget(
+          // Needed to create the provider context
+          ChangeNotifierProvider(
+            create: (context) => MentorMeetingNotifier(),
+            child: MaterialApp(
+              home: MentorHome(),
+            ),
+          ),
+          Duration(
+              seconds: 1), // Needed for the implicit timer used in mentor home
+        );
 
-        expect(find.byType(RaisedButton), findsWidgets);
         expect(find.byType(Text), findsWidgets);
+        expect(find.byType(GestureDetector), findsWidgets);
+        expect(find.text('Today '), findsOneWidget);
+        expect(find.text('Upcoming '), findsOneWidget);
+        await tester.pumpAndSettle(Duration(seconds: 1)); // Advances fake timer
       });
     },
   );
 
   testWidgets(
-    'Validate that Mentor Screen bottom app bar navigates to MentorHome by default as expected',
-        (WidgetTester tester) async {
+    'Validate that Mentor Screen widget constructs all three mentor tabs',
+    (WidgetTester tester) async {
       mockNetworkImagesFor(() async {
-        await tester.pumpWidget(MaterialApp(home: MentorScreen()));
+        await tester.pumpWidget(
+          ChangeNotifierProvider(
+            create: (context) => MentorMeetingNotifier(),
+            child: MaterialApp(
+              home: MentorScreen(),
+            ),
+          ),
+          Duration(
+            seconds: 1),
+        );
 
         expect(find.byType(MentorHome), findsOneWidget);
+        expect(find.text('Second Screen for Mentor'), findsOneWidget);
+        expect(find.text('Third Screen for Mentor'), findsOneWidget);
+        await tester.pumpAndSettle(Duration(seconds: 1));
       });
     },
   );
