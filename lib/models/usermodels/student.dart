@@ -9,19 +9,19 @@ class Student extends User {
 
   @override
   Future<User> getUser() async {
-    Map<String, dynamic> studentInfo = await getUserInfo(theUser.id);
+    Map<String, dynamic> userInfo = await getUserInfo(theUser.id);
 
-    name = studentInfo['first_name'] + ' ' + studentInfo['last_name'];
+    name = userInfo['first_name'] + ' ' + userInfo['last_name'];
     userName = theUser.email;
     imageUrl = theUser.imageURL;
-    if(studentInfo.containsKey('act_overall')) {
+    if(userInfo.containsKey('act_overall')) {
       tests.addAll([
-          StudentTests(title: 'ACT Scores', score: studentInfo['act_overall'], type: StudentTestsType.Main),
-          StudentTests(title: 'English', score: studentInfo['act_english']),
-          StudentTests(title: 'Math', score: studentInfo['act_math']),
-          StudentTests(title: 'Reading', score: studentInfo['act_reading']),
-          StudentTests(title: 'Science', score: studentInfo['act_science']),
-          StudentTests(title: 'Writing', score: studentInfo['act_writing'])
+          StudentTests(title: 'ACT Scores', score: userInfo['act_overall'], type: StudentTestsType.Main),
+          StudentTests(title: 'English', score: userInfo['act_english']),
+          StudentTests(title: 'Math', score: userInfo['act_math']),
+          StudentTests(title: 'Reading', score: userInfo['act_reading']),
+          StudentTests(title: 'Science', score: userInfo['act_science']),
+          StudentTests(title: 'Writing', score: userInfo['act_writing'])
       ]);
     } else {
       tests.addAll([
@@ -33,12 +33,12 @@ class Student extends User {
         StudentTests(title: 'Writing', score: 0)
       ]);
     }
-    if(studentInfo.containsKey('sat_overall')) {
+    if(userInfo.containsKey('sat_overall')) {
       tests.addAll([
-        StudentTests(title: 'SAT Scores', score: studentInfo['sat_overall'], type: StudentTestsType.Main),
-        StudentTests(title: 'Reading', score: studentInfo['sat_reading']),
-        StudentTests(title: 'Science', score: studentInfo['sat_science']),
-        StudentTests(title: 'Writing', score: studentInfo['sat_writing'])
+        StudentTests(title: 'SAT Scores', score: userInfo['sat_overall'], type: StudentTestsType.Main),
+        StudentTests(title: 'Reading', score: userInfo['sat_reading']),
+        StudentTests(title: 'Science', score: userInfo['sat_science']),
+        StudentTests(title: 'Writing', score: userInfo['sat_writing'])
       ]);
     } else {
       tests.addAll([
