@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:prephq_connect/models/usermodels/student_test.dart';
 
 /// Returns the type of user, which is found in the [user_type] field on the database.
 Future<String> getUserType(String userID) async {
@@ -32,3 +33,36 @@ Future<List<QueryDocumentSnapshot>> getAllMentors() async {
       .get();
   return mentors.docs;
 }
+
+/// Gets all profile information for a student.
+Future<Map<String, dynamic>> getStudentInfo(String userID) async {
+  var answer;
+  await FirebaseFirestore.instance
+      .collection('users')
+      .doc(userID)
+      .get()
+      .then((DocumentSnapshot dSnap) {
+    answer = dSnap.data();
+  });
+  return answer;
+}
+
+/// Updates student's test scores in the database.
+Future<void> updateStudentTests(String userID, List<StudentTests> theTests) async {
+  await FirebaseFirestore.instance
+      .collection('users')
+      .doc(userID)
+      .update({
+        'act_overall': theTests[0].score,
+        'act_english': theTests[1].score,
+        'act_math': theTests[2].score,
+        'act_reading': theTests[3].score,
+        'act_science': theTests[4].score,
+        'act_writing': theTests[5].score,
+        'sat_overall': theTests[6].score,
+        'sat_reading': theTests[7].score,
+        'sat_science': theTests[8].score,
+        'sat_writing': theTests[9].score
+  });
+}
+
