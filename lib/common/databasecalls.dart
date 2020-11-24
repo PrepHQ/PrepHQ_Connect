@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:prephq_connect/models/usermodels/student_test.dart';
+import 'package:prephq_connect/models/usermodels/user.dart' as theUser;
 
 /// Returns the type of user, which is found in the [user_type] field on the database.
 Future<String> getUserType(String userID) async {
@@ -66,3 +67,16 @@ Future<void> updateStudentTests(String userID, List<StudentTests> theTests) asyn
   });
 }
 
+/// Gets user's profile image from the database.
+Future<void> setUserImageURL(String userID) async {
+  await FirebaseFirestore.instance
+      .collection('users')
+      .doc(userID)
+      .get()
+      .then((DocumentSnapshot dSnap) {
+    var tempData = dSnap.data();
+    if (tempData.containsKey('profile_image_url')) {
+      theUser.imageURL = tempData['profile_image_url'];
+    }
+  });
+}
