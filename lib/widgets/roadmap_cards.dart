@@ -3,7 +3,6 @@ import 'package:prephq_connect/common/colors.dart';
 import 'package:prephq_connect/common/shadows.dart';
 import 'package:prephq_connect/models/roadmap.dart';
 import 'package:prephq_connect/notifiers/student_home_notifier.dart';
-import 'package:prephq_connect/utils/logger.dart';
 import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
