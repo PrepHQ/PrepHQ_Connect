@@ -33,7 +33,7 @@ class MentorProfileCard extends StatelessWidget {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => AppointmentListPage()),
+            MaterialPageRoute(builder: (context) => WeeklyGridPage()),
           );
         },
         child: Container(

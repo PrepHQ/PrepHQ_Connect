@@ -1,7 +1,7 @@
 
 
 class TimeSlots {
-  String date;
+  String date; //Might want this to be day
   String to;
   String from;
   

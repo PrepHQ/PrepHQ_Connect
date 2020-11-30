@@ -108,12 +108,12 @@ class _LoginPageState extends State<LoginPage> {
               String userType = await getUserType(userCred.user.uid);
               resetTextBoxes();
               if (userType == 'student') {
-                Navigator.push(
+                Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (context) => StudentScreen()),
                 );
               } else if (userType == 'mentor') {
-                Navigator.push(
+                Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (context) => MentorScreen()),
                 );
