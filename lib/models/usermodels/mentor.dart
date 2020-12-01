@@ -5,7 +5,7 @@ import 'package:prephq_connect/models/usermodels/user.dart' as theUser;
 import 'user.dart';
 
 class Mentor extends User {
-  List<TimeSlots> days;
+  List<TimeSlots> days = [];
 
   @override
   getUser() async {
@@ -19,8 +19,8 @@ class Mentor extends User {
     imageUrl = imageURL;
 
     if(availability.containsKey('m_begin')) {
-      begin = DateTime.fromMillisecondsSinceEpoch(availability['m_begin']);
-      end = DateTime.fromMillisecondsSinceEpoch(availability['m_end']);
+      begin = availability['m_begin'].toDate();
+      end = availability['m_end'].toDate();
       days.add(TimeSlots(
           "Monday", TimeOfDay.fromDateTime(begin), TimeOfDay.fromDateTime(end)));
     } else {
@@ -28,8 +28,8 @@ class Mentor extends User {
           "Monday", TimeOfDay(hour: 0, minute: 0), TimeOfDay(hour: 0, minute: 0)));
     }
     if(availability.containsKey('t_begin')) {
-      begin = DateTime.fromMillisecondsSinceEpoch(availability['t_begin']);
-      end = DateTime.fromMillisecondsSinceEpoch(availability['t_end']);
+      begin = availability['t_begin'].toDate();
+      end = availability['t_end'].toDate();
       days.add(TimeSlots(
           "Tuesday", TimeOfDay.fromDateTime(begin), TimeOfDay.fromDateTime(end)));
     } else {
@@ -37,8 +37,8 @@ class Mentor extends User {
           "Tuesday", TimeOfDay(hour: 0, minute: 0), TimeOfDay(hour: 0, minute: 0)));
     }
     if(availability.containsKey('w_begin')) {
-      begin = DateTime.fromMillisecondsSinceEpoch(availability['w_begin']);
-      end = DateTime.fromMillisecondsSinceEpoch(availability['w_end']);
+      begin = availability['w_begin'].toDate();
+      end = availability['w_end'].toDate();
       days.add(TimeSlots(
           "Wednesday", TimeOfDay.fromDateTime(begin), TimeOfDay.fromDateTime(end)));
     } else {
@@ -46,8 +46,8 @@ class Mentor extends User {
           "Wednesday", TimeOfDay(hour: 0, minute: 0), TimeOfDay(hour: 0, minute: 0)));
     }
     if(availability.containsKey('r_begin')) {
-      begin = DateTime.fromMillisecondsSinceEpoch(availability['r_begin']);
-      end = DateTime.fromMillisecondsSinceEpoch(availability['r_end']);
+      begin = availability['r_begin'].toDate();
+      end = availability['r_end'].toDate();
       days.add(TimeSlots(
           "Thursday", TimeOfDay.fromDateTime(begin), TimeOfDay.fromDateTime(end)));
     } else {
@@ -55,8 +55,8 @@ class Mentor extends User {
           "Thursday", TimeOfDay(hour: 0, minute: 0), TimeOfDay(hour: 0, minute: 0)));
     }
     if(availability.containsKey('f_begin')) {
-      begin = DateTime.fromMillisecondsSinceEpoch(availability['f_begin']);
-      end = DateTime.fromMillisecondsSinceEpoch(availability['f_end']);
+      begin = availability['f_begin'].toDate();
+      end = availability['f_end'].toDate();
       days.add(TimeSlots(
           "Friday", TimeOfDay.fromDateTime(begin), TimeOfDay.fromDateTime(end)));
     } else {
@@ -64,8 +64,8 @@ class Mentor extends User {
           "Friday", TimeOfDay(hour: 0, minute: 0), TimeOfDay(hour: 0, minute: 0)));
     }
     if(availability.containsKey('sa_begin')) {
-      begin = DateTime.fromMillisecondsSinceEpoch(availability['sa_begin']);
-      end = DateTime.fromMillisecondsSinceEpoch(availability['sa_end']);
+      begin = availability['sa_begin'].toDate();
+      end = availability['sa_end'].toDate();
       days.add(TimeSlots(
           "Saturday", TimeOfDay.fromDateTime(begin), TimeOfDay.fromDateTime(end)));
     } else {
@@ -73,8 +73,8 @@ class Mentor extends User {
           "Saturday", TimeOfDay(hour: 0, minute: 0), TimeOfDay(hour: 0, minute: 0)));
     }
     if(availability.containsKey('su_begin')) {
-      begin = DateTime.fromMillisecondsSinceEpoch(availability['su_begin']);
-      end = DateTime.fromMillisecondsSinceEpoch(availability['su_end']);
+      begin = availability['su_begin'].toDate();
+      end = availability['su_end'].toDate();
       days.add(TimeSlots(
           "Sunday", TimeOfDay.fromDateTime(begin), TimeOfDay.fromDateTime(end)));
     } else {

@@ -31,9 +31,9 @@ class MentorNotifier extends UserNotifier {
     notifyListeners();
   }
 
-  getMentor() {
+  getMentor() async {
     if (user != null) return;
-    user = Mentor().getUser();
+    user = await Mentor().getUser();
     userName = user.name;
     updatedUserName = user.name;
     days = (user as Mentor).days;

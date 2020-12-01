@@ -73,20 +73,20 @@ Future<void> updateMentorHours(String userID, List<TimeSlots> theTimes) async {
       .collection('users')
       .doc(userID)
       .update({
-        'availability.m_begin': theTimes[0].from,
-        'availability.m_end': theTimes[0].to,
-        'availability.t_begin': theTimes[1].from,
-        'availability.t_end': theTimes[1].to,
-        'availability.w_begin': theTimes[2].from,
-        'availability.w_end': theTimes[2].to,
-        'availability.r_begin': theTimes[3].from,
-        'availability.r_end': theTimes[3].to,
-        'availability.f_begin': theTimes[4].from,
-        'availability.f_end': theTimes[4].to,
-        'availability.sa_begin': theTimes[5].from,
-        'availability.sa_end': theTimes[5].to,
-        'availability.su_begin': theTimes[6].from,
-        'availability.su_end': theTimes[6].to
+        'availability.m_begin': DateTime(1971, 1, 1, theTimes[0].from.hour, theTimes[0].from.minute),
+        'availability.m_end': DateTime(1971 , 1, 1, theTimes[0].to.hour, theTimes[0].to.minute),
+        'availability.t_begin': DateTime(1971, 1, 1, theTimes[1].from.hour, theTimes[1].from.minute),
+        'availability.t_end': DateTime(1971 , 1, 1, theTimes[1].to.hour, theTimes[1].to.minute),
+        'availability.w_begin': DateTime(1971, 1, 1, theTimes[2].from.hour, theTimes[2].from.minute),
+        'availability.w_end': DateTime(1971 , 1, 1, theTimes[2].to.hour, theTimes[2].to.minute),
+        'availability.r_begin': DateTime(1971, 1, 1, theTimes[3].from.hour, theTimes[3].from.minute),
+        'availability.r_end': DateTime(1971 , 1, 1, theTimes[3].to.hour, theTimes[3].to.minute),
+        'availability.f_begin': DateTime(1971, 1, 1, theTimes[4].from.hour, theTimes[4].from.minute),
+        'availability.f_end': DateTime(1971 , 1, 1, theTimes[4].to.hour, theTimes[4].to.minute),
+        'availability.sa_begin': DateTime(1971, 1, 1, theTimes[5].from.hour, theTimes[5].from.minute),
+        'availability.sa_end': DateTime(1971 , 1, 1, theTimes[5].to.hour, theTimes[5].to.minute),
+        'availability.su_begin': DateTime(1971, 1, 1, theTimes[6].from.hour, theTimes[6].from.minute),
+        'availability.su_end': DateTime(1971 , 1, 1, theTimes[6].to.hour, theTimes[6].to.minute),
   });
 }
 
