@@ -109,9 +109,7 @@ GridView getWeeklyGridView(BuildContext context) {
 
   return GridView.count(
     primary: false,
-    padding: const EdgeInsets.all(10),
-    crossAxisSpacing: 10,
-    mainAxisSpacing: 10,
+    padding: EdgeInsets.all(10),
     crossAxisCount: 2,
     children: <Widget>[
       weekdayCard('Monday', Colors.teal[300]),
@@ -119,6 +117,8 @@ GridView getWeeklyGridView(BuildContext context) {
       weekdayCard('Wednesday', Colors.teal[500]),
       weekdayCard('Thursday', Colors.teal[600]),
       weekdayCard('Friday', Colors.teal[700]),
+      weekdayCard('Saturday', Colors.teal[800]),
+      weekdayCard('Sunday', Colors.teal[900]),
     ],
   );
 }
