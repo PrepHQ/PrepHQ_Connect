@@ -36,7 +36,7 @@ Future<List<QueryDocumentSnapshot>> getAllMentors() async {
   return mentors.docs;
 }
 
-/// Gets all profile information for a student.
+/// Gets all profile information for a user.
 Future<Map<String, dynamic>> getUserInfo(String userID) async {
   var answer;
   await FirebaseFirestore.instance
@@ -68,6 +68,7 @@ Future<void> updateStudentTests(String userID, List<StudentTests> theTests) asyn
   });
 }
 
+/// Updates mentor's hours of availability for appointments in the database.
 Future<void> updateMentorHours(String userID, List<TimeSlots> theTimes) async {
   await FirebaseFirestore.instance
       .collection('users')
@@ -90,7 +91,7 @@ Future<void> updateMentorHours(String userID, List<TimeSlots> theTimes) async {
   });
 }
 
-/// Gets user's profile image from the database.
+/// Gets user's profile image from the database and sets a global variable.
 Future<void> setUserImageURL(String userID) async {
   await FirebaseFirestore.instance
       .collection('users')

@@ -13,7 +13,7 @@ Color getAppointmentStatusColor(String time, List takenTimes) {
   return Color.fromRGBO(75, 209, 160, 1);
 }
 
-//Send in start of availability, end of availability, and appointment duration for an interable of appointment times
+//Send in start of availability, end of availability, and appointment duration for an iterable of appointment times
 //Credit for this function: https://stackoverflow.com/questions/60370798/how-to-create-30-minutes-time-slots-in-flutter-dart
 Iterable<TimeOfDay> getTimes(
     TimeOfDay startTime, TimeOfDay endTime, Duration step) sync* {
