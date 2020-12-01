@@ -1,8 +1,6 @@
-## Technical Details
+# Project Deliverables
 
-- **App development framework**: Flutter
-- **Chat API**: Stream
-- **Database**: Firebase
+These are the presentations, meeting logs, goal backlogs, and retrospectives from our three sprints.
 
 [Project Backlog](https://docs.google.com/spreadsheets/d/1S_bgtqc7lffrLCHmue2K9zEIeyWId2TO7rYAoazZ73k/edit?usp=sharing)
 
