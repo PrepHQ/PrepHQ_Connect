@@ -108,6 +108,7 @@ GridView getWeeklyGridView(BuildContext context) {
   }
 
   return GridView.count(
+    primary: false,
     padding: EdgeInsets.all(10),
     crossAxisCount: 2,
     children: <Widget>[
