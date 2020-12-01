@@ -69,7 +69,25 @@ Future<void> updateStudentTests(String userID, List<StudentTests> theTests) asyn
 }
 
 Future<void> updateMentorHours(String userID, List<TimeSlots> theTimes) async {
-  // TODO: add database call to update mentor availability
+  await FirebaseFirestore.instance
+      .collection('users')
+      .doc(userID)
+      .update({
+        'availability.m_begin': theTimes[0].from,
+        'availability.m_end': theTimes[0].to,
+        'availability.t_begin': theTimes[1].from,
+        'availability.t_end': theTimes[1].to,
+        'availability.w_begin': theTimes[2].from,
+        'availability.w_end': theTimes[2].to,
+        'availability.r_begin': theTimes[3].from,
+        'availability.r_end': theTimes[3].to,
+        'availability.f_begin': theTimes[4].from,
+        'availability.f_end': theTimes[4].to,
+        'availability.sa_begin': theTimes[5].from,
+        'availability.sa_end': theTimes[5].to,
+        'availability.su_begin': theTimes[6].from,
+        'availability.su_end': theTimes[6].to
+  });
 }
 
 /// Gets user's profile image from the database.
