@@ -27,4 +27,4 @@ PrepHQ Connect is a digital platform that connects college students to high scho
 
 - [Test Cases](https://prephq.github.io/PrepHQ_Connect/testing)
 - [Final Project Video](https://prephq.github.io/PrepHQ_Connect/video)
-- [App Technical Details](https://prephq.github.io/PrepHQ_Connect/deliverables)
+- [Project Deliverables](https://prephq.github.io/PrepHQ_Connect/deliverables)
