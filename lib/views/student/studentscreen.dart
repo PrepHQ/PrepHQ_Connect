@@ -50,15 +50,15 @@ class _StudentScreenState extends State<StudentScreen> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            title: Text("Home"),
+            label: 'Home',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.people),
-            title: Text("My Mentor"),
+            label: 'My Mentor',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.folder),
-            title: Text("Resources"),
+            label: 'Resources',
           ),
         ],
         currentIndex: _selectedIndex,
