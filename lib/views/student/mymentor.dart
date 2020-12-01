@@ -10,13 +10,14 @@ class MyMentorScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-          child: GridView.builder(
-            itemCount: mentorList.length,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-            itemBuilder: (BuildContext context, int index){
-              return new MentorProfileCard(mentorList[index].data());
-            },
-          )      ),
+        child: GridView.builder(
+          itemCount: mentorList.length,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+          itemBuilder: (BuildContext context, int index){
+            return new MentorProfileCard(mentorList[index].data());
+          },
+        )
+      ),
     );
   }
 }
@@ -68,7 +69,6 @@ class MentorProfileCard extends StatelessWidget {
                   ],
                 ),
               ),
-
             ],
           ),
         ),

@@ -1,10 +1,11 @@
 
+import 'package:flutter/material.dart';
 
 class TimeSlots {
-  String date; //Might want this to be day
-  String to;
-  String from;
+  String day;
+  TimeOfDay from;
+  TimeOfDay to;
   
 
-  TimeSlots(this.date,this.from, this.to);
+  TimeSlots(this.day,this.from, this.to);
 }

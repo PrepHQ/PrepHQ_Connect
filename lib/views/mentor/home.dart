@@ -4,7 +4,9 @@ import 'package:prephq_connect/common/colors.dart';
 import 'package:prephq_connect/common/text_styles.dart';
 import 'package:prephq_connect/models/meetings.dart';
 import 'package:prephq_connect/notifiers/mentor_meetings_notifier.dart';
+import 'package:prephq_connect/views/user/mentor_profile_view.dart';
 import 'package:provider/provider.dart';
+import 'package:prephq_connect/models/usermodels/user.dart' as theUser;
 
 class MentorHome extends StatefulWidget {
   MentorHome({Key key}) : super(key: key);
@@ -70,6 +72,27 @@ class _MentorHomeState extends State<MentorHome> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Align(
+            alignment: Alignment.topRight,
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+                child: SizedBox(
+                  width: 40,
+                  height: 40,
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(
+                          context, MentorProfileView.routeName);
+                    },
+                    child: CircleAvatar(
+                      radius: 30.0,
+                      backgroundColor: Colors.blueGrey,
+                      backgroundImage: NetworkImage(theUser.imageURL)
+                    )
+                  ),
+                ),
+            ),
+          ),
           Center(
             child: SizedBox(
               height: screenSize.height * 0.15,
