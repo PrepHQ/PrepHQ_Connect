@@ -10,12 +10,12 @@ PrepHQ Connect is a digital platform that connects college students to high scho
 
 ## The UA Senior Design Team
 
-|       Name       |           Email           |
-|:----------------:|:-------------------------:|
-|    Caleb Werth   |   cwerth@crimson.ua.edu   |
-| Steven Alexander |   stvnengineer@gmail.com  |
-|   Sarah Oswald   |   soswald@crimson.ua.edu  |
-|  Garrett Peppers | ggpeppers@gcrimson.ua.edu |
+|       Name       |           Email           |            Nickname        |
+|:----------------:|:-------------------------:|:--------------------------:|
+|    Caleb Werth   |   cwerth@crimson.ua.edu   |  The Git Guy |
+| Steven Alexander |   stvnengineer@gmail.com  | The Database Dabbler |
+|   Sarah Oswald   |   soswald@crimson.ua.edu  | The UI Unicorn |
+|  Garrett Peppers | ggpeppers@gcrimson.ua.edu | The Chat Chap |
 
 ## Site Links
 
