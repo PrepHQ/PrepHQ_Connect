@@ -136,7 +136,7 @@ class _LoginPageState extends State<LoginPage> {
         resetTextBoxes();
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => StudentScreen()),
+          MaterialPageRoute(builder: (context) => RegistrationForm()),
         );
       },
       splashColor: Colors.grey,

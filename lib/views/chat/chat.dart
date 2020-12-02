@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:stream_chat_flutter/stream_chat_flutter.dart';
 
-var client = Client('6k9d3ndm8wq2');
+var client = Client('x9cr83dnu8sm');
 
-Client setupUser() {
+void setupUser() async{
   var user = User(id: 'ggpepp');
   client.updateUser(user);
   client.setUser(user, client.devToken('ggpepp'));
-  var channel = client.channel("messaging", id:"test");
-  channel.create();
-  channel.watch();
-  return client;
+  var channel = client.channel("messaging", extraData: {
+    "members": ["ggpepp"]
+  });
+  await channel.create();
 }
 
 class ChannelListPage extends StatelessWidget {
+  final client = setupUser();
   @override
   Widget build(BuildContext context) {
     return Scaffold(

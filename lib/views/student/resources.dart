@@ -7,7 +7,7 @@ class StudResourcesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       builder: (context, child) {
-        return StreamChat(child: child, client: setupUser());
+        return StreamChat(child: child, client: client);
       },
       home: ChannelListPage(),
     );
