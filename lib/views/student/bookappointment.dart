@@ -2,18 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:prephq_connect/models/usermodels/timeslots.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
-/*FIXME: This is a global variable to represent a list of already taken times.
-  Also add today's past appointments to alreadyTakenTimes
- */
 List<DateTime> alreadyTakenTimes = [];
 Map<String, dynamic> mentorAvail = {};
 
-//Very simple, checks to see if "time" is in "takenTimes", and gives you a red or green color back
-Color getAppointmentStatusColor(String time, List<DateTime> takenTimes) {
-  if (takenTimes.contains(time)) {  // FIXME change this
-    return Colors.redAccent;
-  }
-  return Color.fromRGBO(75, 209, 160, 1);
+/// Takes DateTime of an appointment slot and returns if it is already reserved.
+bool isAppointmentAvailable(DateTime apptTime) {
+  bool available = true;
+  alreadyTakenTimes.forEach((element) {
+    if (element.isBefore(DateTime.now()) || element.isAtSameMomentAs(apptTime))
+      available = false;
+  });
+  return available;
 }
 
 //Send in start of availability, end of availability, and appointment duration for an iterable of appointment times
@@ -55,12 +54,14 @@ ListView getDailyAppointmentListView(BuildContext context, DateTime thatDate) {
   return ListView.builder(
     itemCount: times.length,
     itemBuilder: (context, index) {
+      Color status = Colors.redAccent;
+      bool isAvail = isAppointmentAvailable(times[index]);
+      if (isAvail) {status = Color.fromRGBO(75, 209, 160, 1);}
       return Card(
         child: InkWell(
           splashColor: Color.fromRGBO(75, 209, 160, 1).withAlpha(30),
           onTap: () {
-            // FIXME change check to the CircleAvatar's background color?
-            if(!alreadyTakenTimes.contains(times[index])) { // TODO if DateTime found in alreadyTakenTimes
+            if(isAvail) {
               Alert(
                 context: context,
                 type: AlertType.success,
@@ -118,8 +119,7 @@ ListView getDailyAppointmentListView(BuildContext context, DateTime thatDate) {
           },
           child: ListTile(
             leading: CircleAvatar(
-              // backgroundColor:
-              //     getAppointmentStatusColor(times[index], alreadyTakenTimes), // TODO change times[index]
+              backgroundColor: status,
               maxRadius: 20,
             ),
             title: Text(
