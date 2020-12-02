@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:prephq_connect/models/usermodels/timeslots.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 /*FIXME: This is a global variable to represent a list of already taken times.
   Also add today's past appointments to alreadyTakenTimes
  */
 List<DateTime> alreadyTakenTimes = [];
+Map<String, dynamic> mentorAvail = {};
 
 //Very simple, checks to see if "time" is in "takenTimes", and gives you a red or green color back
 Color getAppointmentStatusColor(String time, List<DateTime> takenTimes) {
-  if (takenTimes.contains(time)) {  // TODO change this
+  if (takenTimes.contains(time)) {  // FIXME change this
     return Colors.redAccent;
   }
   return Color.fromRGBO(75, 209, 160, 1);
@@ -22,27 +24,34 @@ Iterable<DateTime> getTimes(
   var hour = startTime.hour;
   var minute = startTime.minute;
 
-  do {
+  while ((hour < endTime.hour ||
+      (hour == endTime.hour && minute < endTime.minute))){
     yield DateTime(theDay.year, theDay.month, theDay.day, hour, minute);
     minute += step.inMinutes;
     while (minute >= 60) {
       minute -= 60;
       hour++;
     }
-  } while (hour < endTime.hour ||
-      (hour == endTime.hour && minute <= endTime.minute));
+  }
 }
 
-ListView getDailyAppointmentListView(BuildContext context, DateTime currentTime) {
+ListView getDailyAppointmentListView(BuildContext context, DateTime thatDate) {
+  List<TimeSlots> availability = makeApptAvailList(mentorAvail);
 
-  //Hardcoded example start/end/duration values
-  startTime = TimeOfDay(hour: 9, minute: 0); // TODO DateTime
-  final endTime = TimeOfDay(hour: 19, minute: 0); // TODO DateTime
+  /* availability is 0-based-index list in-order starting with Monday.
+  * thatDate.weekday gives day of the week as int in-order from Monday but
+  * starts at 1   */
+  DateTime startTime = DateTime(thatDate.year, thatDate.month, thatDate.day,
+      availability[(thatDate.weekday - 1)].from.hour,
+      availability[(thatDate.weekday - 1)].from.minute);
+  DateTime endTime = DateTime(thatDate.year, thatDate.month, thatDate.day,
+      availability[(thatDate.weekday - 1)].to.hour,
+      availability[(thatDate.weekday - 1)].to.minute);
   final step = Duration(minutes: 30);
 
-  //Boilerplate code to convert to a list of strings
-  final times = getTimes(startTime, endTime, theDay, step).toList();
+  final times = getTimes(startTime, endTime, thatDate, step).toList();
 
+  // FIXME if/else to return a ListView with single card if mentor is not available that day
   return ListView.builder(
     itemCount: times.length,
     itemBuilder: (context, index) {
@@ -50,6 +59,7 @@ ListView getDailyAppointmentListView(BuildContext context, DateTime currentTime)
         child: InkWell(
           splashColor: Color.fromRGBO(75, 209, 160, 1).withAlpha(30),
           onTap: () {
+            // FIXME change check to the CircleAvatar's background color?
             if(!alreadyTakenTimes.contains(times[index])) { // TODO if DateTime found in alreadyTakenTimes
               Alert(
                 context: context,
@@ -74,7 +84,10 @@ ListView getDailyAppointmentListView(BuildContext context, DateTime currentTime)
                       "Confirm",
                       style: TextStyle(color: Colors.white, fontSize: 20),
                     ),
-                    onPressed: () => /*TODO save appt to database*/ Navigator.pop(context),
+                    onPressed: () {
+                        //TODO save appt to database*/
+                        Navigator.pop(context);
+                    },
                     width: 120,
                   ),
                 ],
@@ -135,8 +148,8 @@ ListView getDailyAppointmentListView(BuildContext context, DateTime currentTime)
 GridView getWeeklyGridView(BuildContext context) {
 
 
-  Card weekdayCard(DateTime date, Color color) {
-    String weekday = getWeekday(date.weekday);
+  Card weekdayCard(DateTime thatDate, Color color) {
+    String weekday = getWeekday(thatDate.weekday);
     return Card(
       color: color,
       child: InkWell(
@@ -144,7 +157,7 @@ GridView getWeeklyGridView(BuildContext context) {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => DailyAppointmentViewPage(date)),
+            MaterialPageRoute(builder: (context) => DailyAppointmentViewPage(thatDate)),
           );
         },
         child: Container(
@@ -164,7 +177,9 @@ GridView getWeeklyGridView(BuildContext context) {
                   ),
                 ),
                 Text(
-                  getMonth(date.month) + " " + date.day.toString() + ", " + date.year.toString(),
+                    getMonth(thatDate.month) + " " +
+                    thatDate.day.toString() + ", " +
+                    thatDate.year.toString(),
                   style: TextStyle(
                     fontFamily: 'Montserrat',
                     fontSize: 15.0,
@@ -196,8 +211,8 @@ GridView getWeeklyGridView(BuildContext context) {
 }
 
 class DailyAppointmentViewPage extends StatefulWidget {
-  DailyAppointmentViewPage(this.date);
-  final DateTime date;
+  DailyAppointmentViewPage(this.thatDate);
+  final DateTime thatDate;
 
   @override
   _DailyAppointmentViewPageState createState() =>
@@ -210,7 +225,7 @@ class _DailyAppointmentViewPageState extends State<DailyAppointmentViewPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: SafeArea(child: getDailyAppointmentListView(context, widget.date)),
+      body: SafeArea(child: getDailyAppointmentListView(context, widget.thatDate)),
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:prephq_connect/common/databasecalls.dart';
+import 'package:prephq_connect/models/usermodels/timeslots.dart';
 import 'bookappointment.dart';
 
 class MyMentorScreen extends StatelessWidget {
@@ -34,6 +35,8 @@ class MentorProfileCard extends StatelessWidget {
       child: InkWell(
         splashColor: Color.fromRGBO(75, 209, 160, 1).withAlpha(30),
         onTap: () async {
+          mentorID = qDoc.id;
+          mentorAvail = docMap['availability'];
           alreadyTakenTimes = await getMentorAppts(qDoc.id);
           Navigator.push(
             context,
