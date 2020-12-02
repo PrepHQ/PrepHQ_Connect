@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 /*FIXME: This is a global variable to represent a list of already taken times.
   Will want to replace with database call
@@ -48,7 +49,60 @@ ListView getDailyAppointmentListView(BuildContext context) {
       return Card(
         child: InkWell(
           splashColor: Color.fromRGBO(75, 209, 160, 1).withAlpha(30),
-          onTap: () => print('You clicked ${times[index]}'),
+          onTap: () {
+            if(!alreadyTakenTimes.contains(times[index])) {
+              Alert(
+                context: context,
+                type: AlertType.success,
+                style: AlertStyle(
+                    animationType: AnimationType.grow,
+                ),
+                title: 'Confirm this appointment:',
+                desc: '9:30 AM, November 17th, 2020',
+                buttons: [
+                  DialogButton(
+                    child: Text(
+                      "Cancel",
+                      style: TextStyle(color: Colors.white, fontSize: 20),
+                    ),
+                    onPressed: () => Navigator.pop(context),
+                    width: 120,
+                    color: Colors.red,
+                  ),
+                  DialogButton(
+                    child: Text(
+                      "Confirm",
+                      style: TextStyle(color: Colors.white, fontSize: 20),
+                    ),
+                    onPressed: () => Navigator.pop(context),
+                    width: 120,
+                  ),
+                ],
+              ).show();
+            }
+            else {
+              Alert(
+                context: context,
+                type: AlertType.error,
+                style: AlertStyle(
+                    animationType: AnimationType.grow,
+                ),
+                title: 'This appointment is taken.',
+                desc: 'Sorry!',
+                buttons: [
+                  DialogButton(
+                    child: Text(
+                      "Okay",
+                      style: TextStyle(color: Colors.white, fontSize: 20),
+                    ),
+                    onPressed: () => Navigator.pop(context),
+                    width: 120,
+                    color: Colors.red,
+                  ),
+                ],
+              ).show();
+            }
+          },
           child: ListTile(
             leading: CircleAvatar(
               backgroundColor:
@@ -125,7 +179,8 @@ GridView getWeeklyGridView(BuildContext context) {
 
 class DailyAppointmentViewPage extends StatefulWidget {
   @override
-  _DailyAppointmentViewPageState createState() => _DailyAppointmentViewPageState();
+  _DailyAppointmentViewPageState createState() =>
+      _DailyAppointmentViewPageState();
 }
 
 class _DailyAppointmentViewPageState extends State<DailyAppointmentViewPage> {
