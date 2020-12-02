@@ -132,7 +132,20 @@ ListView getDailyAppointmentListView(BuildContext context) {
 }
 
 GridView getWeeklyGridView(BuildContext context) {
-  Card weekdayCard(text, color) {
+
+
+  Card weekdayCard(DateTime day, Color color) {
+    int wd = day.weekday;
+    String weekday;
+    switch(wd){
+      case 1: {weekday = 'Monday';} break;
+      case 2: {weekday = 'Tuesday';} break;
+      case 3: {weekday = 'Wednesday';} break;
+      case 4: {weekday = 'Thursday';} break;
+      case 5: {weekday = 'Friday';} break;
+      case 6: {weekday = 'Saturday';} break;
+      case 7: {weekday = 'Sunday';} break;
+    }
     return Card(
       color: color,
       child: InkWell(
@@ -146,14 +159,14 @@ GridView getWeeklyGridView(BuildContext context) {
         child: Container(
           padding: const EdgeInsets.all(8),
           child: Center(
-              child: Text(
-            text,
-            style: TextStyle(
-              fontFamily: 'Montserrat',
-              fontWeight: FontWeight.bold,
-              fontSize: 25.0,
-              color: Colors.white,
-            ),
+            child: Text(
+              weekday, // currently is day of the week
+              style: TextStyle(
+                fontFamily: 'Montserrat',
+                fontWeight: FontWeight.bold,
+                fontSize: 25.0,
+                color: Colors.white,
+              ),
           )),
         ),
       ),
@@ -165,13 +178,13 @@ GridView getWeeklyGridView(BuildContext context) {
     padding: EdgeInsets.all(10),
     crossAxisCount: 2,
     children: <Widget>[
-      weekdayCard('Monday', Colors.teal[300]),
-      weekdayCard('Tuesday', Colors.teal[400]),
-      weekdayCard('Wednesday', Colors.teal[500]),
-      weekdayCard('Thursday', Colors.teal[600]),
-      weekdayCard('Friday', Colors.teal[700]),
-      weekdayCard('Saturday', Colors.teal[800]),
-      weekdayCard('Sunday', Colors.teal[900]),
+      weekdayCard(DateTime.now(), Colors.teal[300]),
+      weekdayCard(DateTime.now().add(new Duration(days: 1)), Colors.teal[400]),
+      weekdayCard(DateTime.now().add(new Duration(days: 2)), Colors.teal[500]),
+      weekdayCard(DateTime.now().add(new Duration(days: 3)), Colors.teal[600]),
+      weekdayCard(DateTime.now().add(new Duration(days: 4)), Colors.teal[700]),
+      weekdayCard(DateTime.now().add(new Duration(days: 5)), Colors.teal[800]),
+      weekdayCard(DateTime.now().add(new Duration(days: 6)), Colors.teal[900]),
     ],
   );
 }
