@@ -68,7 +68,7 @@ ListView getDailyAppointmentListView(BuildContext context, DateTime thatDate) {
                     animationType: AnimationType.grow,
                 ),
                 title: 'Confirm this appointment:',
-                desc: '9:30 AM, November 17th, 2020', // TODO format from DateTime
+                desc: getTime(times[index]) + ", " + getDate(times[index]),
                 buttons: [
                   DialogButton(
                     child: Text(
@@ -85,7 +85,7 @@ ListView getDailyAppointmentListView(BuildContext context, DateTime thatDate) {
                       style: TextStyle(color: Colors.white, fontSize: 20),
                     ),
                     onPressed: () {
-                        //TODO save appt to database*/
+                        //TODO save appt to database and redo alreadyTakenTimes
                         Navigator.pop(context);
                     },
                     width: 120,
@@ -123,7 +123,7 @@ ListView getDailyAppointmentListView(BuildContext context, DateTime thatDate) {
               maxRadius: 20,
             ),
             title: Text(
-              'November 17th, 2020',
+              getDate(times[index]),
               style: TextStyle(
                 fontFamily: 'Montserrat',
                 fontWeight: FontWeight.bold,
@@ -131,7 +131,7 @@ ListView getDailyAppointmentListView(BuildContext context, DateTime thatDate) {
               ),
             ),
             trailing: Text(
-              '${times[index]}',
+              getTime(times[index]),
               style: TextStyle(
                 fontFamily: 'Montserrat',
                 fontWeight: FontWeight.bold,
@@ -274,4 +274,30 @@ String getMonth(int value){
     case 12: {return 'December';}
     default: {return 'ERROR';}
   }
+}
+
+/// Returns time in format of [2:30 PM]
+String getTime(DateTime date){
+  int hour = date.hour;
+  int minute = date.minute;
+  String sMinute = "";
+  String suffix = "AM";
+
+  if (hour >= 12){
+    suffix = "PM";
+    if (hour > 12) {hour -= 12;}
+  }else if (hour == 0){hour += 12;}
+
+  if (minute >= 10) {sMinute = minute.toString();}
+  else{sMinute = "0" + minute.toString();}
+
+  return hour.toString() + ":" + sMinute + " " + suffix;
+}
+
+/// Returns date in format of [November 23, 1997]
+String getDate(DateTime date){
+  return
+      getMonth(date.month) + " " +
+      date.day.toString() + ", " +
+      date.year.toString();
 }
