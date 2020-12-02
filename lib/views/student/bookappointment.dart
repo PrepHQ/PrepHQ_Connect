@@ -2,27 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 /*FIXME: This is a global variable to represent a list of already taken times.
-  Will want to replace with database call
+  Also add today's past appointments to alreadyTakenTimes
  */
-List<String> alreadyTakenTimes = ['10:00 AM', '1:00 PM'];
+List<DateTime> alreadyTakenTimes = [];
 
 //Very simple, checks to see if "time" is in "takenTimes", and gives you a red or green color back
-Color getAppointmentStatusColor(String time, List takenTimes) {
-  if (takenTimes.contains(time)) {
+Color getAppointmentStatusColor(String time, List<DateTime> takenTimes) {
+  if (takenTimes.contains(time)) {  // TODO change this
     return Colors.redAccent;
   }
   return Color.fromRGBO(75, 209, 160, 1);
 }
 
 //Send in start of availability, end of availability, and appointment duration for an iterable of appointment times
+//MODIFIED FROM CREDITED FUNCTION
 //Credit for this function: https://stackoverflow.com/questions/60370798/how-to-create-30-minutes-time-slots-in-flutter-dart
-Iterable<TimeOfDay> getTimes(
-    TimeOfDay startTime, TimeOfDay endTime, Duration step) sync* {
+Iterable<DateTime> getTimes(
+    DateTime startTime, DateTime endTime, DateTime theDay, Duration step) sync* {
   var hour = startTime.hour;
   var minute = startTime.minute;
 
   do {
-    yield TimeOfDay(hour: hour, minute: minute);
+    yield DateTime(theDay.year, theDay.month, theDay.day, hour, minute);
     minute += step.inMinutes;
     while (minute >= 60) {
       minute -= 60;
@@ -34,14 +35,12 @@ Iterable<TimeOfDay> getTimes(
 
 ListView getDailyAppointmentListView(BuildContext context) {
   //Hardcoded example start/end/duration values
-  final startTime = TimeOfDay(hour: 9, minute: 0);
-  final endTime = TimeOfDay(hour: 19, minute: 0);
+  startTime = TimeOfDay(hour: 9, minute: 0); // TODO DateTime
+  final endTime = TimeOfDay(hour: 19, minute: 0); // TODO DateTime
   final step = Duration(minutes: 30);
 
   //Boilerplate code to convert to a list of strings
-  final times = getTimes(startTime, endTime, step)
-      .map((tod) => tod.format(context))
-      .toList();
+  final times = getTimes(startTime, endTime, theDay, step).toList();
 
   return ListView.builder(
     itemCount: times.length,
@@ -50,7 +49,7 @@ ListView getDailyAppointmentListView(BuildContext context) {
         child: InkWell(
           splashColor: Color.fromRGBO(75, 209, 160, 1).withAlpha(30),
           onTap: () {
-            if(!alreadyTakenTimes.contains(times[index])) {
+            if(!alreadyTakenTimes.contains(times[index])) { // TODO if DateTime found in alreadyTakenTimes
               Alert(
                 context: context,
                 type: AlertType.success,
@@ -58,7 +57,7 @@ ListView getDailyAppointmentListView(BuildContext context) {
                     animationType: AnimationType.grow,
                 ),
                 title: 'Confirm this appointment:',
-                desc: '9:30 AM, November 17th, 2020',
+                desc: '9:30 AM, November 17th, 2020', // TODO format from DateTime
                 buttons: [
                   DialogButton(
                     child: Text(
@@ -74,7 +73,7 @@ ListView getDailyAppointmentListView(BuildContext context) {
                       "Confirm",
                       style: TextStyle(color: Colors.white, fontSize: 20),
                     ),
-                    onPressed: () => Navigator.pop(context),
+                    onPressed: () => /*TODO save appt to database*/ Navigator.pop(context),
                     width: 120,
                   ),
                 ],
@@ -106,7 +105,7 @@ ListView getDailyAppointmentListView(BuildContext context) {
           child: ListTile(
             leading: CircleAvatar(
               backgroundColor:
-                  getAppointmentStatusColor(times[index], alreadyTakenTimes),
+                  getAppointmentStatusColor(times[index], alreadyTakenTimes), // TODO change times[index]
               maxRadius: 20,
             ),
             title: Text(

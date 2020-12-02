@@ -44,7 +44,7 @@ Future<Map<String, dynamic>> getUserInfo(String userID) async {
       .doc(userID)
       .get()
       .then((DocumentSnapshot dSnap) {
-    answer = dSnap.data();
+        answer = dSnap.data();
   });
   return answer;
 }
@@ -103,4 +103,24 @@ Future<void> setUserImageURL(String userID) async {
       theUser.imageURL = tempData['profile_image_url'];
     }
   });
+}
+
+/// Gets mentor's scheduled appointments for today plus next 6 days.
+Future<List<DateTime>> getMentorAppts(String userID) async {
+  DateTime now = new DateTime.now();
+  DateTime today = DateTime(now.year, now.month, now.day);
+  DateTime deadline = today.add(new Duration(days: 7));
+  List<DateTime> appointments = [];
+  await FirebaseFirestore.instance
+      .collection('appointments')
+      .where('mentor', isEqualTo: userID)
+      .where('time', isLessThan: deadline)
+      .orderBy('time', descending: false)
+      .get()
+      .then((QuerySnapshot qSnap) {
+        qSnap.docs.forEach((appt) {
+          appointments.add(appt['time'].toDate());
+        });
+  });
+  return appointments;
 }
