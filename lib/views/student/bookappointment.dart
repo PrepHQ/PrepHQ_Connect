@@ -33,7 +33,8 @@ Iterable<DateTime> getTimes(
       (hour == endTime.hour && minute <= endTime.minute));
 }
 
-ListView getDailyAppointmentListView(BuildContext context) {
+ListView getDailyAppointmentListView(BuildContext context, DateTime currentTime) {
+
   //Hardcoded example start/end/duration values
   startTime = TimeOfDay(hour: 9, minute: 0); // TODO DateTime
   final endTime = TimeOfDay(hour: 19, minute: 0); // TODO DateTime
@@ -104,8 +105,8 @@ ListView getDailyAppointmentListView(BuildContext context) {
           },
           child: ListTile(
             leading: CircleAvatar(
-              backgroundColor:
-                  getAppointmentStatusColor(times[index], alreadyTakenTimes), // TODO change times[index]
+              // backgroundColor:
+              //     getAppointmentStatusColor(times[index], alreadyTakenTimes), // TODO change times[index]
               maxRadius: 20,
             ),
             title: Text(
@@ -134,18 +135,8 @@ ListView getDailyAppointmentListView(BuildContext context) {
 GridView getWeeklyGridView(BuildContext context) {
 
 
-  Card weekdayCard(DateTime day, Color color) {
-    int wd = day.weekday;
-    String weekday;
-    switch(wd){
-      case 1: {weekday = 'Monday';} break;
-      case 2: {weekday = 'Tuesday';} break;
-      case 3: {weekday = 'Wednesday';} break;
-      case 4: {weekday = 'Thursday';} break;
-      case 5: {weekday = 'Friday';} break;
-      case 6: {weekday = 'Saturday';} break;
-      case 7: {weekday = 'Sunday';} break;
-    }
+  Card weekdayCard(DateTime date, Color color) {
+    String weekday = getWeekday(date.weekday);
     return Card(
       color: color,
       child: InkWell(
@@ -153,21 +144,36 @@ GridView getWeeklyGridView(BuildContext context) {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => DailyAppointmentViewPage()),
+            MaterialPageRoute(builder: (context) => DailyAppointmentViewPage(date)),
           );
         },
         child: Container(
           padding: const EdgeInsets.all(8),
           child: Center(
-            child: Text(
-              weekday, // currently is day of the week
-              style: TextStyle(
-                fontFamily: 'Montserrat',
-                fontWeight: FontWeight.bold,
-                fontSize: 25.0,
-                color: Colors.white,
-              ),
-          )),
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                SizedBox(height: 15.0),
+                Text(
+                  weekday,
+                  style: TextStyle(
+                    fontFamily: 'Montserrat',
+                    fontWeight: FontWeight.bold,
+                    fontSize: 25.0,
+                    color: Colors.white,
+                  ),
+                ),
+                Text(
+                  getMonth(date.month) + " " + date.day.toString() + ", " + date.year.toString(),
+                  style: TextStyle(
+                    fontFamily: 'Montserrat',
+                    fontSize: 15.0,
+                    color: Colors.white,
+                  ),
+                ),
+              ]
+            ),
+          )
         ),
       ),
     );
@@ -190,17 +196,21 @@ GridView getWeeklyGridView(BuildContext context) {
 }
 
 class DailyAppointmentViewPage extends StatefulWidget {
+  DailyAppointmentViewPage(this.date);
+  final DateTime date;
+
   @override
   _DailyAppointmentViewPageState createState() =>
       _DailyAppointmentViewPageState();
 }
 
 class _DailyAppointmentViewPageState extends State<DailyAppointmentViewPage> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: SafeArea(child: getDailyAppointmentListView(context)),
+      body: SafeArea(child: getDailyAppointmentListView(context, widget.date)),
     );
   }
 }
@@ -217,5 +227,36 @@ class _WeeklyGridPageState extends State<WeeklyGridPage> {
       appBar: AppBar(),
       body: SafeArea(child: getWeeklyGridView(context)),
     );
+  }
+}
+
+String getWeekday(int value){
+  switch(value){
+    case 1: {return 'Monday';}
+    case 2: {return 'Tuesday';}
+    case 3: {return 'Wednesday';}
+    case 4: {return 'Thursday';}
+    case 5: {return 'Friday';}
+    case 6: {return 'Saturday';}
+    case 7: {return 'Sunday';}
+    default: {return 'ERROR';}
+  }
+}
+
+String getMonth(int value){
+  switch(value){
+    case 1: {return 'January';}
+    case 2: {return 'February';}
+    case 3: {return 'March';}
+    case 4: {return 'April';}
+    case 5: {return 'May';}
+    case 6: {return 'June';}
+    case 7: {return 'July';}
+    case 8: {return 'August';}
+    case 9: {return 'September';}
+    case 10: {return 'October';}
+    case 11: {return 'November';}
+    case 12: {return 'December';}
+    default: {return 'ERROR';}
   }
 }
