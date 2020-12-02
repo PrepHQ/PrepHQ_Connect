@@ -8,6 +8,7 @@ import 'package:prephq_connect/widgets/common/users_common.dart';
 import 'package:prephq_connect/widgets/timeselecting_tf.dart';
 import 'package:prephq_connect/widgets/username_edit_tf.dart';
 import 'package:provider/provider.dart';
+import 'package:prephq_connect/models/usermodels/user.dart' as theUser;
 
 class MentorProfileView extends StatefulWidget {
   static final routeName = '/mentorProfile';
@@ -88,7 +89,7 @@ class _UserProfileState extends State<MentorProfileView> {
                     padding: !editMode
                         ? EdgeInsets.zero
                         : const EdgeInsets.only(top: 10),
-                    child: Text('Gray@CS.UA.EDU',
+                    child: Text(theUser.email,
                         style: CustomTextStyles.disbleTS),
                   ),
                   Padding(
@@ -102,7 +103,7 @@ class _UserProfileState extends State<MentorProfileView> {
                   ListView.builder(
                     shrinkWrap: true,
                     primary: false,
-                    itemCount: usertNotifier.dates.length,
+                    itemCount: usertNotifier.days.length,
                     padding: EdgeInsets.all(20.0),
                     itemBuilder: (context, index) {
                       return Container(
@@ -115,10 +116,10 @@ class _UserProfileState extends State<MentorProfileView> {
                           children: [
                             SizedBox(width: 10),
                             Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Text(
-                                  usertNotifier.dates[index].date,
+                                  usertNotifier.days[index].day,
                                   style: CustomTextStyles.subTitleTS,
                                 ),
                                 Row(
@@ -131,7 +132,10 @@ class _UserProfileState extends State<MentorProfileView> {
                                         width: 50,
                                         child: TimeSelectingTf(
                                           isFromTimeSlot: true,
-                                          text:'${usertNotifier.dates[index].from}',
+                                          text:
+                                          usertNotifier.days[index].from.hour.toString().padLeft(2, '0')
+                                              + ':' +
+                                              usertNotifier.days[index].from.minute.toString().padLeft(2, '0'),
                                           index: index,
                                           isEditMode: usertNotifier.isEditMode,
                                         )),
@@ -139,7 +143,10 @@ class _UserProfileState extends State<MentorProfileView> {
                                     SizedBox(
                                         width: 50,
                                         child: TimeSelectingTf(
-                                          text:'${usertNotifier.dates[index].to}',
+                                          text:
+                                              usertNotifier.days[index].to.hour.toString().padLeft(2, '0')
+                                              + ':' +
+                                              usertNotifier.days[index].to.minute.toString().padLeft(2, '0'),
                                           index: index,
                                           isEditMode: usertNotifier.isEditMode,
                                         )),

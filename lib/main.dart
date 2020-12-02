@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart' hide Router;
 import 'package:prephq_connect/common/colors.dart';
+import 'package:prephq_connect/notifiers/mentor_meetings_notifier.dart';
 import 'package:prephq_connect/notifiers/mentor_notifier.dart';
 import 'package:prephq_connect/notifiers/student_notifier.dart';
 import 'package:prephq_connect/views/chat/chat.dart';
@@ -10,6 +11,10 @@ import 'views/auth/login.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
+  setupUser();
+import 'views/mentor/home.dart';
+
+void main () async {
   setupUser();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -27,6 +32,8 @@ class MyApp extends StatelessWidget {
               create: (context) => StudentNotifier()),
           ChangeNotifierProvider<MentorNotifier>(
               create: (context) => MentorNotifier()),
+          ChangeNotifierProvider<MentorMeetingNotifier>(
+              create: (context) => MentorMeetingNotifier()),    
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,

@@ -1,10 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:prephq_connect/common/databasecalls.dart';
 import 'package:prephq_connect/views/mentor/mentorscreen.dart';
 import 'package:prephq_connect/views/student/home.dart';
 import 'package:prephq_connect/views/student/studentscreen.dart';
-
-import '../../common/databasecalls.dart';
+import 'package:prephq_connect/models/usermodels/user.dart' as theUser;
 import '../../registrationscreen.dart';
 
 class LoginPage extends StatefulWidget {
@@ -106,15 +106,18 @@ class _LoginPageState extends State<LoginPage> {
             }
             // Password is correct
             if (userCred != null) {
-              String userType = await getUserType(userCred.user.uid);
+              theUser.id = userCred.user.uid;
+              theUser.email = _emailTextController.text;
+              String userType = await getUserType(theUser.id);
+              await setUserImageURL(theUser.id);
               resetTextBoxes();
               if (userType == 'student') {
-                Navigator.push(
+                Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (context) => StudentScreen()),
                 );
               } else if (userType == 'mentor') {
-                Navigator.push(
+                Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (context) => MentorScreen()),
                 );
