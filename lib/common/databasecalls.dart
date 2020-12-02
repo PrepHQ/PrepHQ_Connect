@@ -19,12 +19,13 @@ Future<String> getUserType(String userID) async {
 
 /// Registers a new user on the Firestore database.
 Future<void> registerNewUserStudent(String _id, String _fName, String _lName) async {
-  await FirebaseFirestore.instance.collection('users')
+  await FirebaseFirestore.instance
+      .collection('users')
       .doc(_id)
       .set({
-    'user_type': 'student',
-    'first_name': _fName,
-    'last_name': _lName});
+        'user_type': 'student',
+        'first_name': _fName,
+        'last_name': _lName});
 }
 
 /// Gets all mentors from the database.
@@ -123,4 +124,15 @@ Future<List<DateTime>> getMentorAppts(String userID) async {
         });
   });
   return appointments;
+}
+
+/// Saves appointment reservation to the database.
+Future<void> reserveAppointment(String studentID, String mentorID, DateTime appt) async {
+  await FirebaseFirestore.instance
+      .collection('appointments')
+      .doc()
+      .set({
+        'student': studentID,
+        'mentor': mentorID,
+        'time': appt});
 }

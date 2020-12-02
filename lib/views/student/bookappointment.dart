@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:prephq_connect/common/databasecalls.dart';
 import 'package:prephq_connect/models/usermodels/timeslots.dart';
+import 'package:prephq_connect/models/usermodels/user.dart' as theUser;
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 List<DateTime> alreadyTakenTimes = [];
@@ -50,99 +52,122 @@ ListView getDailyAppointmentListView(BuildContext context, DateTime thatDate) {
 
   final times = getTimes(startTime, endTime, thatDate, step).toList();
 
-  // FIXME if/else to return a ListView with single card if mentor is not available that day
-  return ListView.builder(
-    itemCount: times.length,
-    itemBuilder: (context, index) {
-      Color status = Colors.redAccent;
-      bool isAvail = isAppointmentAvailable(times[index]);
-      if (isAvail) {status = Color.fromRGBO(75, 209, 160, 1);}
-      return Card(
-        child: InkWell(
-          splashColor: Color.fromRGBO(75, 209, 160, 1).withAlpha(30),
-          onTap: () {
-            if(isAvail) {
-              Alert(
-                context: context,
-                type: AlertType.success,
-                style: AlertStyle(
-                    animationType: AnimationType.grow,
-                ),
-                title: 'Confirm this appointment:',
-                desc: getTime(times[index]) + ", " + getDate(times[index]),
-                buttons: [
-                  DialogButton(
-                    child: Text(
-                      "Cancel",
-                      style: TextStyle(color: Colors.white, fontSize: 20),
-                    ),
-                    onPressed: () => Navigator.pop(context),
-                    width: 120,
-                    color: Colors.red,
-                  ),
-                  DialogButton(
-                    child: Text(
-                      "Confirm",
-                      style: TextStyle(color: Colors.white, fontSize: 20),
-                    ),
-                    onPressed: () {
-                        //TODO save appt to database and redo alreadyTakenTimes
-                        Navigator.pop(context);
-                    },
-                    width: 120,
-                  ),
-                ],
-              ).show();
-            }
-            else {
-              Alert(
-                context: context,
-                type: AlertType.error,
-                style: AlertStyle(
-                    animationType: AnimationType.grow,
-                ),
-                title: 'This appointment is taken.',
-                desc: 'Sorry!',
-                buttons: [
-                  DialogButton(
-                    child: Text(
-                      "Okay",
-                      style: TextStyle(color: Colors.white, fontSize: 20),
-                    ),
-                    onPressed: () => Navigator.pop(context),
-                    width: 120,
-                    color: Colors.red,
-                  ),
-                ],
-              ).show();
-            }
-          },
+  if (times.length == 0){
+    return ListView.builder(
+      itemCount: 1,
+      itemBuilder: (context, index){
+        return Card(
           child: ListTile(
-            leading: CircleAvatar(
-              backgroundColor: status,
-              maxRadius: 20,
-            ),
             title: Text(
-              getDate(times[index]),
+              "No appointments available.",
               style: TextStyle(
                 fontFamily: 'Montserrat',
                 fontWeight: FontWeight.bold,
                 fontSize: 17.0,
               ),
             ),
-            trailing: Text(
-              getTime(times[index]),
-              style: TextStyle(
-                fontFamily: 'Montserrat',
-                fontWeight: FontWeight.bold,
-                fontSize: 17.0,
+          )
+        );
+      }
+    );
+  }
+  else {
+    return ListView.builder(
+      itemCount: times.length,
+      itemBuilder: (context, index) {
+        Color status = Colors.redAccent;
+        bool isAvail = isAppointmentAvailable(times[index]);
+        if (isAvail) {
+          status = Color.fromRGBO(75, 209, 160, 1);
+        }
+        return Card(
+          child: InkWell(
+            splashColor: Color.fromRGBO(75, 209, 160, 1).withAlpha(30),
+            onTap: () {
+              if (isAvail) {
+                Alert(
+                  context: context,
+                  type: AlertType.success,
+                  style: AlertStyle(
+                    animationType: AnimationType.grow,
+                  ),
+                  title: 'Confirm this appointment:',
+                  desc: getTime(times[index]) + ", " + getDate(times[index]),
+                  buttons: [
+                    DialogButton(
+                      child: Text(
+                        "Cancel",
+                        style: TextStyle(color: Colors.white, fontSize: 20),
+                      ),
+                      onPressed: () => Navigator.pop(context),
+                      width: 120,
+                      color: Colors.red,
+                    ),
+                    DialogButton(
+                      child: Text(
+                        "Confirm",
+                        style: TextStyle(color: Colors.white, fontSize: 20),
+                      ),
+                      onPressed: () async {
+                        await reserveAppointment(theUser.id, mentorID, times[index]);
+                        alreadyTakenTimes.add(times[index]);
+                        Navigator.pop(context);
+                      },
+                      width: 120,
+                    ),
+                  ],
+                ).show();
+              }
+              else {
+                Alert(
+                  context: context,
+                  type: AlertType.error,
+                  style: AlertStyle(
+                    animationType: AnimationType.grow,
+                  ),
+                  title: 'This appointment is taken.',
+                  desc: 'Sorry!',
+                  buttons: [
+                    DialogButton(
+                      child: Text(
+                        "Okay",
+                        style: TextStyle(color: Colors.white, fontSize: 20),
+                      ),
+                      onPressed: () => Navigator.pop(context),
+                      width: 120,
+                      color: Colors.red,
+                    ),
+                  ],
+                ).show();
+              }
+            },
+            child: ListTile(
+              leading: CircleAvatar(
+                backgroundColor: status,
+                maxRadius: 20,
+              ),
+              title: Text(
+                getDate(times[index]),
+                style: TextStyle(
+                  fontFamily: 'Montserrat',
+                  fontWeight: FontWeight.bold,
+                  fontSize: 17.0,
+                ),
+              ),
+              trailing: Text(
+                getTime(times[index]),
+                style: TextStyle(
+                  fontFamily: 'Montserrat',
+                  fontWeight: FontWeight.bold,
+                  fontSize: 17.0,
+                ),
               ),
             ),
           ),
-        ),
-      );
-    },
-  );
+        );
+      },
+    );
+  }
 }
 
 GridView getWeeklyGridView(BuildContext context) {
