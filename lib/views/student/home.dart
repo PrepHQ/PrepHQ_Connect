@@ -9,6 +9,7 @@ import 'package:prephq_connect/views/user/student_profile_view.dart';
 import 'package:prephq_connect/widgets/article_card.dart';
 import 'package:prephq_connect/widgets/roadmap_cards.dart';
 import 'package:provider/provider.dart';
+import 'package:prephq_connect/models/usermodels/user.dart' as theUser;
 
 class StudentHome extends StatefulWidget {
   @override
@@ -50,8 +51,8 @@ class _StudentHomeState extends State<StudentHome> {
                         child: CircleAvatar(
                             radius: 30.0,
                             backgroundColor: Colors.blueGrey,
-                            backgroundImage: NetworkImage(
-                                'https://www.cornwallbusinessawards.co.uk/wp-content/uploads/2017/11/dummy450x450-300x300.jpg')),
+                            backgroundImage: NetworkImage(theUser.imageURL)
+                        )
                       ),
                     ),
                   ),

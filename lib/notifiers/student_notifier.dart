@@ -1,11 +1,12 @@
 import 'package:prephq_connect/models/usermodels/student.dart';
 import 'package:prephq_connect/models/usermodels/student_test.dart';
-import 'package:prephq_connect/models/usermodels/user.dart';
+import 'package:prephq_connect/models/usermodels/user.dart' as theUser;
 import 'package:prephq_connect/notifiers/user_notifier.dart';
+import 'package:prephq_connect/common/databasecalls.dart';
 
 class StudentNotifier extends UserNotifier{
   
-  User user;
+  theUser.User user;
   bool isEditMode = false;
   bool isLoading = true;
   String userName;
@@ -28,12 +29,12 @@ class StudentNotifier extends UserNotifier{
     notifyListeners();
   }
 
-  getStudent(){
+  getStudent() async {
     if(user != null) return;
-    user = Student().getUser();
+    user = await Student().getUser();
     userName = user.name;
     updatedUserName = user.name;
-    profileImageUrl = "https://upload.wikimedia.org/wikipedia/commons/f/fb/PrepCaleb.jpg";
+    profileImageUrl = user.imageUrl;
     tests = (user as Student).tests;
     updatedTests = tests.map((test) =>  StudentTests(title: test.title, score: test.score, type: test.type )).toList();
     isLoading = false;
@@ -46,10 +47,11 @@ class StudentNotifier extends UserNotifier{
     updatedTests[index].score = int.parse(scores) ;
   }
 
-  doneUpdating(){
+  doneUpdating() async {
     user.doneUpdating();
     userName = updatedUserName;
     this.tests = updatedTests;
+    await updateStudentTests(theUser.id, tests);
     notifyListeners();
   }
 

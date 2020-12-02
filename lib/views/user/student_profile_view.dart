@@ -9,6 +9,7 @@ import 'package:prephq_connect/widgets/common/users_common.dart';
 import 'package:prephq_connect/widgets/editable_text_fields.dart';
 import 'package:prephq_connect/widgets/username_edit_tf.dart';
 import 'package:provider/provider.dart';
+import 'package:prephq_connect/models/usermodels/user.dart' as theUser;
 
 class UserProfileView extends StatefulWidget {
   static final routeName = '/userProfile';
@@ -89,7 +90,7 @@ class _UserProfileState extends State<UserProfileView> {
                     padding: !editMode
                         ? EdgeInsets.zero
                         : const EdgeInsets.only(top: 10),
-                    child: Text('CWerth@crimson.ua.edu',
+                    child: Text(theUser.email,
                         style: CustomTextStyles.disbleTS),
                   ),
                   Padding(

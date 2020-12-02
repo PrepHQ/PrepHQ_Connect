@@ -3,7 +3,6 @@ import 'package:prephq_connect/common/colors.dart';
 import 'package:prephq_connect/common/text_styles.dart';
 import 'package:prephq_connect/notifiers/mentor_notifier.dart';
 import 'package:prephq_connect/notifiers/student_notifier.dart';
-
 import 'package:prephq_connect/notifiers/user_notifier.dart';
 import 'package:provider/provider.dart';
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 /*FIXME: This is a global variable to represent a list of already taken times.
   Will want to replace with database call
@@ -48,7 +49,60 @@ ListView getDailyAppointmentListView(BuildContext context) {
       return Card(
         child: InkWell(
           splashColor: Color.fromRGBO(75, 209, 160, 1).withAlpha(30),
-          onTap: () => print('You clicked ${times[index]}'),
+          onTap: () {
+            if(!alreadyTakenTimes.contains(times[index])) {
+              Alert(
+                context: context,
+                type: AlertType.success,
+                style: AlertStyle(
+                    animationType: AnimationType.grow,
+                ),
+                title: 'Confirm this appointment:',
+                desc: '9:30 AM, November 17th, 2020',
+                buttons: [
+                  DialogButton(
+                    child: Text(
+                      "Cancel",
+                      style: TextStyle(color: Colors.white, fontSize: 20),
+                    ),
+                    onPressed: () => Navigator.pop(context),
+                    width: 120,
+                    color: Colors.red,
+                  ),
+                  DialogButton(
+                    child: Text(
+                      "Confirm",
+                      style: TextStyle(color: Colors.white, fontSize: 20),
+                    ),
+                    onPressed: () => Navigator.pop(context),
+                    width: 120,
+                  ),
+                ],
+              ).show();
+            }
+            else {
+              Alert(
+                context: context,
+                type: AlertType.error,
+                style: AlertStyle(
+                    animationType: AnimationType.grow,
+                ),
+                title: 'This appointment is taken.',
+                desc: 'Sorry!',
+                buttons: [
+                  DialogButton(
+                    child: Text(
+                      "Okay",
+                      style: TextStyle(color: Colors.white, fontSize: 20),
+                    ),
+                    onPressed: () => Navigator.pop(context),
+                    width: 120,
+                    color: Colors.red,
+                  ),
+                ],
+              ).show();
+            }
+          },
           child: ListTile(
             leading: CircleAvatar(
               backgroundColor:
@@ -78,17 +132,78 @@ ListView getDailyAppointmentListView(BuildContext context) {
   );
 }
 
-class AppointmentListPage extends StatefulWidget {
-  @override
-  _AppointmentListPageState createState() => _AppointmentListPageState();
+GridView getWeeklyGridView(BuildContext context) {
+  Card weekdayCard(text, color) {
+    return Card(
+      color: color,
+      child: InkWell(
+        splashColor: Colors.white.withAlpha(100),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => DailyAppointmentViewPage()),
+          );
+        },
+        child: Container(
+          padding: const EdgeInsets.all(8),
+          child: Center(
+              child: Text(
+            text,
+            style: TextStyle(
+              fontFamily: 'Montserrat',
+              fontWeight: FontWeight.bold,
+              fontSize: 25.0,
+              color: Colors.white,
+            ),
+          )),
+        ),
+      ),
+    );
+  }
+
+  return GridView.count(
+    primary: false,
+    padding: EdgeInsets.all(10),
+    crossAxisCount: 2,
+    children: <Widget>[
+      weekdayCard('Monday', Colors.teal[300]),
+      weekdayCard('Tuesday', Colors.teal[400]),
+      weekdayCard('Wednesday', Colors.teal[500]),
+      weekdayCard('Thursday', Colors.teal[600]),
+      weekdayCard('Friday', Colors.teal[700]),
+      weekdayCard('Saturday', Colors.teal[800]),
+      weekdayCard('Sunday', Colors.teal[900]),
+    ],
+  );
 }
 
-class _AppointmentListPageState extends State<AppointmentListPage> {
+class DailyAppointmentViewPage extends StatefulWidget {
+  @override
+  _DailyAppointmentViewPageState createState() =>
+      _DailyAppointmentViewPageState();
+}
+
+class _DailyAppointmentViewPageState extends State<DailyAppointmentViewPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
       body: SafeArea(child: getDailyAppointmentListView(context)),
+    );
+  }
+}
+
+class WeeklyGridPage extends StatefulWidget {
+  @override
+  _WeeklyGridPageState createState() => _WeeklyGridPageState();
+}
+
+class _WeeklyGridPageState extends State<WeeklyGridPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(),
+      body: SafeArea(child: getWeeklyGridView(context)),
     );
   }
 }
