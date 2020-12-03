@@ -10,13 +10,14 @@ class MentorMeetingNotifier with ChangeNotifier{
   }
 
   List<MentorMeeting> getUpcomingMeetings() {
+    DateTime today = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
     return meetings.where((m) {
-      return m.date.isAfter(DateTime.now().add(Duration(days: 1)));
+      return m.date.isAfter(today.add(Duration(days: 1)));
     }).toList();
   }
 
   List<MentorMeeting> getTodayMeetings() {
-    print(meetings[0].date);
+     print(meetings[0].date);
      
     
     return meetings.where((m) {

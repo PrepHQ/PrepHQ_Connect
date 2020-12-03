@@ -4,6 +4,7 @@ import 'package:prephq_connect/common/colors.dart';
 import 'package:prephq_connect/common/text_styles.dart';
 import 'package:prephq_connect/models/meetings.dart';
 import 'package:prephq_connect/notifiers/mentor_meetings_notifier.dart';
+import 'package:prephq_connect/views/student/bookappointment.dart';
 import 'package:prephq_connect/views/user/mentor_profile_view.dart';
 import 'package:provider/provider.dart';
 import 'package:prephq_connect/models/usermodels/user.dart' as theUser;
@@ -52,7 +53,7 @@ class _MentorHomeState extends State<MentorHome> {
     });
   }
 
-  getMeetings(){
+  getMeetings() {
     var meetings = Provider.of<MentorMeetingNotifier>(context, listen: false);
     todayMeetings = meetings.getTodayMeetings();
     upcomingMeetings = meetings.getUpcomingMeetings();
@@ -181,7 +182,7 @@ class MeetingCard extends StatelessWidget {
                   style: TextStyle(fontSize: 15.0),
                 ),
                 Text(
-                    "${DateFormat("yyyy-MM-dd").format(meetings[index].date)}",
+                    "${getDate(meetings[index].date)}",
                     style: CustomTextStyles.titleTS)
               ],
             ),
@@ -194,7 +195,7 @@ class MeetingCard extends StatelessWidget {
                 children: [
                   Text("Start time :  "),
                   Text(
-                    "${DateFormat("yyyy-MM-dd hh:mm").format(meetings[index].timeStart)}",
+                    "${getTime(meetings[index].timeStart)}",
                     style: textStyle,
                   )
                 ],
@@ -203,7 +204,7 @@ class MeetingCard extends StatelessWidget {
                 children: [
                   Text("End time   :  "),
                   Text(
-                    "${DateFormat("yyyy-MM-dd hh:mm").format(meetings[index].timeEnd)}",
+                    "${getTime(meetings[index].timeEnd)}",
                     style: textStyle,
                   )
                 ],

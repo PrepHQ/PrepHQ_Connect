@@ -106,7 +106,7 @@ Future<void> setUserImageURL(String userID) async {
   });
 }
 
-/// Gets mentor's scheduled appointments for today plus next 6 days.
+/// Gets mentor's scheduled appointment times for today plus next 6 days.
 Future<List<DateTime>> getMentorAppts(String userID) async {
   DateTime now = new DateTime.now();
   DateTime today = DateTime(now.year, now.month, now.day);
@@ -124,6 +124,15 @@ Future<List<DateTime>> getMentorAppts(String userID) async {
         });
   });
   return appointments;
+}
+
+/// Gets mentor's future scheduled appointments with details from the database.
+Future<List<QueryDocumentSnapshot>> getMyAppts(String id) async {
+  QuerySnapshot qSnap = await FirebaseFirestore.instance
+      .collection('appointments')
+      .where('mentor', isEqualTo: id)
+      .get();
+  return qSnap.docs;
 }
 
 /// Saves appointment reservation to the database.
