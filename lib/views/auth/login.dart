@@ -106,8 +106,11 @@ class _LoginPageState extends State<LoginPage> {
             }
             // Password is correct
             if (userCred != null) {
+
               theUser.id = userCred.user.uid;
               theUser.email = _emailTextController.text;
+              var temp = await getUserInfo(theUser.id);
+              theUser.name = temp['first_name'] + " " + temp['last_name'];
               String userType = await getUserType(theUser.id);
               await setUserImageURL(theUser.id);
               resetTextBoxes();
