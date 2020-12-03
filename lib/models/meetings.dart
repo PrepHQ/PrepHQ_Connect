@@ -42,7 +42,8 @@ class MentorMeeting {
 
 List<MentorMeeting> makeMeetingList(List<QueryDocumentSnapshot> docs)  {
   List<MentorMeeting> theList = [];
-  docs.forEach((appt) async {
+  docs.forEach((apptSnap) async {
+    Map<String, dynamic> appt = apptSnap.data();
     Map<String, dynamic> studentInfo = await getUserInfo(appt['student']);
     theList.add(
         MentorMeeting(appt['time'].toDate(),
