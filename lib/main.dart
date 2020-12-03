@@ -10,10 +10,8 @@ import 'utils/router.dart';
 import 'views/auth/login.dart';
 import 'package:firebase_core/firebase_core.dart';
 
-import 'views/mentor/home.dart';
-
 void main () async {
-  setupUser("test");
+  setupUser("ggpepp");
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MyApp());
