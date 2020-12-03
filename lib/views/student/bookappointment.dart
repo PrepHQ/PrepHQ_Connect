@@ -11,7 +11,7 @@ Map<String, dynamic> mentorAvail = {};
 bool isAppointmentAvailable(DateTime apptTime) {
   bool available = true;
   alreadyTakenTimes.forEach((element) {
-    if (element.isBefore(DateTime.now()) || element.isAtSameMomentAs(apptTime))
+    if (apptTime.isBefore(DateTime.now()) || element.isAtSameMomentAs(apptTime))
       available = false;
   });
   return available;
