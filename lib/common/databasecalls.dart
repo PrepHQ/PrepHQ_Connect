@@ -143,5 +143,6 @@ Future<void> reserveAppointment(String studentID, String mentorID, DateTime appt
       .set({
         'student': studentID,
         'mentor': mentorID,
-        'time': appt});
+        'time': appt,
+        'description': "Lorum ipsum."});
 }

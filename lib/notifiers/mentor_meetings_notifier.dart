@@ -21,7 +21,7 @@ class MentorMeetingNotifier with ChangeNotifier{
   }
 
   List<MentorMeeting> getTodayMeetings() {
-     print(meetings[0].date);
+     //print(meetings[0].date);
      
     
     return meetings.where((m) {
