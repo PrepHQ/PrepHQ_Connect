@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/material.dart';
+import 'package:prephq_connect/views/student/bookappointment.dart';
 import 'package:prephq_connect/widgets/appbar_action_btn.dart';
 import 'package:network_image_mock/network_image_mock.dart';
 import 'package:prephq_connect/widgets/article_card.dart';
@@ -35,4 +36,19 @@ void main() {
       });
     },
   );
+
+  testWidgets('Test that the first card of weekly gridview is the current day',
+      (WidgetTester tester) async {
+    var theBuilder = Builder(builder: (BuildContext context) {
+      return getWeeklyGridView(context);
+    });
+
+    await tester.pumpWidget(Directionality(
+      child: theBuilder,
+      textDirection: TextDirection.ltr,
+    ));
+
+    expect(find.byType(Card), findsWidgets);
+    expect(find.text(getDate(DateTime.now())), findsOneWidget);
+  });
 }
