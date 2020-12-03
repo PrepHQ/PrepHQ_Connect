@@ -117,7 +117,7 @@ class _MentorHomeState extends State<MentorHome> {
                 onTap: (){
                   forceChangePage(0);
                 } ,
-                  child: MeatingHeaderItems(
+                  child: MeetingHeaderItems(
                 title: "Today ",
                 count: todayMeetings.length,
                 isActive: page == 0,
@@ -127,7 +127,7 @@ class _MentorHomeState extends State<MentorHome> {
                 onTap: (){
                    forceChangePage(1);
                 },
-                              child: MeatingHeaderItems(
+                              child: MeetingHeaderItems(
                   title: "Upcoming ",
                   count: upcomingMeetings.length,
                   isActive: page == 1,
@@ -215,8 +215,8 @@ class MeetingCard extends StatelessWidget {
   }
 }
 
-class MeatingHeaderItems extends StatelessWidget {
-  const MeatingHeaderItems({
+class MeetingHeaderItems extends StatelessWidget {
+  const MeetingHeaderItems({
     Key key,
     this.title,
     this.count,
