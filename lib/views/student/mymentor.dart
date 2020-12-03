@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'bookappointment.dart';
+import 'mentorprofilescreen.dart';
 
 class MyMentorScreen extends StatelessWidget {
   final List<QueryDocumentSnapshot> mentorList;
@@ -34,7 +34,7 @@ class MentorProfileCard extends StatelessWidget {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => WeeklyGridPage()),
+            MaterialPageRoute(builder: (context) => MentorProfileScreen(docMap)),
           );
         },
         child: Container(
