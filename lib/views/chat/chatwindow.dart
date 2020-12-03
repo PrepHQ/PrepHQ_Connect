@@ -15,7 +15,7 @@ class ChatWindow extends StatelessWidget {
         },
         home: StreamChannel(
           channel: client.channel("messaging", id: channelID, extraData: {"members":[userID, userID2]}),
-          child: ChannelPage(),
+          child: ChannelPage2(),
         ));
   }
 }

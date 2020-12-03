@@ -4,6 +4,8 @@ import 'package:prephq_connect/common/databasecalls.dart';
 import 'home.dart';
 import 'mymentor.dart';
 import 'resources.dart';
+import '../chat/chat.dart';
+import 'package:prephq_connect/models/usermodels/user.dart' as theUser;
 
 /// This is the stateful widget that the main application instantiates.
 class StudentScreen extends StatefulWidget {
@@ -29,7 +31,7 @@ class _StudentScreenState extends State<StudentScreen> {
   }
 
   @override
-  void initState() {
+  void initState(){
     super.initState();
     buildMentorList();
   }

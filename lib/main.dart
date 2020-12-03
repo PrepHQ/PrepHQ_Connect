@@ -3,15 +3,13 @@ import 'package:prephq_connect/common/colors.dart';
 import 'package:prephq_connect/notifiers/mentor_meetings_notifier.dart';
 import 'package:prephq_connect/notifiers/mentor_notifier.dart';
 import 'package:prephq_connect/notifiers/student_notifier.dart';
-import 'package:prephq_connect/views/chat/chat.dart';
 import 'package:provider/provider.dart';
 import 'notifiers/student_home_notifier.dart';
 import 'utils/router.dart';
 import 'views/auth/login.dart';
 import 'package:firebase_core/firebase_core.dart';
 
-void main () async {
-  setupUser("ggpepp");
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MyApp());
@@ -29,7 +27,7 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider<MentorNotifier>(
               create: (context) => MentorNotifier()),
           ChangeNotifierProvider<MentorMeetingNotifier>(
-              create: (context) => MentorMeetingNotifier()),    
+              create: (context) => MentorMeetingNotifier()),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,

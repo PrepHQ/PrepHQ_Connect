@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prephq_connect/views/mentor/mentorChat.dart';
 import 'home.dart';
 
 /// This is the stateful widget that the main application instantiates.
@@ -12,13 +13,6 @@ class MentorScreen extends StatefulWidget {
 /// This is the private State class that goes with MentorScreen.
 class _MentorScreenState extends State<MentorScreen> {
   int _selectedIndex = 0;
-
-  List<Widget> _widgetOptions = <Widget>[
-    MentorHome(),
-    Text("Second Screen for Mentor", textScaleFactor: 2),
-    Text("Third Screen for Mentor", textScaleFactor: 2),
-  ];
-
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -36,7 +30,7 @@ class _MentorScreenState extends State<MentorScreen> {
         children: [
           MentorHome(),
           Text("Second Screen for Mentor", textScaleFactor: 2),
-          Text("Third Screen for Mentor", textScaleFactor: 2),
+          MentorChatScreen(),
         ],
         index: _selectedIndex,
       ),

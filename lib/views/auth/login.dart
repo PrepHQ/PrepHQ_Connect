@@ -2,10 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:prephq_connect/common/databasecalls.dart';
 import 'package:prephq_connect/views/mentor/mentorscreen.dart';
-import 'package:prephq_connect/views/student/home.dart';
 import 'package:prephq_connect/views/student/studentscreen.dart';
 import 'package:prephq_connect/models/usermodels/user.dart' as theUser;
 import '../../registrationscreen.dart';
+import '../chat/chat.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key key, this.title}) : super(key: key);
@@ -32,7 +32,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   @override
-  void dispose(){
+  void dispose() {
     _emailTextController.dispose();
     _passwordTextController.dispose();
     super.dispose();
@@ -40,13 +40,13 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-
     final emailField = TextFormField(
       style: style,
       decoration: InputDecoration(
           contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
           hintText: "Email",
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
+          border:
+              OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
       controller: _emailTextController,
       validator: (email) {
         if (email.isEmpty) {
@@ -66,7 +66,7 @@ class _LoginPageState extends State<LoginPage> {
           contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
           hintText: "Password",
           border:
-          OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
+              OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
       controller: _passwordTextController,
       validator: (password) {
         if (password.isEmpty) {
@@ -82,7 +82,7 @@ class _LoginPageState extends State<LoginPage> {
     final loginButton = Material(
       elevation: 5.0,
       borderRadius: BorderRadius.circular(30.0),
-      color: Color.fromRGBO(75,209,160, 1),
+      color: Color.fromRGBO(75, 209, 160, 1),
       child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width,
         padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
@@ -90,8 +90,8 @@ class _LoginPageState extends State<LoginPage> {
           if (_loginFormKey.currentState.validate()) {
             try {
               userCred = await FirebaseAuth.instance.signInWithEmailAndPassword(
-              email: _emailTextController.text,
-              password: _passwordTextController.text);
+                  email: _emailTextController.text,
+                  password: _passwordTextController.text);
             } on FirebaseAuthException catch (e) {
               if (e.code == 'user-not-found') {
                 // User with this email does not exist in database
@@ -108,9 +108,12 @@ class _LoginPageState extends State<LoginPage> {
             if (userCred != null) {
               theUser.id = userCred.user.uid;
               theUser.email = _emailTextController.text;
+              var temp = await getUserInfo(theUser.id);
+              theUser.name = temp['first_name'] + " " + temp['last_name'];
               String userType = await getUserType(theUser.id);
               await setUserImageURL(theUser.id);
               resetTextBoxes();
+              await setupUser(theUser.id, theUser.name);
               if (userType == 'student') {
                 Navigator.pushReplacement(
                   context,
@@ -135,7 +138,7 @@ class _LoginPageState extends State<LoginPage> {
     final registerButton = RaisedButton(
       key: Key('register_button'),
       child: Text('Register'),
-      onPressed: (){
+      onPressed: () {
         resetTextBoxes();
         Navigator.push(
           context,
@@ -171,36 +174,46 @@ class _LoginPageState extends State<LoginPage> {
                         emailField,
                         SizedBox(height: 25.0),
                         passwordField,
-                        SizedBox(height: 25.0,),
+                        SizedBox(
+                          height: 25.0,
+                        ),
                         loginButton,
-                        SizedBox(height: 50.0,),
+                        SizedBox(
+                          height: 50.0,
+                        ),
                         registerButton,
 
-                      /*For demo purposes, these pre-populate the login fields*/
-                      SizedBox(height: 50,),
-                      const Divider(
-                        color: Colors.black12,
-                        thickness: 1,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          RaisedButton(
-                              child: Text('Student1'),
-                              onPressed: (){
-                                _emailTextController.text = 'student1@prephqconnect.com';
-                                _passwordTextController.text = 'p1p1p1';
-                              }
-                          ),
-                          RaisedButton(
-                              child: Text('Mentor4'),
-                              onPressed: (){
-                                _emailTextController.text = 'mentor4@prephqconnect.com';
-                                _passwordTextController.text = 'p4p4p4';
-                              }
-                          )
-                       ],
-                      ),
+                        /*For demo purposes, these pre-populate the login fields*/
+                        SizedBox(
+                          height: 50,
+                        ),
+                        const Divider(
+                          color: Colors.black12,
+                          thickness: 1,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            RaisedButton(
+                                child: Text('Student1'),
+                                onPressed: () {
+                                  //setupUser("TjLjk4tnpqe1BOmZwGm3ritGZSC2",
+                                      //"Caleb Werth");
+                                  _emailTextController.text =
+                                      'student1@prephqconnect.com';
+                                  _passwordTextController.text = 'p1p1p1';
+                                }),
+                            RaisedButton(
+                                child: Text('Mentor4'),
+                                onPressed: () {
+                                  //setupUser("TjLjk4tnpqe1BOmZwGm3ritGZSC2",
+                                      //"Caleb Werth");
+                                  _emailTextController.text =
+                                      'mentor4@prephqconnect.com';
+                                  _passwordTextController.text = 'p4p4p4';
+                                })
+                          ],
+                        ),
                       ],
                     ),
                   ),
@@ -208,7 +221,6 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
           ),
-        )
-    );
+        ));
   }
 }

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'bookappointment.dart';
 import '../chat/chatwindow.dart';
 import '../chat/chat.dart';
+import 'package:prephq_connect/models/usermodels/user.dart' as theUser;
+import 'package:prephq_connect/models/usermodels/timeslots.dart' as theMentor;
 
 class MentorProfileScreen extends StatelessWidget {
   const MentorProfileScreen(this.docMap);
@@ -89,14 +91,16 @@ class MentorProfileScreen extends StatelessWidget {
                   icon: Icon(Icons.chat_bubble_outline),
                   label: Text('Chat With Mentor'),
                   onPressed: () {
-                    createChannel("ggpepp", "test");
+                    createChannel(theUser.id, theMentor.mentorID);
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => ChatWindow(
-                              userID: "ggpepp",
-                              userID2: "test",
-                              channelID: "ggpepptest")),
+                        builder: (context) => ChatWindow(
+                          userID: theUser.id,
+                          userID2: theMentor.mentorID,
+                          channelID: theUser.id + theMentor.mentorID
+                        )
+                      ),
                     );
                   },
                 ),
