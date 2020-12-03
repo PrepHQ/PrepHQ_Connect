@@ -26,54 +26,44 @@ void main() {
     expect(mentor.name, "Steven Alexander");
   });
 
-  // FIXME: These tests don't work anymore since times[] now holds DateTimes
-  // testWidgets('Create correct list of time slots using getTimes function', (WidgetTester tester) async {
-  //   await tester.pumpWidget(
-  //     MaterialApp(
-  //       home: Builder(
-  //         builder: (BuildContext context) {
-  //           var times = getTimes(
-  //             TimeOfDay(hour: 11, minute: 0),
-  //             TimeOfDay(hour: 13, minute: 0),
-  //             Duration(minutes: 30),
-  //           ).map((tod) => tod.format(context)).toList();
-  //
-  //           expect(times,
-  //               ['11:00 AM', '11:30 AM', '12:00 PM', '12:30 PM', '1:00 PM']);
-  //
-  //           times = getTimes(
-  //             TimeOfDay(hour: 12, minute: 0),
-  //             TimeOfDay(hour: 12, minute: 0),
-  //             Duration(minutes: 30),
-  //           ).map((tod) => tod.format(context)).toList();
-  //
-  //           expect(times, ['12:00 PM']);
-  //
-  //           times = getTimes(
-  //             TimeOfDay(hour: 15, minute: 3),
-  //             TimeOfDay(hour: 16, minute: 0),
-  //             Duration(minutes: 5),
-  //           ).map((tod) => tod.format(context)).toList();
-  //
-  //           expect(times, [
-  //             '3:03 PM',
-  //             '3:08 PM',
-  //             '3:13 PM',
-  //             '3:18 PM',
-  //             '3:23 PM',
-  //             '3:28 PM',
-  //             '3:33 PM',
-  //             '3:38 PM',
-  //             '3:43 PM',
-  //             '3:48 PM',
-  //             '3:53 PM',
-  //             '3:58 PM'
-  //           ]);
-  //
-  //           return Container();
-  //         },
-  //       ),
-  //     ),
-  //   );
-  // });
+  testWidgets('Create correct list of time slots using getTimes function',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Builder(
+          builder: (BuildContext context) {
+            var times = getTimes(
+                    DateTime(2020, 12, 3, 11),
+                    DateTime(2020, 12, 3, 13),
+                    DateTime(2020, 12, 3),
+                    Duration(minutes: 30))
+                .toList();
+
+            expect(times, [
+              DateTime(2020, 12, 3, 11),
+              DateTime(2020, 12, 3, 11, 30),
+              DateTime(2020, 12, 3, 12),
+              DateTime(2020, 12, 3, 12, 30),
+            ]);
+
+            times = getTimes(
+                DateTime(2020, 12, 3, 11, 43),
+                DateTime(2020, 12, 3, 12),
+                DateTime(2020, 12, 3),
+                Duration(minutes: 5))
+                .toList();
+
+            expect(times, [
+              DateTime(2020, 12, 3, 11, 43),
+              DateTime(2020, 12, 3, 11, 48),
+              DateTime(2020, 12, 3, 11, 53),
+              DateTime(2020, 12, 3, 11, 58),
+            ]);
+
+            return Container();
+          },
+        ),
+      ),
+    );
+  });
 }
