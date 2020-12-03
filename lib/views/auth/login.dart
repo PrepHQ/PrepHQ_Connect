@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:prephq_connect/common/databasecalls.dart';
 import 'package:prephq_connect/views/mentor/mentorscreen.dart';
+import 'package:prephq_connect/views/student/home.dart';
 import 'package:prephq_connect/views/student/studentscreen.dart';
 import 'package:prephq_connect/models/usermodels/user.dart' as theUser;
 import '../../registrationscreen.dart';

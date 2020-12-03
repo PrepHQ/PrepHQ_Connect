@@ -18,7 +18,7 @@ class _StudentScreenState extends State<StudentScreen> {
   int _selectedIndex = 0;
   List<QueryDocumentSnapshot> mentorList;
 
-  Future<void> buildMentorList () async {
+  Future<void> buildMentorList() async {
     mentorList = await getAllMentors();
   }
 
@@ -45,7 +45,6 @@ class _StudentScreenState extends State<StudentScreen> {
         ],
         index: _selectedIndex,
       ),
-
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(

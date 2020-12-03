@@ -3,6 +3,7 @@ import 'package:prephq_connect/common/colors.dart';
 import 'package:prephq_connect/notifiers/mentor_meetings_notifier.dart';
 import 'package:prephq_connect/notifiers/mentor_notifier.dart';
 import 'package:prephq_connect/notifiers/student_notifier.dart';
+import 'package:prephq_connect/views/chat/chat.dart';
 import 'package:provider/provider.dart';
 import 'notifiers/student_home_notifier.dart';
 import 'utils/router.dart';
@@ -12,6 +13,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'views/mentor/home.dart';
 
 void main () async {
+  setupUser("test");
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MyApp());
