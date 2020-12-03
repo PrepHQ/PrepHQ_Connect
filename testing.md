@@ -16,17 +16,22 @@ Here are some brief descriptions of all of our current test cases!
 #### Validate registration screen widgets initialize correctly
 #### Validate navigation to registration page from login screen works
 #### Validate that Mentor Home widgets are initialized
-#### Validate that Mentor Screen bottom app bar navigates to MentorHome by default as expected
+#### Validate that Mentor Screen widget constructs all three mentor tabs
 
 ### [Unit Tests](https://github.com/PrepHQ/PrepHQ_Connect/blob/master/test/unit_test.dart)
 
 #### isCompleted should be marked true when complete is called
 #### Setting name of student works
 #### Setting name of mentor works
+#### Create correct list of time slots using getTimes function
+#### Validate getTime behavior
+#### Validate getDate behavior
 
 ### [Widget Tests](https://github.com/PrepHQ/PrepHQ_Connect/blob/master/test/widget_test.dart)
 
 #### Validate AppBarActionBtn constructs as expected
 #### Test that article card constructs as expected
+#### Test that the first card of weekly gridview is the current day
+#### Validate that MeetingHeaderItems constructs as expected
 
 [Back to Main Site](https://prephq.github.io/PrepHQ_Connect/)
