@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 import 'package:prephq_connect/common/databasecalls.dart';
 import 'package:prephq_connect/views/student/bookappointment.dart';
+import 'package:prephq_connect/models/usermodels/user.dart' as theUser;
 
 class MentorMeeting {
   String title;
@@ -29,10 +30,15 @@ class MentorMeeting {
       this.timeStart = date;
       this.timeEnd = date.add(Duration(minutes: 30));
   }
+
+  static Future<void> initial() async {
+    List<QueryDocumentSnapshot> temp = await getMyAppts(theUser.id);
+    MentorMeeting.meetings = makeMeetingList(temp);
+  }
 }
 
 
-List<MentorMeeting> makeMeetingList(List<QueryDocumentSnapshot> docs) {
+List<MentorMeeting> makeMeetingList(List<QueryDocumentSnapshot> docs)  {
   List<MentorMeeting> theList = [];
   docs.forEach((appt) async {
     Map<String, dynamic> studentInfo = await getUserInfo(appt['student']);

@@ -5,6 +5,10 @@ class MentorMeetingNotifier with ChangeNotifier{
 
   List<MentorMeeting> meetings = MentorMeeting.meetings;
 
+  void initi() {
+    MentorMeeting.initial();
+  }
+
   List<MentorMeeting> getAllMeetings() {
     return meetings;
   }

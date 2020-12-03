@@ -55,6 +55,7 @@ class _MentorHomeState extends State<MentorHome> {
 
   getMeetings() {
     var meetings = Provider.of<MentorMeetingNotifier>(context, listen: false);
+    meetings.initi();
     todayMeetings = meetings.getTodayMeetings();
     upcomingMeetings = meetings.getUpcomingMeetings();
     meetings.notifyListeners();
