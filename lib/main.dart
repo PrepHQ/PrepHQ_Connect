@@ -13,7 +13,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'views/mentor/home.dart';
 
 void main () async {
-  setupUser();
+  setupUser("test");
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MyApp());

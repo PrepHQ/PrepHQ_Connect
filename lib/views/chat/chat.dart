@@ -3,12 +3,15 @@ import 'package:stream_chat_flutter/stream_chat_flutter.dart';
 
 var client = Client("x9cr83dnu8sm", logLevel: Level.INFO);
 
-void setupUser() async {
-  var user = User(id: "ggpepp", extraData: {"name": "Garrett Peppers"});
-  var test = User(id: "test", extraData: {"name": "developer"});
-  client.setUser(test, client.devToken("test"));
-  var channel = client.channel("messaging", id: "test", extraData: {
-    "members": ["ggpepp", "test"]
+void setupUser(String userID) async {
+  var user = User(id: userID);
+  client.setUser(user, client.devToken(userID));
+}
+void createChannel(String userID, String userID2) async
+{
+  String channelId = userID + userID2;
+  var channel = client.channel("messaging", id: channelId, extraData: {
+    "members": [userID, userID2]
   });
   await channel.create();
 }

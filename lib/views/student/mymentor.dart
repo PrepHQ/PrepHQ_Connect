@@ -65,7 +65,7 @@ class MentorProfileCard extends StatelessWidget {
                       softWrap: false, overflow: TextOverflow.fade,),
                     Text(docMap['class'] + ' - ' + docMap['major'],
                       style: TextStyle(fontFamily: 'Montserrat', fontSize: 13.0,),
-                      softWrap: false, overflow: TextOverflow.fade,),
+                      softWrap: false, overflow: TextOverflow.fade),
                   ],
                 ),
               ),
