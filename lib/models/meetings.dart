@@ -13,7 +13,9 @@ class MentorMeeting {
   String stdntLName;
   String description;
   String subDescription;
-  static List<MentorMeeting> meetings = [];
+  static List<MentorMeeting> meetings = [
+    MentorMeeting(DateTime(2020, 12, 3, 23), "Firsty", "Lasty", "ugh")
+  ];
 
   // import 'package:prephq_connect/models/usermodels/user.dart' as theUser;
   //
@@ -33,7 +35,7 @@ class MentorMeeting {
 
   static Future<void> initial() async {
     List<QueryDocumentSnapshot> temp = await getMyAppts(theUser.id);
-    MentorMeeting.meetings = makeMeetingList(temp);
+    //MentorMeeting.meetings = makeMeetingList(temp);
   }
 }
 
