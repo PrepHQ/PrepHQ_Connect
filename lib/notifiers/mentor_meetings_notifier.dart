@@ -3,10 +3,11 @@ import 'package:prephq_connect/models/meetings.dart';
 
 class MentorMeetingNotifier with ChangeNotifier{
 
-  List<MentorMeeting> meetings = MentorMeeting.meetings;
+  List<MentorMeeting> meetings;// = MentorMeeting.meetings;
 
   void initi() {
     MentorMeeting.initial();
+    meetings = MentorMeeting.meetings;
   }
 
   List<MentorMeeting> getAllMeetings() {
