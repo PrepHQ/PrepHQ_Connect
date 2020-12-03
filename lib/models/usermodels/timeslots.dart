@@ -16,6 +16,10 @@ List<TimeSlots> makeApptAvailList (Map<String, dynamic> availability) {
   DateTime begin;
   DateTime end;
 
+  if (availability == null  || availability.isEmpty){
+    return days;
+  }
+
   if(availability.containsKey('m_begin')) {
     begin = availability['m_begin'].toDate();
     end = availability['m_end'].toDate();

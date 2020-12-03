@@ -38,40 +38,43 @@ Iterable<DateTime> getTimes(
 
 ListView getDailyAppointmentListView(BuildContext context, DateTime thatDate) {
   List<TimeSlots> availability = makeApptAvailList(mentorAvail);
+  List<DateTime> times = [];
 
-  /* availability is 0-based-index list in-order starting with Monday.
-  * thatDate.weekday gives day of the week as int in-order from Monday but
-  * starts at 1   */
-  DateTime startTime = DateTime(thatDate.year, thatDate.month, thatDate.day,
-      availability[(thatDate.weekday - 1)].from.hour,
-      availability[(thatDate.weekday - 1)].from.minute);
-  DateTime endTime = DateTime(thatDate.year, thatDate.month, thatDate.day,
-      availability[(thatDate.weekday - 1)].to.hour,
-      availability[(thatDate.weekday - 1)].to.minute);
-  final step = Duration(minutes: 30);
+  if (availability.length > 0) {
+      /* availability is 0-based-index list in-order starting with Monday.
+      * thatDate.weekday gives day of the week as int in-order from Monday but
+      * starts at 1   */
+      DateTime startTime = DateTime(thatDate.year, thatDate.month, thatDate.day,
+          availability[(thatDate.weekday - 1)].from.hour,
+          availability[(thatDate.weekday - 1)].from.minute);
+      DateTime endTime = DateTime(thatDate.year, thatDate.month, thatDate.day,
+          availability[(thatDate.weekday - 1)].to.hour,
+          availability[(thatDate.weekday - 1)].to.minute);
+      final step = Duration(minutes: 30);
 
-  final times = getTimes(startTime, endTime, thatDate, step).toList();
-
+      times = getTimes(startTime, endTime, thatDate, step).toList();
+  }
   if (times.length == 0){
     return ListView.builder(
       itemCount: 1,
       itemBuilder: (context, index){
         return Card(
           child: ListTile(
-            title: Text(
-              "No appointments available.",
-              style: TextStyle(
-                fontFamily: 'Montserrat',
-                fontWeight: FontWeight.bold,
-                fontSize: 17.0,
+            title: Center(
+              child: Text(
+                "No appointments available.",
+                style: TextStyle(
+                  fontFamily: 'Montserrat',
+                  fontWeight: FontWeight.bold,
+                  fontSize: 17.0,
+                ),
               ),
-            ),
+           ),
           )
         );
       }
     );
-  }
-  else {
+  } else {
     return ListView.builder(
       itemCount: times.length,
       itemBuilder: (context, index) {
@@ -111,6 +114,8 @@ ListView getDailyAppointmentListView(BuildContext context, DateTime thatDate) {
                       onPressed: () async {
                         await reserveAppointment(theUser.id, mentorID, times[index]);
                         alreadyTakenTimes.add(times[index]);
+                        Navigator.pop(context);
+                        Navigator.pop(context);
                         Navigator.pop(context);
                       },
                       width: 120,
@@ -171,8 +176,6 @@ ListView getDailyAppointmentListView(BuildContext context, DateTime thatDate) {
 }
 
 GridView getWeeklyGridView(BuildContext context) {
-
-
   Card weekdayCard(DateTime thatDate, Color color) {
     String weekday = getWeekday(thatDate.weekday);
     return Card(
