@@ -19,12 +19,13 @@ Future<String> getUserType(String userID) async {
 
 /// Registers a new user on the Firestore database.
 Future<void> registerNewUserStudent(String _id, String _fName, String _lName) async {
-  await FirebaseFirestore.instance.collection('users')
+  await FirebaseFirestore.instance
+      .collection('users')
       .doc(_id)
       .set({
-    'user_type': 'student',
-    'first_name': _fName,
-    'last_name': _lName});
+        'user_type': 'student',
+        'first_name': _fName,
+        'last_name': _lName});
 }
 
 /// Gets all mentors from the database.
@@ -36,7 +37,7 @@ Future<List<QueryDocumentSnapshot>> getAllMentors() async {
   return mentors.docs;
 }
 
-/// Gets all profile information for a student.
+/// Gets all profile information for a user.
 Future<Map<String, dynamic>> getUserInfo(String userID) async {
   var answer;
   await FirebaseFirestore.instance
@@ -44,7 +45,7 @@ Future<Map<String, dynamic>> getUserInfo(String userID) async {
       .doc(userID)
       .get()
       .then((DocumentSnapshot dSnap) {
-    answer = dSnap.data();
+        answer = dSnap.data();
   });
   return answer;
 }
@@ -68,6 +69,7 @@ Future<void> updateStudentTests(String userID, List<StudentTests> theTests) asyn
   });
 }
 
+/// Updates mentor's hours of availability for appointments in the database.
 Future<void> updateMentorHours(String userID, List<TimeSlots> theTimes) async {
   await FirebaseFirestore.instance
       .collection('users')
@@ -90,7 +92,7 @@ Future<void> updateMentorHours(String userID, List<TimeSlots> theTimes) async {
   });
 }
 
-/// Gets user's profile image from the database.
+/// Gets user's profile image from the database and sets a global variable.
 Future<void> setUserImageURL(String userID) async {
   await FirebaseFirestore.instance
       .collection('users')
@@ -102,4 +104,35 @@ Future<void> setUserImageURL(String userID) async {
       theUser.imageURL = tempData['profile_image_url'];
     }
   });
+}
+
+/// Gets mentor's scheduled appointments for today plus next 6 days.
+Future<List<DateTime>> getMentorAppts(String userID) async {
+  DateTime now = new DateTime.now();
+  DateTime today = DateTime(now.year, now.month, now.day);
+  DateTime deadline = today.add(new Duration(days: 7));
+  List<DateTime> appointments = [];
+  await FirebaseFirestore.instance
+      .collection('appointments')
+      .where('mentor', isEqualTo: userID)
+      .where('time', isLessThan: deadline)
+      .orderBy('time', descending: false)
+      .get()
+      .then((QuerySnapshot qSnap) {
+        qSnap.docs.forEach((appt) {
+          appointments.add(appt['time'].toDate());
+        });
+  });
+  return appointments;
+}
+
+/// Saves appointment reservation to the database.
+Future<void> reserveAppointment(String studentID, String mentorID, DateTime appt) async {
+  await FirebaseFirestore.instance
+      .collection('appointments')
+      .doc()
+      .set({
+        'student': studentID,
+        'mentor': mentorID,
+        'time': appt});
 }

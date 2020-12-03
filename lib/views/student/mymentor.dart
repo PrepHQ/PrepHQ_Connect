@@ -1,5 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:prephq_connect/common/databasecalls.dart';
+import 'package:prephq_connect/models/usermodels/timeslots.dart';
+import 'bookappointment.dart';
 import 'mentorprofilescreen.dart';
 
 class MyMentorScreen extends StatelessWidget {
@@ -14,7 +17,7 @@ class MyMentorScreen extends StatelessWidget {
           itemCount: mentorList.length,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
           itemBuilder: (BuildContext context, int index){
-            return new MentorProfileCard(mentorList[index].data());
+            return new MentorProfileCard(mentorList[index]);
           },
         )
       ),
@@ -23,15 +26,19 @@ class MyMentorScreen extends StatelessWidget {
 }
 
 class MentorProfileCard extends StatelessWidget {
-  const MentorProfileCard(this.docMap);
-  final Map<String, dynamic> docMap;
+  const MentorProfileCard(this.qDoc);
+  final QueryDocumentSnapshot qDoc;
 
   @override
   Widget build(BuildContext context) {
+    Map<String, dynamic> docMap = qDoc.data();
     return Card(
       child: InkWell(
         splashColor: Color.fromRGBO(75, 209, 160, 1).withAlpha(30),
-        onTap: () {
+        onTap: () async {
+          mentorID = qDoc.id;
+          mentorAvail = docMap['availability'];
+          alreadyTakenTimes = await getMentorAppts(qDoc.id);
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => MentorProfileScreen(docMap)),
