@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/material.dart';
+import 'package:prephq_connect/views/mentor/home.dart';
 import 'package:prephq_connect/views/student/bookappointment.dart';
 import 'package:prephq_connect/widgets/appbar_action_btn.dart';
 import 'package:network_image_mock/network_image_mock.dart';
@@ -51,4 +52,16 @@ void main() {
     expect(find.byType(Card), findsWidgets);
     expect(find.text(getDate(DateTime.now())), findsOneWidget);
   });
+
+  testWidgets('Validate that MeetingHeaderItems constructs as expected',
+          (WidgetTester tester) async {
+        // Build our app and trigger a frame.
+        await tester.pumpWidget(MaterialApp(
+          home: MeetingHeaderItems(title: 'Hello', count: 2, isActive: true)
+        ));
+
+        expect(find.text('Hello'), findsOneWidget);
+        expect(find.text('2'), findsOneWidget);
+        expect(find.text('World'), findsNothing);
+      });
 }
