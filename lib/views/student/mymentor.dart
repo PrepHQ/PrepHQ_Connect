@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:prephq_connect/common/databasecalls.dart';
 import 'package:prephq_connect/models/usermodels/timeslots.dart';
 import 'bookappointment.dart';
+import 'mentorprofilescreen.dart';
 
 class MyMentorScreen extends StatelessWidget {
   final List<QueryDocumentSnapshot> mentorList;
@@ -40,7 +41,7 @@ class MentorProfileCard extends StatelessWidget {
           alreadyTakenTimes = await getMentorAppts(qDoc.id);
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => WeeklyGridPage()),
+            MaterialPageRoute(builder: (context) => MentorProfileScreen(docMap)),
           );
         },
         child: Container(
