@@ -106,6 +106,7 @@ class _LoginPageState extends State<LoginPage> {
             }
             // Password is correct
             if (userCred != null) {
+
               theUser.id = userCred.user.uid;
               theUser.email = _emailTextController.text;
               var temp = await getUserInfo(theUser.id);
