@@ -35,7 +35,8 @@ class MentorMeeting {
 
   static Future<void> initial() async {
     List<QueryDocumentSnapshot> temp = await getMyAppts(theUser.id);
-    MentorMeeting.meetings = makeMeetingList(temp);
+    //MentorMeeting.meetings = makeMeetingList(temp);
+    MentorMeeting.meetings.addAll(makeMeetingList(temp));
   }
 }
 
