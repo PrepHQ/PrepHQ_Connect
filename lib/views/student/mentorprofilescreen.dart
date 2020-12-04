@@ -2,6 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'bookappointment.dart';
 import '../chat/chatwindow.dart';
+import '../chat/chat.dart';
+import 'package:prephq_connect/models/usermodels/user.dart' as theUser;
+import 'package:prephq_connect/models/usermodels/timeslots.dart' as theMentor;
 
 class MentorProfileScreen extends StatelessWidget {
   const MentorProfileScreen(this.docMap);
@@ -16,29 +19,51 @@ class MentorProfileScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              CircleAvatar(radius: 120, backgroundColor: Colors.grey,
+              CircleAvatar(
+                radius: 120,
+                backgroundColor: Colors.grey,
                 child: CircleAvatar(
                     radius: 116,
                     backgroundColor: Colors.white,
-                    backgroundImage: docMap.containsKey('profile_image_url') ?
-                    // If user has uploaded profile image, use it
-                    NetworkImage(docMap['profile_image_url']) :
-                    // If user has not uploaded profile image, use default
-                    NetworkImage('https://firebasestorage.googleapis.com/v0/b/prephq-connect.appspot.com/o/profilePictures%2FnoPic.png?alt=media&token=0b5e58c4-9999-4245-b9b7-6438e23f3020')
-                ),
+                    backgroundImage: docMap.containsKey('profile_image_url')
+                        ?
+                        // If user has uploaded profile image, use it
+                        NetworkImage(docMap['profile_image_url'])
+                        :
+                        // If user has not uploaded profile image, use default
+                        NetworkImage(
+                            'https://firebasestorage.googleapis.com/v0/b/prephq-connect.appspot.com/o/profilePictures%2FnoPic.png?alt=media&token=0b5e58c4-9999-4245-b9b7-6438e23f3020')),
               ),
               SizedBox(
                 height: 10.0,
               ),
-              Text(docMap['first_name'] + ' ' + docMap['last_name'],
-                style: TextStyle(fontFamily: 'Montserrat', fontWeight: FontWeight.bold, fontSize: 30.0),
-                softWrap: false, overflow: TextOverflow.fade,),
-              Text(docMap['institution'],
-                style: TextStyle(fontFamily: 'Montserrat', fontStyle: FontStyle.italic, fontSize: 24.0),
-                softWrap: false, overflow: TextOverflow.fade,),
-              Text(docMap['class'] + ' - ' + docMap['major'],
-                style: TextStyle(fontFamily: 'Montserrat', fontSize: 18.0,),
-                softWrap: false, overflow: TextOverflow.fade,),
+              Text(
+                docMap['first_name'] + ' ' + docMap['last_name'],
+                style: TextStyle(
+                    fontFamily: 'Montserrat',
+                    fontWeight: FontWeight.bold,
+                    fontSize: 30.0),
+                softWrap: false,
+                overflow: TextOverflow.fade,
+              ),
+              Text(
+                docMap['institution'],
+                style: TextStyle(
+                    fontFamily: 'Montserrat',
+                    fontStyle: FontStyle.italic,
+                    fontSize: 24.0),
+                softWrap: false,
+                overflow: TextOverflow.fade,
+              ),
+              Text(
+                docMap['class'] + ' - ' + docMap['major'],
+                style: TextStyle(
+                  fontFamily: 'Montserrat',
+                  fontSize: 18.0,
+                ),
+                softWrap: false,
+                overflow: TextOverflow.fade,
+              ),
               SizedBox(
                 height: 30.0,
               ),
@@ -66,9 +91,16 @@ class MentorProfileScreen extends StatelessWidget {
                   icon: Icon(Icons.chat_bubble_outline),
                   label: Text('Chat With Mentor'),
                   onPressed: () {
+                    createChannel(theUser.id, theMentor.mentorID);
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => ChatWindow()),
+                      MaterialPageRoute(
+                        builder: (context) => ChatWindow(
+                          userID: theUser.id,
+                          userID2: theMentor.mentorID,
+                          channelID: theUser.id + theMentor.mentorID
+                        )
+                      ),
                     );
                   },
                 ),
