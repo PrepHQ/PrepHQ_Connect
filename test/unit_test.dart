@@ -16,16 +16,16 @@ void main() {
 
   test('Setting name of student works', () {
     final student = Student();
-    expect(student.name, "");
-    student.setName("Sarah Oswald");
-    expect(student.name, "Sarah Oswald");
+    expect(student.name, '');
+    student.setName('Sarah Oswald');
+    expect(student.name, 'Sarah Oswald');
   });
 
   test('Setting name of mentor works', () {
     final mentor = Mentor();
-    expect(mentor.name, "");
-    mentor.setName("Steven Alexander");
-    expect(mentor.name, "Steven Alexander");
+    expect(mentor.name, '');
+    mentor.setName('Steven Alexander');
+    expect(mentor.name, 'Steven Alexander');
   });
 
   test(
@@ -74,17 +74,18 @@ void main() {
   test('Validate makeApptAvailList behavior', (){
     Map<String, dynamic> availability = {};
     List<TimeSlots> theList = makeApptAvailList(availability);
+    //Test producing empty list
     expect(theList, []);
-    // Map<String, dynamic> availability2 = {'m_begin': Timestamp(50000, 0), 'm_end': Timestamp(50001, 0)};
-    // List<TimeSlots> theList2 = makeApptAvailList(availability2);
-    // expect(theList2, [
-    //   TimeSlots("Monday", TimeOfDay(hour: 0, minute: 0), TimeOfDay(hour: 0, minute: 0)),
-    //   TimeSlots("Tuesday", TimeOfDay(hour: 0, minute: 0), TimeOfDay(hour: 0, minute: 0)),
-    //   TimeSlots("Wednesday", TimeOfDay(hour: 0, minute: 0), TimeOfDay(hour: 0, minute: 0)),
-    //   TimeSlots("Thursday", TimeOfDay(hour: 0, minute: 0), TimeOfDay(hour: 0, minute: 0)),
-    //   TimeSlots("Friday", TimeOfDay(hour: 0, minute: 0), TimeOfDay(hour: 0, minute: 0)),
-    //   TimeSlots("Saturday", TimeOfDay(hour: 0, minute: 0), TimeOfDay(hour: 0, minute: 0)),
-    //   TimeSlots("Sunday", TimeOfDay(hour: 0, minute: 0), TimeOfDay(hour: 0, minute: 0))
-    // ]);
+     Map<String, dynamic> availability2 = {'m_begin': Timestamp(50000, 0), 'm_end': Timestamp(50001, 0)};
+     List<TimeSlots> theList2 = makeApptAvailList(availability2);
+
+     //Test correct sequencing of days given timestamp input
+     expect(theList2[0].day, 'Monday');
+     expect(theList2[1].day, 'Tuesday');
+     expect(theList2[2].day, 'Wednesday');
+     expect(theList2[3].day, 'Thursday');
+     expect(theList2[4].day, 'Friday');
+     expect(theList2[5].day, 'Saturday');
+     expect(theList2[6].day, 'Sunday');
   });
 }
