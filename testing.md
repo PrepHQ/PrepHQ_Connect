@@ -16,7 +16,6 @@ Here are some brief descriptions of all of our current test cases!
 #### Validate registration screen widgets initialize correctly
 #### Validate navigation to registration page from login screen works
 #### Validate that Mentor Home widgets are initialized
-#### Validate that Mentor Screen widget constructs all three mentor tabs
 
 ### [Unit Tests](https://github.com/PrepHQ/PrepHQ_Connect/blob/master/test/unit_test.dart)
 
@@ -26,6 +25,7 @@ Here are some brief descriptions of all of our current test cases!
 #### Create correct list of time slots using getTimes function
 #### Validate getTime behavior
 #### Validate getDate behavior
+#### Validate makeApptAvailList behavior
 
 ### [Widget Tests](https://github.com/PrepHQ/PrepHQ_Connect/blob/master/test/widget_test.dart)
 
