@@ -19,7 +19,7 @@ PrepHQ Connect is a digital platform that connects college students to high scho
 |       Name       |           Email           |            Nickname        |
 |:----------------:|:-------------------------:|:--------------------------:|
 |    Caleb Werth   |   cwerth@crimson.ua.edu   |  The Git Guy |
-| Steven Alexander |   stvnengineer@gmail.com  | The Database Dabbler |
+| Steven Alexander | scalexander@crimson.ua.edu| The Database Dabbler |
 |   Sarah Oswald   |   soswald@crimson.ua.edu  | The UI Unicorn |
 |  Garrett Peppers | ggpeppers@gcrimson.ua.edu | The Chat Chap |
 
