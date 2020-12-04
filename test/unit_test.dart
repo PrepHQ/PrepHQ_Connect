@@ -1,8 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:prephq_connect/models/roadmap.dart';
 import 'package:prephq_connect/models/usermodels/mentor.dart';
 import 'package:prephq_connect/models/usermodels/student.dart';
+import 'package:prephq_connect/models/usermodels/timeslots.dart';
 import 'package:prephq_connect/views/student/bookappointment.dart';
 
 void main() {
@@ -67,5 +69,22 @@ void main() {
     expect(date, 'January 1, 2020');
     date = getDate(DateTime(2020, 12, 3));
     expect(date, 'December 3, 2020');
+  });
+
+  test('Validate makeApptAvailList behavior', (){
+    Map<String, dynamic> availability = {};
+    List<TimeSlots> theList = makeApptAvailList(availability);
+    expect(theList, []);
+    // Map<String, dynamic> availability2 = {'m_begin': Timestamp(50000, 0), 'm_end': Timestamp(50001, 0)};
+    // List<TimeSlots> theList2 = makeApptAvailList(availability2);
+    // expect(theList2, [
+    //   TimeSlots("Monday", TimeOfDay(hour: 0, minute: 0), TimeOfDay(hour: 0, minute: 0)),
+    //   TimeSlots("Tuesday", TimeOfDay(hour: 0, minute: 0), TimeOfDay(hour: 0, minute: 0)),
+    //   TimeSlots("Wednesday", TimeOfDay(hour: 0, minute: 0), TimeOfDay(hour: 0, minute: 0)),
+    //   TimeSlots("Thursday", TimeOfDay(hour: 0, minute: 0), TimeOfDay(hour: 0, minute: 0)),
+    //   TimeSlots("Friday", TimeOfDay(hour: 0, minute: 0), TimeOfDay(hour: 0, minute: 0)),
+    //   TimeSlots("Saturday", TimeOfDay(hour: 0, minute: 0), TimeOfDay(hour: 0, minute: 0)),
+    //   TimeSlots("Sunday", TimeOfDay(hour: 0, minute: 0), TimeOfDay(hour: 0, minute: 0))
+    // ]);
   });
 }

@@ -91,28 +91,4 @@ void main() {
       });
     },
   );
-
-  testWidgets(
-    'Validate that Mentor Screen widget constructs all three mentor tabs',
-    (WidgetTester tester) async {
-      mockNetworkImagesFor(() async {
-        await tester.pumpWidget(
-          ChangeNotifierProvider(
-            create: (context) => MentorMeetingNotifier(),
-            child: MaterialApp(
-              home: MentorScreen(),
-            ),
-          ),
-          Duration(
-            seconds: 1),
-        );
-
-        expect(find.byType(MentorHome), findsOneWidget);
-        expect(find.text('Second Screen for Mentor'), findsOneWidget);
-        expect(find.text('Third Screen for Mentor'), findsOneWidget);
-        await tester.pumpAndSettle(Duration(seconds: 1));
-      });
-    },
-  );
-
 }
